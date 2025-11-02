@@ -510,7 +510,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.8rem;
+    gap: 0.3rem;
   }
   
   .door-number {
@@ -520,7 +520,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0;
+    margin-bottom: 0.2rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
   
@@ -732,6 +732,8 @@
     align-items: center;
     gap: 0.25rem;
     z-index: 10;
+    margin-top: 0.15rem;
+    margin-bottom: 0.4rem;
   }
   
   .platform-934-badge::before {
@@ -888,25 +890,104 @@
     align-items: center;
     gap: 0.5rem;
     flex-direction: row-reverse;
+    position: relative;
+    padding: 2rem 0;
+  }
+  
+  .train-decoration::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    animation: magicGlow 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes magicGlow {
+    0%, 100% { 
+      opacity: 0.3;
+      transform: translateX(-50%) scale(1);
+    }
+    50% { 
+      opacity: 0.7;
+      transform: translateX(-50%) scale(1.1);
+    }
   }
   
   .steam {
-    animation: steamMove 2s ease-in-out infinite;
+    animation: steamMagic 3s ease-in-out infinite;
     opacity: 0.6;
+    filter: drop-shadow(0 0 10px rgba(135, 206, 235, 0.5));
   }
   
-  @keyframes steamMove {
-    0%, 100% { transform: translateX(0) scale(1); opacity: 0.6; }
-    50% { transform: translateX(-20px) scale(1.2); opacity: 0.3; }
+  @keyframes steamMagic {
+    0%, 100% { 
+      transform: translateX(0) scale(1) rotate(0deg); 
+      opacity: 0.6; 
+    }
+    25% {
+      transform: translateX(-15px) scale(1.3) rotate(-10deg);
+      opacity: 0.8;
+    }
+    50% { 
+      transform: translateX(-25px) scale(1.1) rotate(5deg); 
+      opacity: 0.3; 
+    }
+    75% {
+      transform: translateX(-10px) scale(1.2) rotate(-5deg);
+      opacity: 0.5;
+    }
   }
   
   .train {
-    animation: trainRock 1s ease-in-out infinite;
+    animation: trainMagic 4s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
   }
   
-  @keyframes trainRock {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
+  .train::after {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    animation: sparkleFloat 2s ease-in-out infinite;
+    opacity: 0;
+  }
+  
+  @keyframes trainMagic {
+    0%, 100% { 
+      transform: translateY(0) scale(1); 
+      filter: drop-shadow(0 5px 10px rgba(116, 0, 1, 0.3));
+    }
+    25% {
+      transform: translateY(-8px) scale(1.05) rotate(2deg);
+      filter: drop-shadow(0 8px 15px rgba(116, 0, 1, 0.5));
+    }
+    50% { 
+      transform: translateY(-5px) scale(0.98) rotate(-1deg); 
+      filter: drop-shadow(0 10px 20px rgba(116, 0, 1, 0.4));
+    }
+    75% {
+      transform: translateY(-3px) scale(1.02) rotate(1deg);
+      filter: drop-shadow(0 7px 12px rgba(116, 0, 1, 0.4));
+    }
+  }
+  
+  @keyframes sparkleFloat {
+    0%, 100% { 
+      opacity: 0;
+      transform: translateX(-50%) translateY(0);
+    }
+    50% { 
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
   }
   
   .hogwarts-letter {
