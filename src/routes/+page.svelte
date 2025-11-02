@@ -8,27 +8,32 @@
   let mounted = false;
   
   // Platform 9¾ Easter Egg
-  let clickedDoor9 = false;
   let showPlatform934 = false;
+  let door9Visited = false;
   
-  function handleDoorClick(dayNumber: number, event: MouseEvent) {
-    if (dayNumber === 9) {
-      clickedDoor9 = true;
-      event.preventDefault();
-      setTimeout(() => {
-        clickedDoor9 = false;
-      }, 5000); // 5 Sekunden Zeit
+  // Prüfe ob Türchen 9 schon besucht wurde (localStorage)
+  onMount(() => {
+    if (typeof window !== 'undefined') {
+      door9Visited = localStorage.getItem('door9_visited') === 'true';
     }
-  }
+  });
   
-  function handleThreeQuartersClick() {
-    if (clickedDoor9) {
-      showPlatform934 = true;
-    }
+  function handleThreeQuartersClick(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+    showPlatform934 = true;
   }
   
   function closePlatform934() {
     showPlatform934 = false;
+  }
+  
+  // Markiere Türchen 9 als besucht wenn es geöffnet wird
+  function markDoor9Visited() {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('door9_visited', 'true');
+      door9Visited = true;
+    }
   }
   
   onMount(() => {
@@ -180,70 +185,46 @@
   <div class="calendar-grid">
     {#each data.days as day, i}
       {#if mounted}
-        {#if day.dayNumber === 9}
-          <!-- Special Platform 9¾ Door -->
-          <div class="platform-934-container">
-            <a 
-              href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
-              class="calendar-door door-9"
-              class:locked={day.isLocked}
-              class:unlocked={!day.isLocked}
-              on:click={(e) => handleDoorClick(day.dayNumber, e)}
-              in:scale={{
-                duration: 400,
-                delay: i * 50,
-                easing: cubicOut,
-                start: 0.8
-              }}
-            >
-              <div class="door-content">
-                <div class="door-number">9</div>
-                {#if day.isLocked}
-                  <div class="lock-icon">🔒</div>
-                {:else}
-                  <div class="unlock-icon">✨</div>
-                {/if}
-              </div>
-              <div class="door-shine"></div>
-            </a>
+        <a 
+          href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
+          class="calendar-door"
+          class:locked={day.isLocked}
+          class:unlocked={!day.isLocked}
+          class:door-9-visited={day.dayNumber === 9 && door9Visited && !day.isLocked}
+          on:click={() => {
+            if (day.dayNumber === 9 && !day.isLocked) {
+              markDoor9Visited();
+            }
+          }}
+          in:scale={{
+            duration: 400,
+            delay: i * 50,
+            easing: cubicOut,
+            start: 0.8
+          }}
+        >
+          <div class="door-content">
+            <div class="door-number">{day.dayNumber}</div>
+            {#if day.isLocked}
+              <div class="lock-icon">🔒</div>
+            {:else}
+              <div class="unlock-icon">✨</div>
+            {/if}
             
-            <!-- Magic ¾ Button -->
-            <button 
-              class="three-quarters-button" 
-              class:active={clickedDoor9}
-              on:click={handleThreeQuartersClick}
-              in:scale={{ duration: 400, delay: (i * 50) + 200 }}
-            >
-              <span class="three-quarters-text">¾</span>
-              <span class="hogwarts-hint">🪄</span>
-            </button>
+            <!-- Platform 9¾ Easter Egg (nur wenn Türchen 9 besucht wurde) -->
+            {#if day.dayNumber === 9 && door9Visited && !day.isLocked}
+              <button 
+                class="platform-934-badge" 
+                on:click={handleThreeQuartersClick}
+                in:scale={{ duration: 500, delay: 300 }}
+              >
+                <span class="badge-text">¾</span>
+                <span class="badge-wand">🪄</span>
+              </button>
+            {/if}
           </div>
-        {:else}
-          <!-- Normal Door -->
-          <a 
-            href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
-            class="calendar-door"
-            class:locked={day.isLocked}
-            class:unlocked={!day.isLocked}
-            on:click={(e) => handleDoorClick(day.dayNumber, e)}
-            in:scale={{
-              duration: 400,
-              delay: i * 50,
-              easing: cubicOut,
-              start: 0.8
-            }}
-          >
-            <div class="door-content">
-              <div class="door-number">{day.dayNumber}</div>
-              {#if day.isLocked}
-                <div class="lock-icon">🔒</div>
-              {:else}
-                <div class="unlock-icon">✨</div>
-              {/if}
-            </div>
-            <div class="door-shine"></div>
-          </a>
-        {/if}
+          <div class="door-shine"></div>
+        </a>
       {/if}
     {/each}
   </div>
@@ -725,43 +706,33 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
   
-  /* Platform 9¾ Special Container */
-  .platform-934-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .door-9 {
-    position: relative;
-  }
-  
-  .three-quarters-button {
+  /* Platform 9¾ Badge (erscheint unten im Türchen 9 nach Besuch) */
+  .platform-934-badge {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
     background: linear-gradient(135deg, #740001 0%, #ae0001 100%);
-    border: 3px solid #d4af37;
+    border: 2px solid #d4af37;
     color: #ffd700;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 900;
-    padding: 0.8rem;
-    border-radius: 15px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 
-      0 8px 16px rgba(116, 0, 1, 0.4),
-      0 0 20px rgba(212, 175, 55, 0.3),
-      inset 0 2px 10px rgba(255, 215, 0, 0.2);
-    position: relative;
-    overflow: hidden;
+      0 4px 8px rgba(116, 0, 1, 0.4),
+      0 0 15px rgba(212, 175, 55, 0.3),
+      inset 0 1px 5px rgba(255, 215, 0, 0.2);
     font-family: Georgia, serif;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    aspect-ratio: 2.5;
+    gap: 0.3rem;
+    z-index: 10;
   }
   
-  .three-quarters-button::before {
+  .platform-934-badge::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -769,7 +740,8 @@
     width: 200%;
     height: 200%;
     background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
-    animation: magicPulse 3s ease-in-out infinite;
+    animation: magicPulse 2s ease-in-out infinite;
+    z-index: -1;
   }
   
   @keyframes magicPulse {
@@ -778,61 +750,51 @@
       opacity: 0.3; 
     }
     50% { 
-      transform: translate(-50%, -50%) scale(1.5); 
-      opacity: 0.8; 
+      transform: translate(-50%, -50%) scale(1.3); 
+      opacity: 0.6; 
     }
   }
   
-  .three-quarters-text {
+  .badge-text {
     position: relative;
     z-index: 2;
     text-shadow: 
-      0 0 10px rgba(255, 215, 0, 0.8),
-      2px 2px 4px rgba(0, 0, 0, 0.5);
+      0 0 8px rgba(255, 215, 0, 0.8),
+      1px 1px 2px rgba(0, 0, 0, 0.5);
   }
   
-  .hogwarts-hint {
+  .badge-wand {
     position: relative;
     z-index: 2;
-    font-size: 1.5rem;
-    animation: wandFloat 2s ease-in-out infinite;
+    font-size: 0.9rem;
+    animation: wandFloat 1.5s ease-in-out infinite;
   }
   
   @keyframes wandFloat {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-5px) rotate(15deg); }
+    50% { transform: translateY(-3px) rotate(10deg); }
   }
   
-  .three-quarters-button:hover {
-    transform: translateY(-8px) scale(1.1) rotate(2deg);
+  .platform-934-badge:hover {
+    transform: translateX(-50%) translateY(-4px) scale(1.15);
     box-shadow: 
-      0 16px 32px rgba(116, 0, 1, 0.6),
-      0 0 40px rgba(255, 215, 0, 0.6),
-      inset 0 2px 15px rgba(255, 215, 0, 0.4);
+      0 8px 16px rgba(116, 0, 1, 0.6),
+      0 0 25px rgba(255, 215, 0, 0.6),
+      inset 0 1px 8px rgba(255, 215, 0, 0.4);
   }
   
-  .three-quarters-button.active {
-    animation: platform934Activated 1s ease-in-out infinite;
-    box-shadow: 
-      0 16px 32px rgba(116, 0, 1, 0.8),
-      0 0 60px rgba(255, 215, 0, 1),
-      inset 0 2px 20px rgba(255, 215, 0, 0.6);
+  .door-9-visited {
+    animation: door9Glow 3s ease-in-out infinite;
   }
   
-  @keyframes platform934Activated {
+  @keyframes door9Glow {
     0%, 100% { 
-      transform: scale(1); 
-      box-shadow: 
-        0 16px 32px rgba(116, 0, 1, 0.8),
-        0 0 60px rgba(255, 215, 0, 1),
-        inset 0 2px 20px rgba(255, 215, 0, 0.6);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
     50% { 
-      transform: scale(1.15) rotate(5deg); 
       box-shadow: 
-        0 20px 40px rgba(116, 0, 1, 1),
-        0 0 80px rgba(255, 215, 0, 1),
-        inset 0 2px 25px rgba(255, 215, 0, 0.8);
+        0 8px 16px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(255, 215, 0, 0.3);
     }
   }
   
