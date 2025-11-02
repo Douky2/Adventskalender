@@ -506,6 +506,11 @@
     z-index: 2;
     text-align: center;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
   }
   
   .door-number {
@@ -515,7 +520,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
   
@@ -706,12 +711,9 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
   
-  /* Platform 9¾ Badge (erscheint unten im Türchen 9 nach Besuch) */
+  /* Platform 9¾ Badge (erscheint zwischen Zahl und Sparkles) */
   .platform-934-badge {
-    position: absolute;
-    bottom: 38px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     background: linear-gradient(135deg, #740001 0%, #ae0001 100%);
     border: 2px solid #d4af37;
     color: #ffd700;
@@ -776,7 +778,7 @@
   }
   
   .platform-934-badge:hover {
-    transform: translateX(-50%) translateY(-4px) scale(1.1);
+    transform: translateY(-2px) scale(1.1);
     box-shadow: 
       0 8px 16px rgba(116, 0, 1, 0.6),
       0 0 25px rgba(255, 215, 0, 0.6),
