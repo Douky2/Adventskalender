@@ -1376,18 +1376,45 @@ Heute Nacht? 🌙`
 <div class="admin-container">
   <header class="admin-header">
     <h1>🛠️ Adventskalender Admin</h1>
-    <div class="header-actions">
-      <a href="/admin/settings" class="btn-settings">
-        ⚙️ Einstellungen
-      </a>
-      <a href="/?simulation=true" class="btn-simulation" target="_blank">
-        🎮 Simulation
-      </a>
-      <button on:click={openPrismaStudio} class="btn-prisma">
-        🗄️ Prisma Studio
-      </button>
-      <a href="/" class="btn-secondary">← Zum Kalender</a>
-      <a href="/admin/logout" class="btn-logout">🔓 Logout</a>
+    
+    <div class="header-sections">
+      <!-- Hauptfunktionen -->
+      <div class="header-group">
+        <h3 class="group-title">📋 Hauptfunktionen</h3>
+        <div class="header-actions">
+          <a href="/?simulation=true" class="btn-simulation" target="_blank">
+            🎮 Simulation Modus
+          </a>
+          <a href="/" class="btn-secondary">← Zum Kalender</a>
+        </div>
+      </div>
+      
+      <!-- Tools & Verwaltung -->
+      <div class="header-group">
+        <h3 class="group-title">🔧 Tools & Verwaltung</h3>
+        <div class="header-actions">
+          <a href="/admin/quiz-builder" class="btn-quiz">
+            🎯 Quiz-Builder
+          </a>
+          <a href="/admin/tracking" class="btn-tracking">
+            🔄 Tracking Reset
+          </a>
+          <button on:click={openPrismaStudio} class="btn-prisma">
+            🗄️ Prisma Studio
+          </button>
+        </div>
+      </div>
+      
+      <!-- Einstellungen & Logout -->
+      <div class="header-group">
+        <h3 class="group-title">⚙️ System</h3>
+        <div class="header-actions">
+          <a href="/admin/settings" class="btn-settings">
+            ⚙️ Einstellungen
+          </a>
+          <a href="/admin/logout" class="btn-logout">🔓 Logout</a>
+        </div>
+      </div>
     </div>
   </header>
   
@@ -1777,19 +1804,80 @@ Heute Nacht? 🌙`
   
   .admin-header {
     background: white;
-    padding: 1.5rem 2rem;
+    padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     margin-bottom: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
   
   .admin-header h1 {
-    margin: 0;
+    margin: 0 0 1.5rem 0;
     color: #2c3e50;
     font-size: 2rem;
+    text-align: center;
+  }
+  
+  .header-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .header-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .group-title {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 0.5rem;
+  }
+  
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .header-actions a,
+  .header-actions button {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: block;
+  }
+  
+  .btn-quiz {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+  }
+  
+  .btn-quiz:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+  }
+  
+  .btn-tracking {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+  }
+  
+  .btn-tracking:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
   }
   
   .alert {
