@@ -420,7 +420,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    background: linear-gradient(145deg, #2c3e50, #34495e);
     border-radius: 20px;
     text-decoration: none;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -493,7 +493,7 @@
   .calendar-door.locked {
     cursor: not-allowed;
     opacity: 0.6;
-    background: linear-gradient(145deg, #e0e0e0, #d0d0d0);
+    background: linear-gradient(145deg, #1a252f, #2c3e50);
   }
   
   .calendar-door.locked:hover {
