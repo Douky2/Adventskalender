@@ -248,8 +248,8 @@
       
       <div class="platform-content">
         <div class="train-decoration">
-          <div class="steam">💨💨💨</div>
-          <div class="train">🚂</div>
+          <div class="train">�</div>
+          <div class="steam">💨💨�</div>
         </div>
         
         <div class="hogwarts-letter">
@@ -709,15 +709,15 @@
   /* Platform 9¾ Badge (erscheint unten im Türchen 9 nach Besuch) */
   .platform-934-badge {
     position: absolute;
-    bottom: 8px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #740001 0%, #ae0001 100%);
     border: 2px solid #d4af37;
     color: #ffd700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 900;
-    padding: 0.3rem 0.8rem;
+    padding: 0.25rem 0.7rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -894,7 +894,7 @@
   
   @keyframes steamMove {
     0%, 100% { transform: translateX(0) scale(1); opacity: 0.6; }
-    50% { transform: translateX(-10px) scale(1.2); opacity: 0.3; }
+    50% { transform: translateX(20px) scale(1.2); opacity: 0.3; }
   }
   
   .train {
