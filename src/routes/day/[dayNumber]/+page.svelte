@@ -412,6 +412,118 @@
             {/each}
           </div>
         
+        {:else if data.content.contentTypeA === 'TWO_TRUTHS_ONE_LIE'}
+          <div class="two-truths-one-lie">
+            <h3>🎭 Zwei Wahrheiten & Eine Lüge</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'COUPLE_CHALLENGE'}
+          <div class="couple-challenge">
+            <h3>💑 Paar-Challenge</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'STORY_TOGETHER'}
+          <div class="story-together">
+            <h3>📖 Geschichte zusammen schreiben</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'BINGO_CHALLENGE'}
+          <div class="bingo-challenge">
+            <h3>🎯 Paar-Bingo</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'DEBATE_FUN'}
+          <div class="debate-fun">
+            <h3>🎤 Lustiges Debate</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'ROLEPLAY_SCENARIO'}
+          <div class="roleplay-scenario">
+            <h3>🎭 Roleplay-Szenario</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'COMPLIMENT_BATTLE'}
+          <div class="compliment-battle">
+            <h3>💝 Kompliment-Battle</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'PREDICTION_GAME'}
+          <div class="prediction-game">
+            <h3>🔮 Vorhersage-Spiel</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'SCAVENGER_HUNT'}
+          <div class="scavenger-hunt">
+            <h3>🔍 Virtuelle Schnitzeljagd</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'PARALLEL_CHALLENGE'}
+          <div class="parallel-challenge">
+            <h3>⏱️ Parallel-Challenge</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'QUESTION_EXCHANGE'}
+          <div class="question-exchange">
+            <h3>💬 Fragen-Austausch</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'GRATITUDE_EXCHANGE'}
+          <div class="gratitude-exchange">
+            <h3>🙏 Dankbarkeits-Austausch</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'COLLABORATIVE_PLAYLIST'}
+          <div class="collaborative-playlist">
+            <h3>🎵 Story-Playlist</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
+        {:else if data.content.contentTypeA === 'DREAM_DATE_PLANNING'}
+          <div class="dream-date-planning">
+            <h3>🌟 Traumdate planen</h3>
+            {#each data.content.contentA.split('\n') as line}
+              {#if line.trim()}<p>{line}</p>{/if}
+            {/each}
+          </div>
+        
         {/if}
         
         {#if data.content.taskForB && data.content.responseMode !== 'DISABLED'}
@@ -1149,6 +1261,132 @@
     margin: 1rem 0;
   }
   .book-recommendation h3 { color: #4e342e; margin-top: 0; }
+  
+  .two-truths-one-lie { 
+    background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #0288d1;
+    margin: 1rem 0;
+  }
+  .two-truths-one-lie h3 { color: #01579b; margin-top: 0; }
+  
+  .couple-challenge { 
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #e91e63;
+    margin: 1rem 0;
+  }
+  .couple-challenge h3 { color: #880e4f; margin-top: 0; }
+  
+  .story-together { 
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #9c27b0;
+    margin: 1rem 0;
+  }
+  .story-together h3 { color: #4a148c; margin-top: 0; }
+  
+  .bingo-challenge { 
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #fbc02d;
+    margin: 1rem 0;
+  }
+  .bingo-challenge h3 { color: #f57f17; margin-top: 0; }
+  
+  .debate-fun { 
+    background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #ff9800;
+    margin: 1rem 0;
+  }
+  .debate-fun h3 { color: #e65100; margin-top: 0; }
+  
+  .roleplay-scenario { 
+    background: linear-gradient(135deg, #d1c4e9 0%, #b39ddb 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #673ab7;
+    margin: 1rem 0;
+  }
+  .roleplay-scenario h3 { color: #311b92; margin-top: 0; }
+  
+  .compliment-battle { 
+    background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #f44336;
+    margin: 1rem 0;
+  }
+  .compliment-battle h3 { color: #b71c1c; margin-top: 0; }
+  
+  .prediction-game { 
+    background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #009688;
+    margin: 1rem 0;
+  }
+  .prediction-game h3 { color: #004d40; margin-top: 0; }
+  
+  .scavenger-hunt { 
+    background: linear-gradient(135deg, #dcedc8 0%, #c5e1a5 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #8bc34a;
+    margin: 1rem 0;
+  }
+  .scavenger-hunt h3 { color: #33691e; margin-top: 0; }
+  
+  .parallel-challenge { 
+    background: linear-gradient(135deg, #ffecb3 0%, #ffe082 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #ffc107;
+    margin: 1rem 0;
+  }
+  .parallel-challenge h3 { color: #ff6f00; margin-top: 0; }
+  
+  .question-exchange { 
+    background: linear-gradient(135deg, #c5cae9 0%, #9fa8da 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #3f51b5;
+    margin: 1rem 0;
+  }
+  .question-exchange h3 { color: #1a237e; margin-top: 0; }
+  
+  .gratitude-exchange { 
+    background: linear-gradient(135deg, #fce4ec 0%, #f48fb1 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #e91e63;
+    margin: 1rem 0;
+  }
+  .gratitude-exchange h3 { color: #880e4f; margin-top: 0; }
+  
+  .collaborative-playlist { 
+    background: linear-gradient(135deg, #b2ebf2 0%, #80deea 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #00bcd4;
+    margin: 1rem 0;
+  }
+  .collaborative-playlist h3 { color: #006064; margin-top: 0; }
+  
+  .dream-date-planning { 
+    background: linear-gradient(135deg, #f0f4c3 0%, #e6ee9c 100%); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    border-left: 4px solid #cddc39;
+    margin: 1rem 0;
+  }
+  .dream-date-planning h3 { color: #827717; margin-top: 0; }
   
   @media (max-width: 768px) {
     article { padding: 2rem 1.5rem; }

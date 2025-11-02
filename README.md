@@ -155,27 +155,66 @@ Warum du besonders bist: [...]
 In Liebe, Dein Locdoc 🧡
 ```
 
-## 📅 Deployment
+## 📅 Deployment auf Linux Server
 
-### Fly.io (Kostenlos):
+### Voraussetzungen:
+- Node.js 20+ installiert
+- Git installiert
+- PM2 (optional, aber empfohlen)
+
+### Deployment-Schritte:
+
 ```bash
-# Fly CLI installieren
-fly launch
+# Repository klonen
+git clone https://github.com/Douky2/Adventskalender.git
+cd Adventskalender
 
-# Datenbank-Volume erstellen
-fly volumes create data --size 1
+# Dependencies installieren
+npm install
 
-# Secrets setzen
-fly secrets set CALENDAR_PASSWORD=weihnachten2024
+# Umgebungsvariablen setzen
+cp .env.example .env
+nano .env  # Passwort anpassen!
 
-# Deployen
-fly deploy
+# Datenbank aufsetzen
+npx prisma migrate deploy
+npx prisma db seed
+
+# Build erstellen
+npm run build
+
+# Server starten (Option 1: Direkt)
+node build
+
+# Server starten (Option 2: Mit PM2 - empfohlen)
+npm install -g pm2
+pm2 start build/index.js --name adventskalender
+pm2 save
+pm2 startup  # Auto-Start bei Server-Neustart
 ```
 
-### Umgebungsvariablen:
+### Nginx Reverse Proxy (optional):
+```nginx
+server {
+    listen 80;
+    server_name deine-domain.de;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+### Umgebungsvariablen (.env):
 ```env
-CALENDAR_PASSWORD=dein-passwort
+CALENDAR_PASSWORD=dein-sicheres-passwort
 DATABASE_URL=file:./prisma/dev.db
+PORT=3000
 ```
 
 ## 🐛 Troubleshooting

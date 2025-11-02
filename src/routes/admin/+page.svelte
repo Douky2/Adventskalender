@@ -44,6 +44,7 @@
     { value: 'APPRECIATION', label: '🌟 Wertschätzung / Dankbarkeit', category: 'Romantisch' },
     { value: 'MEMORY', label: '💭 Gemeinsame Erinnerung', category: 'Romantisch' },
     { value: 'GRATITUDE', label: '🙏 Dankbarkeit', category: 'Romantisch' },
+    { value: 'GRATITUDE_EXCHANGE', label: '🙏 Dankbarkeits-Austausch', category: 'Romantisch' },
     
     // Virtual Activities
     { value: 'VIRTUAL_DATE', label: '🎬 Virtuelles Date (Discord/Kino)', category: 'Virtual' },
@@ -54,6 +55,7 @@
     
     // Musik & Audio
     { value: 'PLAYLIST_COLLAB', label: '🎵 Gemeinsame Playlist', category: 'Musik' },
+    { value: 'COLLABORATIVE_PLAYLIST', label: '🎵 Story-Playlist (Kapitel)', category: 'Musik' },
     { value: 'SPOTIFY_SONG', label: '🎵 Song des Tages', category: 'Musik' },
     { value: 'VOICE_MESSAGE', label: '🎙️ Sprachnachricht', category: 'Musik' },
     { value: 'PODCAST_SHARE', label: '🎧 Podcast-Empfehlung', category: 'Musik' },
@@ -62,6 +64,10 @@
     { value: 'WOULD_YOU_RATHER', label: '🤔 Würdest du lieber...?', category: 'Spiele' },
     { value: 'THIS_OR_THAT', label: '⚡ Dies oder Das', category: 'Spiele' },
     { value: 'TRUTH_OR_DARE', label: '🎪 Wahrheit oder Pflicht', category: 'Spiele' },
+    { value: 'TWO_TRUTHS_ONE_LIE', label: '🎭 Zwei Wahrheiten & Eine Lüge', category: 'Spiele' },
+    { value: 'DEBATE_FUN', label: '🎤 Lustiges Debate', category: 'Spiele' },
+    { value: 'PREDICTION_GAME', label: '🔮 Vorhersage-Spiel', category: 'Spiele' },
+    { value: 'QUESTION_EXCHANGE', label: '💬 Fragen-Austausch', category: 'Spiele' },
     { value: 'INTERACTIVE_CHOICE', label: '🎮 Interaktive Wahl (Buttons)', category: 'Spiele' },
     { value: 'POLL', label: '📊 Umfrage', category: 'Spiele' },
     { value: 'RIDDLE', label: '🤔 Rätsel', category: 'Spiele' },
@@ -70,6 +76,13 @@
     // Kreativ & Challenges
     { value: 'PHOTO_CHALLENGE', label: '📸 Foto-Challenge', category: 'Kreativ' },
     { value: 'ART_CHALLENGE', label: '🎨 Kunst-Challenge', category: 'Kreativ' },
+    { value: 'COUPLE_CHALLENGE', label: '💑 Paar-Challenge', category: 'Kreativ' },
+    { value: 'STORY_TOGETHER', label: '📖 Geschichte zusammen schreiben', category: 'Kreativ' },
+    { value: 'BINGO_CHALLENGE', label: '🎯 Paar-Bingo', category: 'Kreativ' },
+    { value: 'ROLEPLAY_SCENARIO', label: '🎭 Roleplay-Szenario', category: 'Kreativ' },
+    { value: 'COMPLIMENT_BATTLE', label: '💝 Kompliment-Battle', category: 'Kreativ' },
+    { value: 'SCAVENGER_HUNT', label: '🔍 Virtuelle Schnitzeljagd', category: 'Kreativ' },
+    { value: 'PARALLEL_CHALLENGE', label: '⏱️ Parallel-Challenge', category: 'Kreativ' },
     { value: 'DRAWING', label: '✏️ Zeichnung / ASCII Art', category: 'Kreativ' },
     { value: 'SCREENSHOT_TOUR', label: '📱 Screenshot-Tour', category: 'Kreativ' },
     { value: 'MEME_COLLECTION', label: '😂 Meme-Sammlung', category: 'Kreativ' },
@@ -79,6 +92,7 @@
     { value: 'SHARED_GOAL', label: '🎯 Gemeinsames Ziel', category: 'Zukunft' },
     { value: 'DREAM_BOARD', label: '🌟 Traumboard', category: 'Zukunft' },
     { value: 'LIFE_GOALS', label: '🎯 Lebensziele (5/10/20 Jahre)', category: 'Zukunft' },
+    { value: 'DREAM_DATE_PLANNING', label: '🌟 Traumdate planen', category: 'Zukunft' },
     { value: 'ADVENTURE_PLAN', label: '🗺️ Abenteuer-Planung', category: 'Zukunft' },
     { value: 'WISH_LIST', label: '🎁 Wunschliste', category: 'Zukunft' },
     
@@ -480,7 +494,308 @@ MEIN VERSPRECHEN:
 Ich werde dafür sorgen, dass...
 
 Mit Liebe,
-[Name] - [Datum]`
+[Name] - [Datum]`,
+
+    'TWO_TRUTHS_ONE_LIE': `🎭 ZWEI WAHRHEITEN & EINE LÜGE
+
+RUNDE 1 - LOCDOC:
+1. [Wahrheit/Lüge über Kindheit]
+2. [Wahrheit/Lüge über Hobby]
+3. [Wahrheit/Lüge über Geheimnis]
+
+→ Miss Chaos: Rate welche die Lüge ist!
+
+RUNDE 2 - MISS CHAOS:
+Jetzt bist du dran! Schreib 3 Aussagen!
+
+PUNKTESYSTEM:
+✅ Richtig geraten = 1 Punkt
+❌ Falsch geraten = 0 Punkte
+🎯 Wer gewinnt?`,
+
+    'COUPLE_CHALLENGE': `💑 PAAR-CHALLENGE DER WOCHE
+
+CHALLENGE: [Thema, z.B. "Komplimente-Marathon"]
+
+REGELN:
+1. Locdoc startet: [...]
+2. Miss Chaos antwortet: [...]
+3. Abwechselnd weitermachen!
+
+DEADLINE: [Datum]
+
+BELOHNUNG:
+Gewinner darf sich nächstes Date aussuchen! 🎁
+
+Los geht's!`,
+
+    'STORY_TOGETHER': `📖 GEMEINSAME GESCHICHTE SCHREIBEN
+
+THEMA: [z.B. "Unser erstes Abenteuer auf dem Mars"]
+
+LOCDOC BEGINNT:
+"Es war einmal... [schreib 3-5 Sätze]"
+
+MISS CHAOS FORTSETZUNG:
+[Schreib deine 3-5 Sätze als Antwort!]
+
+REGEL: Jeder fügt einen Teil hinzu!
+Am Ende: Komplette Geschichte lesen!`,
+
+    'BINGO_CHALLENGE': `🎯 PAAR-BINGO
+
+Markiert GEMEINSAM was ihr schon gemacht habt:
+
+☐ Zusammen gekocht (virtuell)
+☐ Gleiche Serie geschaut
+☐ Zusammen eingeschlafen (Call)
+☐ Gaming Session länger als 3h
+☐ Fotos ausgetauscht (10+)
+☐ Sprachnachricht länger als 5min
+☐ Zusammen aufgewacht
+☐ Memes geschickt (50+)
+☐ Video-Date länger als 2h
+☐ "Ich liebe dich" gesagt
+☐ Pläne fürs Treffen gemacht
+☐ Einander Lieder geschickt
+☐ Zusammen was gelernt
+☐ Sich gegenseitig überrascht
+☐ Über Zukunft gesprochen
+☐ Zusammen gelacht bis Tränen
+
+ZIEL: 5 in einer Reihe = BINGO! 🎉`,
+
+    'DEBATE_FUN': `🎤 LUSTIGES DEBATE
+
+THESE: "[Lustige kontroverse Meinung]"
+
+LOCDOC vertritt: PRO
+Miss Chaos vertritt: CONTRA
+
+REGELN:
+- 3 Argumente pro Person
+- Möglichst lustig & kreativ
+- Am Ende: Wer hat gewonnen?
+
+BEISPIEL THESE:
+"Ananas gehört auf Pizza!"
+"Hunde sind besser als Katzen!"
+"Frühaufsteher sind Übermenschen!"
+
+LOCDOCS ARGUMENTE:
+1. [...]
+2. [...]
+3. [...]
+
+MISS CHAOS ANTWORTET:
+[Schreib deine Gegenargumente!]`,
+
+    'ROLEPLAY_SCENARIO': `🎭 ROLEPLAY-SZENARIO
+
+SITUATION: [z.B. "Erstes Date in einem Restaurant"]
+
+ROLLEN:
+Locdoc: [Rolle, z.B. "Nervöser Date-Kandidat"]
+Miss Chaos: [Rolle, z.B. "Charmante Mystery-Person"]
+
+ABLAUF:
+Schreibt wie ein Chat-Rollenspiel!
+
+LOCDOC:
+*sitzt nervös am Tisch*
+"Also, äh... kommst du oft hierher?"
+
+MISS CHAOS:
+[Antworte im Roleplay-Style!]
+
+REGEL: Mindestens 5 Nachrichten pro Person!
+Viel Spaß! 😂`,
+
+    'COMPLIMENT_BATTLE': `💝 KOMPLIMENT-BATTLE
+
+CHALLENGE: Wer macht die schönsten Komplimente?
+
+REGELN:
+- 5 Runden
+- Abwechselnd Komplimente schreiben
+- Je kreativer, desto besser!
+
+RUNDE 1 - LOCDOC:
+"Ich liebe wie du... [kreatives Kompliment]"
+
+RUNDE 2 - MISS CHAOS:
+"Deine Art zu... macht mich... [übertreffe ihn!]"
+
+RUNDE 3 - LOCDOC:
+[Noch besser!]
+
+RUNDE 4 - MISS CHAOS:
+[...]
+
+RUNDE 5 - BEIDE:
+[Finales Mega-Kompliment!]
+
+Am Ende beide lächeln! 😊`,
+
+    'PREDICTION_GAME': `🔮 VORHERSAGE-SPIEL
+
+Sagt voraus was passieren wird!
+
+IN 1 MONAT:
+Locdoc denkt: [...]
+Miss Chaos denkt: [...]
+
+IN 6 MONATEN:
+Locdoc: [...]
+Miss Chaos: [...]
+
+IN 1 JAHR:
+Locdoc: [...]
+Miss Chaos: [...]
+
+IN 5 JAHREN:
+Locdoc: [...]
+Miss Chaos: [...]
+
+REGEL: Versiegeln und in Zeitkapsel!
+In 1 Jahr öffnen und vergleichen!`,
+
+    'SCAVENGER_HUNT': `🔍 VIRTUELLE SCHNITZELJAGD
+
+LOCDOC VERSTECKT HINWEISE:
+Versteck Codes/Hinweise in:
+- Alten Chat-Nachrichten
+- Gemeinsamen Fotos
+- Playlists
+- Memes
+
+HINWEIS 1: [...]
+HINWEIS 2: [...]
+HINWEIS 3: [...]
+
+LÖSUNG: [Was Miss Chaos finden soll]
+
+MISS CHAOS:
+Finde alle Hinweise und löse das Rätsel!
+Belohnung: [Überraschung!]`,
+
+    'PARALLEL_CHALLENGE': `⏱️ PARALLEL-CHALLENGE
+
+Macht GLEICHZEITIG die gleiche Aufgabe!
+
+AUFGABE: [z.B. "Zeichne uns in 5 Minuten"]
+
+REGELN:
+1. Timer stellen: 5 Minuten
+2. Beide starten gleichzeitig
+3. KEINE Kamera (Überraschung!)
+4. Nach 5 Min: Beide zeigen!
+
+BEWERTUNG:
+- Kreativität 1-10
+- Ähnlichkeit 1-10
+- Humor 1-10
+
+Wer gewinnt? Oder beide? 🏆`,
+
+    'QUESTION_EXCHANGE': `💬 FRAGEN-AUSTAUSCH
+
+Stellt euch abwechselnd tiefe Fragen!
+
+LOCDOC FRAGT:
+1. Was ist dein größter Traum?
+2. Wann fühlst du dich am glücklichsten?
+3. [Deine Frage]
+
+MISS CHAOS ANTWORTET:
+[Ausführlich antworten!]
+
+MISS CHAOS FRAGT:
+1. Was macht dich wirklich stolz?
+2. Welche Ängste hast du?
+3. [Deine Frage]
+
+LOCDOC ANTWORTET:
+[...]
+
+REGEL: Ehrliche, tiefe Gespräche! 💕`,
+
+    'GRATITUDE_EXCHANGE': `🙏 DANKBARKEITS-AUSTAUSCH
+
+Teilt wofür ihr dankbar seid!
+
+LOCDOC:
+3 Dinge die ich an DIR schätze:
+1. [...]
+2. [...]
+3. [...]
+
+3 Dinge die UNS glücklich machen:
+1. [...]
+2. [...]
+3. [...]
+
+MISS CHAOS ANTWORTET:
+[Deine Dankbarkeiten!]
+
+Am Ende: Gemeinsam reflektieren
+Was haben wir gelernt? 💖`,
+
+    'COLLABORATIVE_PLAYLIST': `🎵 GEMEINSAME STORY-PLAYLIST
+
+Erstellt eine Playlist die UNSERE GESCHICHTE erzählt!
+
+KAPITEL 1 - KENNENLERNEN:
+Locdoc wählt: [Song + warum]
+Miss Chaos wählt: [Song + warum]
+
+KAPITEL 2 - VERLIEBT:
+Locdoc: [...]
+Miss Chaos: [...]
+
+KAPITEL 3 - FERNBEZIEHUNG:
+Locdoc: [...]
+Miss Chaos: [...]
+
+KAPITEL 4 - ZUKUNFT:
+Locdoc: [...]
+Miss Chaos: [...]
+
+FINALE: Ein Song für UNS beide!
+[Gemeinsam aussuchen]
+
+Link zur Playlist: [...]`,
+
+    'DREAM_DATE_PLANNING': `🌟 TRAUMDATE PLANEN
+
+Plant GEMEINSAM euer perfektes Date!
+
+ORT:
+Locdoc Vorschlag: [...]
+Miss Chaos Vorschlag: [...]
+KONSENS: [...]
+
+AKTIVITÄTEN:
+1. [Locdoc Idee]
+2. [Miss Chaos Idee]
+3. [Gemeinsame Idee]
+
+ESSEN:
+Locdoc: [...]
+Miss Chaos: [...]
+Kompromiss: [...]
+
+OUTFIT:
+Locdoc trägt: [...]
+Miss Chaos trägt: [...]
+
+BESONDERES:
+[Eine Überraschung für den anderen]
+
+AM ENDE:
+[Wie endet das perfekte Date?]
+
+DATUM FÜR REAL: [Wann machen wir das?]`
   };
   
   function loadTemplate(type: string) {
