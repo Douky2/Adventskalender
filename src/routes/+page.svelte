@@ -709,15 +709,15 @@
   /* Platform 9¾ Badge (erscheint unten im Türchen 9 nach Besuch) */
   .platform-934-badge {
     position: absolute;
-    bottom: 20px;
+    bottom: 38px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #740001 0%, #ae0001 100%);
     border: 2px solid #d4af37;
     color: #ffd700;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 900;
-    padding: 0.25rem 0.7rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -728,7 +728,7 @@
     font-family: Georgia, serif;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.25rem;
     z-index: 10;
   }
   
@@ -766,17 +766,17 @@
   .badge-wand {
     position: relative;
     z-index: 2;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     animation: wandFloat 1.5s ease-in-out infinite;
   }
   
   @keyframes wandFloat {
     0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-3px) rotate(10deg); }
+    50% { transform: translateY(-2px) rotate(10deg); }
   }
   
   .platform-934-badge:hover {
-    transform: translateX(-50%) translateY(-4px) scale(1.15);
+    transform: translateX(-50%) translateY(-4px) scale(1.1);
     box-shadow: 
       0 8px 16px rgba(116, 0, 1, 0.6),
       0 0 25px rgba(255, 215, 0, 0.6),
@@ -885,6 +885,7 @@
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
+    flex-direction: row-reverse;
   }
   
   .steam {
@@ -894,7 +895,7 @@
   
   @keyframes steamMove {
     0%, 100% { transform: translateX(0) scale(1); opacity: 0.6; }
-    50% { transform: translateX(20px) scale(1.2); opacity: 0.3; }
+    50% { transform: translateX(-20px) scale(1.2); opacity: 0.3; }
   }
   
   .train {
