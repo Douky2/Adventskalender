@@ -795,7 +795,542 @@ BESONDERES:
 AM ENDE:
 [Wie endet das perfekte Date?]
 
-DATUM FÜR REAL: [Wann machen wir das?]`
+DATUM FÜR REAL: [Wann machen wir das?]`,
+
+    // Distanzierte / Freundliche Vorlagen
+    'TEXT': `📝 NACHRICHT DES TAGES
+
+Hey! 👋
+
+[Deine Nachricht hier...]
+
+Einen schönen Tag wünsche ich dir!`,
+
+    'SHARED_GOAL': `🎯 EIN GEMEINSAMES ZIEL
+
+Was wir zusammen erreichen wollen:
+[Ziel beschreiben]
+
+WARUM IST DAS WICHTIG:
+- [Grund 1]
+- [Grund 2]
+- [Grund 3]
+
+ERSTE SCHRITTE:
+1. [Schritt 1]
+2. [Schritt 2]
+3. [Schritt 3]
+
+DEADLINE: [Wann wollen wir das schaffen?]
+
+Lass uns das gemeinsam angehen! 💪`,
+
+    'WOULD_YOU_RATHER': `🤔 WÜRDEST DU LIEBER...?
+
+Hier sind 5 schwierige Entscheidungen für dich:
+
+1️⃣ Würdest du lieber...
+   A) [Option A]
+   B) [Option B]
+
+2️⃣ Würdest du lieber...
+   A) [Option A]
+   B) [Option B]
+
+3️⃣ Würdest du lieber...
+   A) [Option A]
+   B) [Option B]
+
+4️⃣ Würdest du lieber...
+   A) [Option A]
+   B) [Option B]
+
+5️⃣ Würdest du lieber...
+   A) [Option A]
+   B) [Option B]
+
+Schreib mir deine Antworten! 😊`,
+
+    'THIS_OR_THAT': `⚡ DIES ODER DAS?
+
+Schnelle Entscheidungen - keine Zeit zum Nachdenken!
+
+☕ Kaffee oder Tee?
+🌅 Frühaufsteher oder Nachteule?
+🏖️ Strand oder Berge?
+📱 iOS oder Android?
+🍕 Pizza oder Pasta?
+🎬 Film oder Serie?
+🎮 Gaming oder Sport?
+📚 Buch oder Podcast?
+🌮 Süß oder Salzig?
+🎵 Pop oder Rock?
+
+Was ist deine Wahl? 🤷‍♀️`,
+
+    'PHOTO_CHALLENGE': `📸 FOTO-CHALLENGE
+
+AUFGABE:
+Mach heute ein Foto von [...]
+
+REGELN:
+✅ Muss heute gemacht werden
+✅ Sei kreativ!
+✅ Bonus für lustige Details
+
+BEISPIELE:
+- Dein Arbeitsplatz/Schreibtisch
+- Etwas das dich repräsentiert
+- Deine Lieblings-Ecke zuhause
+- Etwas das du gerade tust
+- Dein aktueller Blick aus dem Fenster
+
+Ich bin gespannt! 😊`,
+
+    'BOOK_RECOMMENDATION': `📚 BUCH-EMPFEHLUNG
+
+Ich empfehle dir heute:
+
+TITEL: [Buchtitel]
+AUTOR: [Autor/in]
+GENRE: [Genre]
+
+WORUM GEHT'S:
+[Kurze Beschreibung ohne Spoiler]
+
+WARUM ICH ES MAG:
+- [Grund 1]
+- [Grund 2]
+- [Grund 3]
+
+FÜR DICH, WEIL:
+[Warum passt es zu dir?]
+
+ZITAT:
+"[Lieblingszitat aus dem Buch]"
+
+Vielleicht hast du ja Lust es zu lesen? 📖`,
+
+    'RECIPE': `🍳 REZEPT-EMPFEHLUNG
+
+Hier ist ein Rezept das du probieren könntest:
+
+GERICHT: [Name]
+⏱️ ZEIT: [ca. X Minuten]
+👥 PORTIONEN: [Anzahl]
+
+ZUTATEN:
+- [Zutat 1]
+- [Zutat 2]
+- [Zutat 3]
+- [...]
+
+ZUBEREITUNG:
+1. [Schritt 1]
+2. [Schritt 2]
+3. [Schritt 3]
+4. [...]
+
+TIPPS:
+💡 [Tipp 1]
+💡 [Tipp 2]
+
+Viel Spaß beim Nachkochen! Lass mich wissen wie es war! 😊`,
+
+    'CHILDHOOD_STORY': `👶 GESCHICHTE AUS MEINER KINDHEIT
+
+Ich möchte dir von etwas erzählen, was mir als Kind passiert ist:
+
+ALTER: [Wie alt war ich?]
+ORT: [Wo war das?]
+
+WAS PASSIERT IST:
+[Erzähle die Geschichte...]
+
+WARUM ICH MICH DARAN ERINNERE:
+[Was war besonders daran?]
+
+WAS ICH DARAUS GELERNT HABE:
+[...]
+
+Hast du auch so eine Geschichte? 😊`,
+
+    'FAVORITE_THINGS': `❤️ MEINE LIEBLINGS-DINGE
+
+Hier sind ein paar Sachen die ich richtig gerne mag:
+
+🎵 MUSIK: [Band/Song]
+📺 SERIE: [Serie]
+🍕 ESSEN: [Gericht]
+☕ GETRÄNK: [...]
+📚 BUCH: [...]
+🎮 SPIEL: [...]
+🏞️ ORT: [...]
+🌈 FARBE: [...]
+🐾 TIER: [...]
+⏰ TAGESZEIT: [...]
+
+Was sind deine Lieblings-Dinge? 😊`,
+
+    'MAP': `🗺️ ORTE DIE ICH DIR ZEIGEN MÖCHTE
+
+Hier sind Orte die mir wichtig sind:
+
+📍 ORT 1: [Name]
+Warum: [...]
+Was man da machen kann: [...]
+
+📍 ORT 2: [Name]
+Warum: [...]
+Was man da machen kann: [...]
+
+📍 ORT 3: [Name]
+Warum: [...]
+Was man da machen kann: [...]
+
+Vielleicht können wir da mal zusammen hin? 😊`,
+
+    'COUNTDOWN': `⏰ COUNTDOWN
+
+Nur noch [X] Tage bis [Event]!
+
+WAS PASSIERT DANN:
+[Beschreibung]
+
+DARAUF FREUE ICH MICH:
+- [Grund 1]
+- [Grund 2]
+- [Grund 3]
+
+VORBEREITUNG:
+[ ] [Todo 1]
+[ ] [Todo 2]
+[ ] [Todo 3]
+
+Bist du auch schon gespannt? 😊`,
+
+    // Verrückte & Kreative Ideen
+    'RANDOM_ACTS': `🎭 ZUFÄLLIGE VERRÜCKTE IDEEN
+
+Heute könnten wir Folgendes tun:
+
+🎪 VERRÜCKTE CHALLENGE:
+[Beschreibe eine absurde Challenge z.B. "Sprich den ganzen Tag nur in Reimen" oder "Iss Pizza mit Messer und Gabel rückwärts"]
+
+🎨 KREATIVE AUFGABE:
+[z.B. "Male ein Portrait von mir mit geschlossenen Augen" oder "Erfinde eine neue Sportart"]
+
+🎲 SPONTAN-AKTION:
+[z.B. "Bestell beim nächsten Essen das was der andere für dich aussucht" oder "Tanze plötzlich zu imaginärer Musik"]
+
+Bist du bereit für Chaos? 😈`,
+
+    'PARALLEL_UNIVERSE': `🌌 IN EINEM PARALLELUNIVERSUM...
+
+Stell dir vor in einem Paralleluniversum:
+
+🔮 DU BIST: [Alternative Version von dir]
+🔮 ICH BIN: [Alternative Version von mir]
+
+WIR TREFFEN UNS:
+[Verrückter Ort/Situation]
+
+UNSER ERSTES DATE:
+[Absurde Date-Idee]
+
+WAS PASSIERT:
+[Erzähle eine verrückte Geschichte...]
+
+PLOT TWIST:
+[Unerwartetes Ende]
+
+In welchem Paralleluniversum würdest du gerne leben? 🌠`,
+
+    'PILLOW_FORT': `🏰 KISSEN-BURG BAUPLAN
+
+HEUTE BAUEN WIR: Die ultimative Kuschel-Festung!
+
+MATERIALIEN:
+- [X] Kissen (alle!)
+- [X] Decken (mindestens 5)
+- [X] Lichterketten ✨
+- [X] Snacks 🍿
+- [X] Laptop für Filme
+
+BAUANLEITUNG:
+1. Sofa = Hauptstruktur
+2. Kissen = Wände
+3. Decken = Dach
+4. Lichterkette = Ambiente
+
+PROGRAMM IN DER BURG:
+📺 [Film/Serie Vorschlag]
+🍫 [Snack Ideen]
+🎮 [Optional: Spiel]
+💤 [Optional: Nickerchen]
+
+REGEL: Wer die Burg verlässt, muss [lustige Strafe]!
+
+Wann bauen wir? 🏗️`,
+
+    'COZY_EVENING': `🕯️ GEMÜTLICHER ABEND
+
+Ich plane einen perfekt gemütlichen Abend:
+
+🛋️ SETTING:
+- Gedimmtes Licht / Kerzen
+- Weiche Decken
+- Dicke Socken
+- Vielleicht Kamin/Kaminfeuer-Video?
+
+☕ GETRÄNKE:
+- [Heißes Getränk 1]
+- [Heißes Getränk 2]
+- Marshmallows? ✅
+
+🍪 SNACKS:
+- [Süßes]
+- [Salziges]
+- [Extras]
+
+📺 UNTERHALTUNG:
+- [Film/Serie]
+- Oder: [Brettspiel/Kartenspiel]
+- Oder: Einfach nur reden
+
+DRESSCODE: Hoodie & Jogginghose Pflicht! 😊
+
+Zeit für Gemütlichkeit? 🧸`,
+
+    'BLANKET_BURRITO': `🌯 DECKEN-BURRITO ANLEITUNG
+
+Du siehst heute aus als könntest du einen DECKEN-BURRITO gebrauchen!
+
+ZUTATEN:
+🛌 1x große weiche Decke
+🧸 1x du
+☕ Optional: heißer Kakao
+🍫 Optional: Schokolade
+📱 Optional: Handy für Nachrichten
+
+ZUBEREITUNG:
+1. Decke flach ausbreiten
+2. Dich in die Mitte legen
+3. Einrollen wie einen Burrito
+4. Nicht mehr bewegen
+
+SERVIERVORSCHLAG:
+Am besten auf Sofa/Bett
+Mit Netflix oder Hörbuch
+Bleib mindestens 2 Stunden so!
+
+WARNUNG: Kann süchtig machen! 🥰`,
+
+    'CUDDLE_QUIZ': `💕 KUSCHEL-QUIZ
+
+Beantworte folgende wichtige Fragen:
+
+1️⃣ Lieblings-Kuschel-Position?
+   A) Kleiner Löffel
+   B) Großer Löffel
+   C) Face-to-Face
+   D) Chaotisch übereinander
+
+2️⃣ Optimale Kuschel-Temperatur?
+   A) Mega warm mit 5 Decken
+   B) Eine leichte Decke reicht
+   C) Keine Decke, nur Körperwärme
+   D) Ich bin ein Hitze-Ofen
+
+3️⃣ Kuschel-Soundtrack?
+   A) Totale Stille
+   B) Leise Musik
+   C) Film/Serie im Hintergrund
+   D) Regen-Geräusche
+
+4️⃣ Kuschel-Dauer?
+   A) 5 Minuten dann wird's zu warm
+   B) 30 Minuten sweet spot
+   C) 2+ Stunden Marathon
+   D) Ganzen Tag!
+
+5️⃣ Beste Kuschel-Zeit?
+   A) Morgens beim Aufwachen
+   B) Nachmittags Nickerchen
+   C) Abends vor dem Schlafen
+   D) Jederzeit! Immer!
+
+Deine Antworten? 🤔`,
+
+    'RAINY_DAY': `🌧️ REGENTAG-PROGRAMM
+
+Es regnet draußen? PERFEKT!
+
+REGENTAG-AKTIVITÄTEN:
+☔ Regen am Fenster beobachten
+☕ Heißen Tee/Kakao trinken
+📚 Buch lesen (oder vorlesen?)
+🎵 Regen-Playlist hören
+🍪 Kekse backen
+🛋️ Kuscheldecke + Film Marathon
+🕯️ Kerzen anzünden
+💤 Power-Nap machen
+🎨 Etwas kreatives machen
+💭 Einfach nur chillen
+
+REGENTAG-REGEL:
+Niemand muss raus! Niemand muss produktiv sein!
+Heute ist offiziell Cozy-Day! 🌈
+
+BONUS: Später wenn es aufhört - raus und Pfützen-Springen? 😄
+
+Was ist dein Lieblings-Regentag-Plan?`,
+
+    'MASSAGE_COUPON': `💆 MASSAGE-GUTSCHEIN
+
+✨ DIESER GUTSCHEIN BERECHTIGT ZU: ✨
+
+🙌 EINE [X]-MINUTEN MASSAGE
+📍 ORT: [z.B. "Auf dem Sofa" oder "Im Bett"]
+⏰ ZEIT: [z.B. "Nach Wahl" oder "Heute Abend"]
+
+LEISTUNGEN:
+✅ Schulter-Massage
+✅ Rücken-Massage
+✅ Kopf-Massage
+✅ Hand-Massage
+✅ Fuß-Massage (wenn du willst)
+
+EXTRAS INKLUSIVE:
+- Entspannende Musik 🎵
+- Gedimmtes Licht 🕯️
+- Danach: Kuscheln 🧸
+
+BEDINGUNGEN:
+- Keine Rückgabe
+- Nicht übertragbar
+- Unbegrenzt gültig
+- Kann mehrfach eingelöst werden 😊
+
+Wann löst du ein? 💕`,
+
+    'BREAKFAST_IN_BED': `🛏️ FRÜHSTÜCK IM BETT PLAN
+
+Du bleibst morgen liegen - ich kümmere mich um Frühstück!
+
+MENÜ:
+🥐 [Backwaren]
+🍳 [Warmes]
+🥣 [Cerealien/Müsli/Joghurt]
+🍓 [Obst]
+☕ [Heißgetränk]
+🥤 [Kaltgetränk]
+
+EXTRAS:
+- Frische Blume in Vase 🌸
+- Serviette kunstvoll gefaltet (Versuch!)
+- Kleine Überraschung unter der Tasse
+
+UNTERHALTUNG:
+📱 Handy zum Scrollen
+📰 Oder etwas zum Lesen
+🎵 Leise Musik im Hintergrund
+
+REGEL: Du darfst erst aufstehen wenn du komplett fertig bist! 😊
+
+Klingt gut? 🥰`,
+
+    'MOVIE_NEST': `🎬 FILM-NEST SETUP
+
+Heute bauen wir das ultimative Cozy-Film-Nest!
+
+NEST-BASIS:
+🛋️ Sofa/Bett umbauen
+🛏️ Alle Kissen & Decken organisieren
+✨ Lichterkette aufhängen
+🕯️ Duftkerze anzünden
+
+VERPFLEGUNG:
+🍿 Popcorn (salzig & süß)
+🍫 Schokolade
+🍕 [Essen für später]
+🥤 Getränke in Reichweite
+
+FILM-AUSWAHL:
+Option 1: [Film]
+Option 2: [Film]
+Option 3: [Serie-Marathon]
+Backup: [Falls nichts passt]
+
+REGELN:
+✅ Handys auf stumm
+✅ Kein Aufstehen außer Notfall
+✅ Kuscheln erlaubt
+✅ Kommentieren des Films erwünscht!
+
+Bereit für Filmabend? 🎥`,
+
+    'SLOW_MORNING': `☀️ LANGSAMER MORGEN
+
+Morgen machen wir einen SLOW MORNING (keine Eile!):
+
+⏰ KEIN WECKER!
+Wir stehen auf wenn wir aufwachen
+
+🛌 AUSSCHLAFEN:
+Alle Zeitlimits sind aufgehoben
+
+☕ GEMÜTLICHES FRÜHSTÜCK:
+Wir nehmen uns Zeit
+Vielleicht zusammen kochen?
+
+🧘 ENTSPANNTE AKTIVITÄTEN:
+- Im Bett rumliegen ✅
+- Kuscheln ✅
+- Reden ✅
+- Musik hören ✅
+- Raus schauen ✅
+- Einfach sein ✅
+
+📵 REGEL:
+Keine stressigen Nachrichten checken
+Kein Social Media
+Nur wir beide und Ruhe
+
+⏱️ ZEITLIMIT:
+Bis mindestens [X] Uhr dürfen wir NICHTS produktives tun!
+
+Klingt das nach einem Plan? 🥰`,
+
+    'STARGAZING': `⭐ STERNENGUCKEN
+
+Heute Abend: STERNENBEOBACHTUNG!
+
+📍 ORT:
+[Balkon/Garten/Draußen/Durchs Fenster]
+
+🛋️ SETUP:
+- Decken zum Draufliegen/Einwickeln
+- Kissen für Kopf
+- Warme Jacken/Hoodies
+- Heißgetränk in Thermoskanne
+
+✨ WAS WIR SEHEN KÖNNEN:
+- Sternbilder: [X, Y, Z]
+- Planeten: [falls sichtbar]
+- Vielleicht Sternschnuppen? 💫
+
+🎵 PLAYLIST:
+[Entspannte Musik für's Handy]
+
+💭 GESPRÄCHSTHEMEN:
+- Universum & verrückte Weltraum-Fakten
+- Was wäre wenn wir auf dem Mond wären?
+- Unsere Träume & Zukunft
+
+WICHTIG: Wir bleiben so lange bis uns kalt wird oder wir müde sind!
+
+Heute Nacht? 🌙`
   };
   
   function loadTemplate(type: string) {
@@ -842,6 +1377,12 @@ DATUM FÜR REAL: [Wann machen wir das?]`
   <header class="admin-header">
     <h1>🛠️ Adventskalender Admin</h1>
     <div class="header-actions">
+      <a href="/admin/settings" class="btn-settings">
+        ⚙️ Einstellungen
+      </a>
+      <a href="/?simulation=true" class="btn-simulation" target="_blank">
+        🎮 Simulation
+      </a>
       <button on:click={openPrismaStudio} class="btn-prisma">
         🗄️ Prisma Studio
       </button>
@@ -1580,6 +2121,44 @@ DATUM FÜR REAL: [Wann machen wir das?]`
     background: #d35400;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
+  }
+  
+  .btn-settings {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .btn-settings:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+  
+  .btn-simulation {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .btn-simulation:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
   }
   
   .btn-danger {

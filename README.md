@@ -1,4 +1,4 @@
-# 🎄 Digitaler Adventskalender
+# 🎄 Digitaler Adventskalender 2025
 
 Interaktiver Adventskalender für Fernbeziehungen - Locdoc 🧡 & Miss Chaos 💖
 
@@ -17,13 +17,13 @@ npm run dev
 ```
 
 → **Kalender:** http://localhost:5173  
-→ **Passwort:** `weihnachten2025`  
-→ **Admin:** http://localhost:5173/admin (passwortgeschützt)  
-→ **Admin-Passwort:** `admin2025`
+→ **Passwort:** `IhrGeheimerCode2025` (anpassbar in .env)  
+→ **Admin:** http://localhost:5173/admin  
+→ **Admin-Passwort:** `admin2025` (anpassbar in .env)
 
 ## ✨ Features
 
-### 🎨 50+ Content-Typen in 10 Kategorien
+### 🎨 61 Content-Typen in 10 Kategorien
 - **Basis:** Text, Bild, Video
 - **Romantisch:** Liebesbrief, Wertschätzung, Erinnerungen
 - **Virtual Activities:** Discord Date, Gaming, Virtuelles Kochen
@@ -35,14 +35,17 @@ npm run dev
 - **Spezial:** Zeitkapsel, Countdown, Sonnenauf/untergang
 - **Weiteres:** Rezepte, Bücher, Karten
 
-### 📝 25+ Vorlagen
+### 📝 63+ Vorlagen
 Direkt im Admin verfügbar - Copy & Paste ready für:
-- 🎬 Virtuelles Date (Discord Screenshare)
-- 🎮 Gaming-Challenge (Among Us, Minecraft)
-- 👨‍🍳 Virtuelles Kochen
-- 💌 Liebesbrief
-- 🤔 Würdest du lieber (10 Fragen)
-- 🎯 Lebensziele (5/10/20 Jahre)
+- 💌 **Romantisch:** Liebesbrief, Wertschätzung, Erinnerungen
+- 🎬 **Virtual Dates:** Discord Screenshare, Gaming, Kochen
+- 🎮 **Spiele:** Würdest du lieber, Dies oder Das, Wahrheit/Pflicht
+- 🎯 **Planung:** Lebensziele, Bucket List, Dream Date
+- �️ **Gemütlich:** Kissen-Burg, Decken-Burrito, Film-Nest, Kuschel-Quiz
+- 🌧️ **Cozy:** Regentag-Programm, Slow Morning, Massage-Gutschein
+- ⭐ **Romantisch:** Sternengucken, Frühstück im Bett
+- 🎭 **Verrückt:** Paralleluniversum, Random Acts
+- 📚 **Persönlich:** Kindheitsgeschichten, Lieblings-Dinge, Buch-Empfehlungen
 - ... und viele mehr!
 
 ### 💬 5 Response-Modi
@@ -55,13 +58,21 @@ Direkt im Admin verfügbar - Copy & Paste ready für:
 ### 📖 Story-Chains
 Mehrtägige Geschichten über mehrere Türchen verlinken
 
-### 🎨 Visuelle Features
+### 🎨 Visuelle Features & Easter Eggs
 - Unique Design für jeden Content-Typ
 - Animierte Schneeflocken ❄️
 - Schwebende Herzen 💖
 - Weihnachtsbaum 🎄
 - Schneemann ⛄
 - Orange für Locdoc, Pink für Miss Chaos
+- 🚂 **Platform 9¾ Easter Egg:** Klicke auf Türchen 9, dann auf das ¾-Badge → Hogwarts Express Modal!
+
+### ⚙️ Admin-Einstellungen
+- **Personen-Namen** anpassbar (Locdoc / Miss Chaos)
+- **Jahr & Monat** konfigurierbar
+- **Passwörter** ändern ohne Code-Edit
+- **Simulation-Modus** zum Testen aller Türchen
+- Alle Einstellungen über Web-UI ohne .env manuell zu bearbeiten
 
 ## 📂 Projekt-Struktur
 
@@ -83,13 +94,24 @@ Mehrtägige Geschichten über mehrere Türchen verlinken
 
 ## 🔧 Admin-Bereich
 
+### Funktionen:
+- **⚙️ Einstellungen:** Namen, Jahr, Passwörter anpassen
+- **🎮 Simulation:** Alle Türchen testen (umgeht Datums-Check)
+- **✏️ Türchen bearbeiten:** 61 Content-Typen mit 63+ Vorlagen
+- **🗄️ Prisma Studio:** Datenbank direkt bearbeiten
+
 ### Türchen bearbeiten:
 1. Gehe zu `/admin`
 2. Klicke "✏️ Bearbeiten" bei einem Türchen
-3. Wähle Content-Typ (50+ verfügbar!)
+3. Wähle Content-Typ (61 verfügbar!)
 4. Klicke "✨ Vorlage einfügen" (falls verfügbar)
 5. Passe Inhalt an
 6. Speichern!
+
+### Einstellungen ändern:
+1. Klicke auf "⚙️ Einstellungen" im Admin-Header
+2. Ändere Namen, Jahr, Monat oder Passwörter
+3. Speichern → Server neu starten!
 
 ### Vorlagen nutzen:
 Wenn du einen Content-Typ mit Vorlage wählst, erscheint:
@@ -213,10 +235,24 @@ server {
 
 ### Umgebungsvariablen (.env):
 ```env
-CALENDAR_PASSWORD=dein-sicheres-passwort
+# Passwörter
+CALENDAR_PASSWORD=IhrGeheimerCode2025
+ADMIN_PASSWORD=admin2025
+
+# Personen (anpassbar über /admin/settings)
+AUTHOR_A=Locdoc
+AUTHOR_B=Miss Chaos
+
+# Kalender-Konfiguration
+CALENDAR_YEAR=2025
+CALENDAR_MONTH=11  # 11 = Dezember (0-basiert)
+
+# Datenbank & Server
 DATABASE_URL=file:./prisma/dev.db
 PORT=3000
 ```
+
+**Tipp:** Du kannst Namen, Jahr und Passwörter jetzt über `/admin/settings` ändern!
 
 ## 🐛 Troubleshooting
 
