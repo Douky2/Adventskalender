@@ -1,0 +1,50 @@
+// Prisma Schema für den digitalen Adventskalender
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  // Für lokale Entwicklung
+  url      = env("DATABASE_URL")
+}
+
+model Day {
+  id          Int      @id @default(autoincrement())
+  dayNumber   Int      @unique // 1-24
+  title       String
+  
+  // Person A (Locdoc) - Vorbereitet
+  contentTypeA String  // 'TEXT', 'IMAGE_URL', 'VIDEO_EMBED', 'QUIZ_JSON', 'PLAYLIST', 'MAP', 'STORY_PART', 'RECIPE', 'MEMORY', 'POLL', 'DRAWING', 'BUCKET_LIST', 'PHOTO_CHALLENGE', 'SPOTIFY_SONG', 'LOVE_LETTER', 'COUNTDOWN', 'RIDDLE', 'INTERACTIVE_CHOICE', 'SHARED_GOAL', 'GRATITUDE', 'DREAM_BOARD', 'TIME_CAPSULE', 'VIRTUAL_DATE', 'PLAYLIST_COLLAB', 'MOVIE_NIGHT', 'GAME_CHALLENGE', 'VOICE_MESSAGE', 'SCREENSHOT_TOUR', 'MEME_COLLECTION', 'WOULD_YOU_RATHER', 'THIS_OR_THAT', 'TRUTH_OR_DARE', 'LETTER_TO_FUTURE', 'WISH_LIST', 'APPRECIATION', 'INSIDE_JOKE', 'PLAYLIST_BATTLE', 'COOKING_TOGETHER', 'WORKOUT_CHALLENGE', 'BOOK_RECOMMENDATION', 'PODCAST_SHARE', 'ART_CHALLENGE', 'DUOLINGO_CHALLENGE', 'MEDITATION_TOGETHER', 'SUNRISE_SUNSET', 'PET_PHOTOS', 'CHILDHOOD_STORY', 'EMBARRASSING_MOMENT', 'FIRST_IMPRESSION', 'FAVORITE_THINGS', 'LIFE_GOALS', 'ADVENTURE_PLAN'
+  contentA     String
+  authorA      String?
+  
+  // Person B (Miss Chaos) - Kann antworten/hinzufügen
+  contentTypeB String?  // Optional, kann später ausgefüllt werden
+  contentB     String?
+  authorB      String?
+  
+  // Aufgaben-Konfiguration
+  taskForB         String?  // Aufgabentext für Miss Chaos
+  responseMode     String   @default("DISABLED") // 'DISABLED', 'OPEN', 'AFTER_A', 'AFTER_B', 'COLLABORATIVE'
+  linkedToPrevious Boolean  @default(false) // Teil einer mehrtägigen Aufgabe?
+  linkedToNext     Boolean  @default(false) // Setzt sich am nächsten Tag fort?
+  storyChainId     String?  // Gruppiert zusammenhängende Türchen
+  
+  // Gemeinsames Ergebnis (für collaborative mode)
+  combinedResult   String?  // Wird aus A + B generiert
+  resultGenerated  Boolean  @default(false)
+  
+  // Metadaten
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  id          Int      @id @default(autoincrement())
+  dayNumber   Int
+  author      String   // "PersonA" oder "PersonB"
+  message     String
+  timestamp   DateTime @default(now())
+}

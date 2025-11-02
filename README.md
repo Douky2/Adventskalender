@@ -1,0 +1,233 @@
+# 🎄 Digitaler Adventskalender
+
+Interaktiver Adventskalender für Fernbeziehungen - Locdoc 🧡 & Miss Chaos 💖
+
+## 🚀 Quick Start
+
+```bash
+# Installation
+npm install
+
+# Datenbank Setup
+npx prisma migrate dev
+npx prisma db seed
+
+# Server starten
+npm run dev
+```
+
+→ **Kalender:** http://localhost:5173  
+→ **Admin:** http://localhost:5173/admin  
+→ **Passwort:** `weihnachten2024`
+
+## ✨ Features
+
+### 🎨 50+ Content-Typen in 10 Kategorien
+- **Basis:** Text, Bild, Video
+- **Romantisch:** Liebesbrief, Wertschätzung, Erinnerungen
+- **Virtual Activities:** Discord Date, Gaming, Virtuelles Kochen
+- **Musik & Audio:** Playlists, Songs, Sprachnachrichten
+- **Interaktive Spiele:** Würdest du lieber, Dies oder Das, Wahrheit oder Pflicht
+- **Kreativ & Challenges:** Foto, Kunst, Memes, Screenshot-Tour
+- **Planung & Zukunft:** Bucket List, Lebensziele, Traumboard
+- **Persönlich:** Kindheitsgeschichten, Erster Eindruck, Inside Jokes
+- **Spezial:** Zeitkapsel, Countdown, Sonnenauf/untergang
+- **Weiteres:** Rezepte, Bücher, Karten
+
+### 📝 25+ Vorlagen
+Direkt im Admin verfügbar - Copy & Paste ready für:
+- 🎬 Virtuelles Date (Discord Screenshare)
+- 🎮 Gaming-Challenge (Among Us, Minecraft)
+- 👨‍🍳 Virtuelles Kochen
+- 💌 Liebesbrief
+- 🤔 Würdest du lieber (10 Fragen)
+- 🎯 Lebensziele (5/10/20 Jahre)
+- ... und viele mehr!
+
+### 💬 5 Response-Modi
+- **DISABLED:** Keine Antwort möglich
+- **OPEN:** Person B kann sofort antworten
+- **COLLABORATIVE:** Beide füllen gemeinsam aus
+- **AFTER_A:** Nur Person A antwortet
+- **AFTER_B:** Nur Person B antwortet
+
+### 📖 Story-Chains
+Mehrtägige Geschichten über mehrere Türchen verlinken
+
+### 🎨 Visuelle Features
+- Unique Design für jeden Content-Typ
+- Animierte Schneeflocken ❄️
+- Schwebende Herzen 💖
+- Weihnachtsbaum 🎄
+- Schneemann ⛄
+- Orange für Locdoc, Pink für Miss Chaos
+
+## 📂 Projekt-Struktur
+
+```
+├── prisma/
+│   ├── schema.prisma          # Datenbank-Schema
+│   ├── seed.ts                # 24 vorausgefüllte Türchen
+│   └── dev.db                 # SQLite Datenbank
+├── src/
+│   ├── routes/
+│   │   ├── +page.svelte       # Hauptkalender (24 Türchen)
+│   │   ├── admin/+page.svelte # Admin-Panel (50+ Typen, Vorlagen)
+│   │   ├── day/[dayNumber]/   # Türchen-Seiten
+│   │   └── login/             # Login-Seite
+│   └── lib/
+│       └── auth.ts            # Auth-Cookie Logic
+└── README.md                  # Diese Datei
+```
+
+## 🔧 Admin-Bereich
+
+### Türchen bearbeiten:
+1. Gehe zu `/admin`
+2. Klicke "✏️ Bearbeiten" bei einem Türchen
+3. Wähle Content-Typ (50+ verfügbar!)
+4. Klicke "✨ Vorlage einfügen" (falls verfügbar)
+5. Passe Inhalt an
+6. Speichern!
+
+### Vorlagen nutzen:
+Wenn du einen Content-Typ mit Vorlage wählst, erscheint:
+```
+┌─────────────────────────────────┐
+│  📝 Vorlage verfügbar!          │
+│  [✨ Vorlage einfügen]          │
+└─────────────────────────────────┘
+```
+→ Klicken → Vorlage wird eingefügt → Anpassen → Fertig!
+
+## 🎯 Technologie
+
+- **Frontend:** SvelteKit 2.5.28
+- **Backend:** Node.js mit @sveltejs/adapter-node
+- **Datenbank:** SQLite + Prisma 5.22.0
+- **Auth:** Cookie-based (kein OAuth nötig)
+- **Styling:** Custom CSS mit Animationen
+- **Hosting:** Fly.io (optional)
+
+## 🗄️ Datenbank-Management
+
+### Prisma Studio (GUI):
+```bash
+npx prisma studio
+```
+→ http://localhost:5555
+
+### Migrations:
+```bash
+npx prisma migrate dev --name beschreibung
+```
+
+### Reset & Neu-Seed:
+```bash
+npx prisma migrate reset
+```
+
+## 🎄 Content-Typen Beispiele
+
+### 🎬 Virtuelles Date
+```
+Film: [Dein Lieblingsfilm]
+Zeit: 20:00 Uhr
+Platform: Discord Screenshare
+VORBEREITUNG: Popcorn, Schokolade, Getränk
+REGELN: Kameras AN, Gleichzeitig pausieren
+```
+
+### 🎮 Gaming-Challenge
+```
+Spiel: Among Us / Minecraft
+CHALLENGE: Wer gewinnt mehr Runden?
+Verlierer: [lustige Strafe]
+DISCORD VOICE CHAT!
+```
+
+### 💌 Liebesbrief
+```
+Meine liebste Miss Chaos,
+Was ich an dir liebe:
+- [...]
+Warum du besonders bist: [...]
+In Liebe, Dein Locdoc 🧡
+```
+
+## 📅 Deployment
+
+### Fly.io (Kostenlos):
+```bash
+# Fly CLI installieren
+fly launch
+
+# Datenbank-Volume erstellen
+fly volumes create data --size 1
+
+# Secrets setzen
+fly secrets set CALENDAR_PASSWORD=weihnachten2024
+
+# Deployen
+fly deploy
+```
+
+### Umgebungsvariablen:
+```env
+CALENDAR_PASSWORD=dein-passwort
+DATABASE_URL=file:./prisma/dev.db
+```
+
+## 🐛 Troubleshooting
+
+### Port bereits belegt:
+```bash
+# Prozess finden & beenden
+Get-Process node | Stop-Process -Force
+```
+
+### Datenbank-Fehler:
+```bash
+# Datenbank neu erstellen
+npx prisma migrate reset
+npx prisma db seed
+```
+
+### Türchen öffnet sich nicht:
+- Prüfe Systemdatum (muss aktuell sein)
+- Datenbank: `availableFrom` Feld prüfen
+- Im Seed: `new Date(2024, 11, X)` (11 = Dezember!)
+
+## 💡 Tipps
+
+### Response-Modi clever nutzen:
+- **Tag 1-10:** OPEN (Miss Chaos kann jederzeit antworten)
+- **Tag 11-15:** COLLABORATIVE (beide füllen gemeinsam aus)
+- **Tag 16-20:** AFTER_A + AFTER_B (abwechselnd)
+- **Tag 21-24:** OPEN (Finale!)
+
+### Story-Chains:
+1. Tag 5: "Kapitel 1" (linkedToNext ✅, ID: "love-story")
+2. Tag 6: "Kapitel 2" (linkedToPrevious ✅, linkedToNext ✅, ID: "love-story")
+3. Tag 7: "Kapitel 3" (linkedToPrevious ✅, ID: "love-story")
+
+### 24-Tage Plan:
+- **Woche 1:** Kennenlernen (Liebesbrief, Erinnerungen, Inside Jokes)
+- **Woche 2:** Virtual Activities (Discord Date, Gaming, Kochen)
+- **Woche 3:** Zukunft (Lebensziele, Bucket List, Traumboard)
+- **Woche 4:** Kreativ & Finale (Kunst, Foto-Challenge, Zeitkapsel)
+
+## 📊 Statistik
+
+- **50+** Content-Typen
+- **25+** Copy-Paste Vorlagen
+- **10** Kategorien
+- **5** Response-Modi
+- **24** Türchen
+- **2** Personen: Locdoc 🧡 & Miss Chaos 💖
+
+## 🎁 Viel Spaß!
+
+Erstellt mit ❤️ für Fernbeziehungen.
+
+**Happy Coding & Frohe Weihnachten! 🎄✨**
