@@ -3,845 +3,1048 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🎄 Seeding Adventskalender-Daten...');
+  console.log('🎄 Seeding Adventskalender-Daten mit vollständigem Inhalt...');
 
-  // 24 Türchen mit abwechslungsreichen Inhalten für Locdoc 🧡 & Miss Chaos 💖
+  // Lösche alle existierenden Einträge
+  await prisma.day.deleteMany({});
+  console.log('🗑️  Alte Daten gelöscht');
+
+  // 24 Türchen mit echtem, vollständigem Inhalt für Locdoc 🧡 & Miss Chaos 💖
   const days = [
+    // Tag 1: Romantischer Start
     {
       dayNumber: 1,
-      title: 'Willkommen im Adventskalender 2025! �',
-      contentType: 'LOVE_LETTER',
+      title: '💌 Der Beginn unserer Reise',
       contentTypeA: 'LOVE_LETTER',
-      contentA: `💌 Meine liebste Miss Chaos,
+      contentA: `Meine allerliebste Miss Chaos 💖,
 
-heute beginnt unsere besondere Adventszeit! Die nächsten 24 Tage gehören nur uns beiden.
+heute öffnet sich das erste Türchen unseres ganz besonderen Adventskalenders. 24 Tage, gefüllt mit Liebe, Erinnerungen und Vorfreude auf alles, was noch kommt.
 
-Ich weiß, die Entfernung ist manchmal schwer. Aber dieser Kalender soll dir jeden Tag zeigen: Du bist mir wichtig. Du bist es wert. Und ich bin so dankbar, dass es dich gibt.
+Weißt du noch, wie alles begann? Jeder Tag mit dir ist ein Geschenk. Die Entfernung zwischen uns mag groß sein, aber meine Gefühle für dich sind noch größer.
 
-Jeden Tag wartet eine neue Überraschung auf dich - manchmal romantisch, manchmal verrückt, manchmal gemütlich. Genau wie wir. 💕
+Dieser Kalender ist mehr als nur eine Sammlung von Tagen - er ist eine Liebeserklärung in 24 Kapiteln. Manchmal romantisch, manchmal verspielt, manchmal tiefgründig. Genau wie unsere Beziehung.
 
-Lass uns diese Zeit gemeinsam genießen!
+Ich freue mich auf jeden einzelnen Tag bis Weihnachten mit dir. Und darüber hinaus. ✨
 
-In Liebe,
-Dein Locdoc 🧡`,
-      author: 'Locdoc',
+In unendlicher Liebe,
+Dein Locdoc 🧡
+
+PS: Halte die Augen offen nach versteckten Überraschungen... 😉`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 1)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 2: Interaktiv
     {
       dayNumber: 2,
-      title: 'Dies oder Das? ⚡',
-      contentType: 'THIS_OR_THAT',
+      title: '⚡ Schnelle Entscheidungen',
       contentTypeA: 'THIS_OR_THAT',
-      contentA: `⚡ DIES ODER DAS?
+      contentA: `⚡ DIES ODER DAS? ⚡
 
-Schnelle Entscheidungen - keine Zeit zum Nachdenken!
+Lass uns herausfinden, wie gut wir uns kennen! Beantworte spontan:
 
-☕ Kaffee oder Tee?
-🌅 Frühaufsteher oder Nachteule?
-🏖️ Strand oder Berge?
-📱 iOS oder Android?
-🍕 Pizza oder Pasta?
-🎬 Film oder Serie?
-🎮 Gaming oder Sport?
-📚 Buch oder Podcast?
-🌮 Süß oder Salzig?
-🎵 Pop oder Rock?
+☕ Kaffee ODER Tee am Morgen?
+🌅 Sonnenaufgang ODER Sonnenuntergang?
+🏖️ Strandurlaub ODER Bergwanderung?
+📱 Spontaner Anruf ODER lange Textnachricht?
+🍕 Pizza ODER Pasta?
+🎬 Romantische Komödie ODER Thriller?
+🎮 Videospiele gemeinsam ODER Brettspiele?
+📚 Krimi ODER Fantasy-Roman?
+🎵 Tanzen ODER Kuscheln zu Musik?
+🌮 Süßes Frühstück ODER herzhaftes?
+🎨 Museumsbesuch ODER Konzert?
+🌃 Nachtspaziergang ODER gemütlicher Filmabend?
 
-Schreib mir ALLE deine Antworten! Ich bin gespannt ob wir gleich ticken! 🤔`,
-      author: 'Locdoc',
-      responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 2)
+Ich bin gespannt auf deine Antworten! 💕`,
+      authorA: 'Locdoc',
+      contentTypeB: 'THIS_OR_THAT',
+      contentB: `Hier sind meine Antworten, mein Schatz:
+
+☕ Definitiv Kaffee (du weißt, ich brauche das!)
+🌅 Sonnenuntergang - romantischer
+🏖️ Berge - frische Luft und Abenteuer
+📱 Lange Textnachricht - ich liebe es, meine Gedanken zu teilen
+🍕 Pizza (aber deine Pasta ist unschlagbar!)
+🎬 Thriller - aber mit dir an meiner Seite
+🎮 Brettspiele - ich gewinne meistens 😏
+📚 Fantasy - Magie und Abenteuer
+🎵 Beides? Erst tanzen, dann kuscheln!
+🌮 Süß - Pfannkuchen forever
+🎨 Konzert - Musik verbindet uns
+🌃 Nachtspaziergang - unter den Sternen mit dir
+
+Und du? 🧡`,
+      authorB: 'Miss Chaos',
+      responseMode: 'COLLABORATIVE',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 3: Kreativ
     {
       dayNumber: 3,
-      title: 'Kissen-Burg Bauplan 🏰',
-      contentType: 'PILLOW_FORT',
-      contentTypeA: 'PILLOW_FORT',
-      contentA: `🏰 KISSEN-BURG BAUPLAN
+      title: '🎨 Unsere Bucket List',
+      contentTypeA: 'SHARED_GOAL',
+      contentA: `🎨 UNSERE GEMEINSAME BUCKET LIST 🎨
 
-HEUTE BAUEN WIR: Die ultimative Kuschel-Festung!
+Dinge, die wir ZUSAMMEN erleben wollen:
 
-MATERIALIEN:
-- [X] Kissen (alle!)
-- [X] Decken (mindestens 5)
-- [X] Lichterketten ✨
-- [X] Snacks 🍿
-- [X] Laptop für Filme
+✈️ **Reisen & Abenteuer:**
+□ Polarlichter in Norwegen sehen
+□ Ein Wochenende in Paris verbringen
+□ Roadtrip ohne festes Ziel
+□ In einem Baumhaus übernachten
+□ Einen Berg zusammen besteigen
 
-BAUANLEITUNG:
-1. Sofa = Hauptstruktur
-2. Kissen = Wände
-3. Decken = Dach
-4. Lichterkette = Ambiente
+🏠 **Zuhause & Alltag:**
+□ Gemeinsam kochen und dabei tanzen
+□ Einen Garten anlegen
+□ DIY-Projekt: Möbel bauen
+□ Marathon aller Harry Potter Filme
+□ Sternenhimmel vom Balkon aus beobachten
 
-PROGRAMM IN DER BURG:
-📺 Weihnachtsfilm deiner Wahl
-🍫 Heiße Schokolade + Kekse
-🎮 Optional: Handy-Spiele zusammen
-💤 Optional: Nickerchen
+💑 **Romantisches:**
+□ Paartanz-Kurs machen
+□ Liebesbriefe in einer Zeitkapsel vergraben
+□ Gemeinsam ein Lied schreiben
+□ Picknick bei Sonnenuntergang
+□ In einem Hot Air Balloon fahren
 
-REGEL: Wer die Burg verlässt, muss einen Weihnachtssong singen! 🎵
-
-Bau deine Burg und schick mir Fotos! 📸`,
-      author: 'Locdoc',
+Was möchtest du noch hinzufügen? Schreib deine Träume dazu! 💭`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 3)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 4-6: Mehrteilige Love Story (Story Chain)
     {
       dayNumber: 4,
-      title: 'Unsere Geschichte beginnt... (Teil 1) 📖',
-      contentType: 'MEMORY',
+      title: '📖 Unsere Geschichte - Teil 1',
       contentTypeA: 'MEMORY',
-      contentA: `📖 UNSERE LIEBESGESCHICHTE - KAPITEL 1
+      contentA: `📖 WIE ALLES BEGANN - TEIL 1 📖
 
-Weißt du noch, wie alles anfing?
+*Eine Geschichte in drei Teilen*
 
-Als ich dich das erste Mal "gesehen" habe (auf dem Bildschirm 😄), dachte ich: "Wow, die ist anders." Du warst witzig, schlau, und hattest diese Art zu schreiben, die mich sofort angezogen hat.
+**Kapitel 1: Der erste Funke**
 
-Unser erstes richtiges Gespräch... ich war SO nervös! Ich hab drei Mal überlegt, was ich schreiben soll. Und dann hast du einfach was Verrücktes gesagt und ich musste lachen.
+Erinnerst du dich an unsere erste richtige Unterhaltung? Ich schon. Ich erinnere mich an jedes Detail.
 
-Von da an war es wie ein Sog. Jeden Tag hab ich mich mehr auf unsere Nachrichten gefreut. Auf unsere Calls. Auf deine Stimme.
+Es war nicht Liebe auf den ersten Blick - es war etwas Tieferes. Es war, als ob ich jemanden wiedergetroffen hätte, den ich schon ewig kannte. Deine Art zu lachen, deine verrückten Ideen, die Art wie du die Welt siehst...
 
-UND DANN... (morgen geht's weiter! 😊)
+Ich wusste in diesem Moment noch nicht, dass du die Person werden würdest, an die ich jeden Tag denke. Die Person, für die ich alles tun würde. Die Person, die mein Leben komplett verändert hat.
 
-Was war dein erster Gedanke über mich? Schreib's mir! 💭`,
-      author: 'Locdoc',
+Aber irgendwo, ganz tief drinnen, hatte ich ein Gefühl. Ein Kribbeln. Eine Vorahnung, dass du etwas Besonderes bist.
+
+Und ich sollte recht behalten. ✨
+
+*Fortsetzung folgt morgen... 💫*`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
+      linkedToPrevious: false,
       linkedToNext: true,
       storyChainId: 'our-love-story',
-      availableFrom: new Date(2025, 11, 4)
+
     },
+
     {
       dayNumber: 5,
-      title: 'Unsere Geschichte... (Teil 2) 💕',
-      contentType: 'MEMORY',
+      title: '📖 Unsere Geschichte - Teil 2',
       contentTypeA: 'MEMORY',
-      contentA: `📖 UNSERE LIEBESGESCHICHTE - KAPITEL 2
+      contentA: `📖 WIE ALLES BEGANN - TEIL 2 📖
 
-...und dann wurde aus Nachrichten mehr.
+**Kapitel 2: Das erste "Wir"**
 
-Plötzlich telefonierten wir. Stundenlang. Über alles und nichts. Ich erinnere mich an diesen einen Abend, wo wir bis 3 Uhr morgens geredet haben und keiner wollte auflegen.
+Die nächsten Wochen waren wie ein Tanz. Jede Nachricht von dir ließ mein Herz schneller schlagen. Jedes Telefonat endete viel zu früh. Jedes "Gute Nacht" fühlte sich falsch an, weil ich einfach nicht aufhören wollte, mit dir zu reden.
 
-"Noch 5 Minuten..."
-"Okay, aber dann wirklich..."
-*30 Minuten später*
-"Jetzt aber wirklich!" 😄
+Weißt du noch, wann wir das erste Mal "wir" gesagt haben? Nicht als Plan, nicht als große Ankündigung - es rutschte einfach so raus. "Was machen wir am Wochenende?" "Wie würden wir das lösen?"
 
-Und irgendwann... wurde aus dem "Ich mag dich" ein "Ich hab mich in dich verliebt."
+Aus "ich" und "du" wurde "wir". Und plötzlich ergab alles einen Sinn.
 
-Ich weiß noch genau, wann ich es gemerkt habe. Es war [beschreibe deinen Moment]. Da wusste ich: Das ist echt. Das ist sie.
+Die Entfernung? Nur eine Zahl.
+Die Zweifel? Verschwunden.
+Die Zukunft? Auf einmal klar.
 
-FORTSETZUNG FOLGT am 6. Dezember! 💖
+Ich wollte jeden Tag mit dir teilen. Jeden Moment. Jede dumme Geschichte, jeden Erfolg, jede Angst. Mit dir war alles leichter. Mit dir war alles möglich.
 
-Wann wusstest DU, dass es mehr ist?`,
-      author: 'Locdoc',
-      responseMode: 'OPEN',
+*Fortsetzung folgt morgen... 💕*`,
+      authorA: 'Locdoc',
+      responseMode: 'AFTER_A',
       linkedToPrevious: true,
       linkedToNext: true,
       storyChainId: 'our-love-story',
-      availableFrom: new Date(2025, 11, 5)
+
     },
+
     {
       dayNumber: 6,
-      title: 'Unsere Geschichte... (Finale) 🌟',
-      contentType: 'MEMORY',
+      title: '📖 Unsere Geschichte - Teil 3',
       contentTypeA: 'MEMORY',
-      contentA: `📖 UNSERE LIEBESGESCHICHTE - FINAL CHAPTER
+      contentA: `📖 WIE ALLES BEGANN - TEIL 3 📖
 
-Und heute? Heute sind wir hier.
+**Kapitel 3: Heute und alle Tage danach**
 
-Ja, wir sind weit voneinander entfernt. Ja, manchmal ist es schwer. Ja, ich wünschte, ich könnte dich einfach umarmen.
+Und hier sind wir nun. Jeden Tag schreiben wir ein neues Kapitel unserer Geschichte.
 
-ABER:
+Manchmal ist es ein Abenteuer-Kapitel, voller Lachen und verrückter Pläne.
+Manchmal ist es ein stilles Kapitel, wo wir einfach nur zusammen sind.
+Manchmal ist es ein schwieriges Kapitel, aber wir meistern es gemeinsam.
 
-Wir haben es geschafft, etwas Besonderes aufzubauen. Trotz Bildschirmen. Trotz Kilometern. Trotz allem.
+Was ich dir sagen möchte: Diese Geschichte ist die schönste, die ich je erlebt habe. Jeder Tag mit dir ist ein Geschenk. Jede Nachricht, jeder Anruf, jedes "Ich liebe dich" bedeutet mir die Welt.
 
-Und das Beste? Unsere Geschichte ist noch lange nicht zu Ende.
+Du bist meine beste Entscheidung. Mein größtes Abenteuer. Meine Heimat, egal wo auf der Welt ich bin.
 
-Das hier ist nur der Anfang. Bald werden wir nicht mehr "eines Tages" sagen. Bald wird es "bald" sein. Und dann "heute".
+Und das Beste? Diese Geschichte hat gerade erst begonnen. Die schönsten Kapitel kommen noch. ✨
 
-Bis dahin: Jeder Call, jede Nachricht, jedes Lachen - das ist unsere Geschichte.
+Ich liebe dich, Miss Chaos. Heute, morgen und alle Tage danach. 💖
 
-Und ich würde sie mit niemandem sonst schreiben wollen. 💕
+In ewiger Liebe,
+Dein Locdoc 🧡
 
-ENDE VON KAPITEL 1 - DIE ONLINE-PHASE
-KAPITEL 2 - DIE REAL-LIFE-PHASE kommt bald! 🚀`,
-      author: 'Locdoc',
+**ENDE DER STORY** - Aber nicht unserer Geschichte! 💕`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
       linkedToPrevious: true,
+      linkedToNext: false,
       storyChainId: 'our-love-story',
-      availableFrom: new Date(2025, 11, 6)
+
     },
+
+    // Tag 7: Nikolaus Special
     {
       dayNumber: 7,
-      title: 'Nikolaus-Überraschung 🎅',
-      contentType: 'VIRTUAL_DATE',
+      title: '🎅 Nikolaus-Überraschung',
       contentTypeA: 'VIRTUAL_DATE',
-      contentA: `🎬 NIKOLAUS KINO-DATE!
+      contentA: `🎅 VIRTUELLES NIKOLAUS-DATE 🎅
 
-Film: "Der Grinch" (2018) oder deine Wahl!
-Zeit: HEUTE, 20:00 Uhr
-Platform: Discord Screenshare
+Ho ho ho! Der Nikolaus war da! 🎁
 
-VORBEREITUNG:
-🍿 Popcorn (salzig!)
-🍫 Schokolade (Nikolaus-Reste?)
-🥤 Heiße Schokolade
-🛋️ Gemütlich machen
-🎄 Weihnachtliche Stimmung
+**Unser gemütlicher Nikolaus-Abend:**
 
-DRESSCODE:
-Weihnachtspulli Pflicht! Oder zumindest was Rotes! 🎅
+🕐 **19:00 Uhr** - Video-Call starten
+☕ **19:15 Uhr** - Heiße Schokolade machen (mit Marshmallows!)
+🎬 **19:30 Uhr** - Gemeinsam "Der Polarexpress" schauen
+🍪 **21:00 Uhr** - Pause: Nikolaus-Plätzchen naschen
+📖 **21:15 Uhr** - Gegenseitig eine Weihnachtsgeschichte vorlesen
+💕 **22:00 Uhr** - Einfach quatschen und kuschelig sein
 
-REGEL:
-Bei jedem "Ho Ho Ho" im Film trinken wir einen Schluck! 😄
+**Deine Nikolaus-Überraschungen:**
+🎁 Ein Gedicht für dich (kommt per Nachricht)
+🎵 Eine Playlist mit unseren Lieblingsliedern
+💌 Ein Brief, der schon zu dir unterwegs ist
+🍫 Und natürlich: ganz viel Liebe! 
 
-Ich freu mich schon so drauf! 💕
-
-P.S.: Mach dein Handy aus - heute Abend sind nur wir beide dran! 📵✨`,
-      author: 'Locdoc',
+Bist du bereit für unser Date? 🧡💖`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 7)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 8: Spielerisch
     {
       dayNumber: 8,
-      title: 'Würdest du lieber...? 🤔',
-      contentType: 'WOULD_YOU_RATHER',
+      title: '🎲 Würdest du lieber...?',
       contentTypeA: 'WOULD_YOU_RATHER',
-      contentA: `🤔 WÜRDEST DU LIEBER...?
+      contentA: `🎲 WÜRDEST DU LIEBER...? 🎲
 
-Hier sind 5 schwierige Entscheidungen für dich:
+Schwierige Entscheidungen für uns beide!
 
-1️⃣ Würdest du lieber...
-   A) Jeden Tag 10 Nachrichten von mir
-   B) Jeden Tag 1 Stunde telefonieren
+❄️ **Würdest du lieber...**
+...einen Monat im Schnee eingeschlossen sein ODER einen Monat in der Wüste?
 
-2️⃣ Würdest du lieber...
-   A) Nie wieder Gaming zusammen
-   B) Nie wieder Filme zusammen schauen
+🏠 **Würdest du lieber...**
+...in einer mega-Villa alleine wohnen ODER in einer winzigen Wohnung zusammen mit mir?
 
-3️⃣ Würdest du lieber...
-   A) Mich 1x im Monat für 1 Woche treffen
-   B) Mich 4x im Monat für 1 Tag treffen
+🔮 **Würdest du lieber...**
+...die Zukunft sehen können ODER die Vergangenheit ändern können?
 
-4️⃣ Würdest du lieber...
-   A) Nur noch über Text kommunizieren
-   B) Nur noch über Voice (kein Video)
+🎵 **Würdest du lieber...**
+...nie wieder Musik hören ODER nie wieder Filme schauen können?
 
-5️⃣ Würdest du lieber...
-   A) Zusammen in meiner Stadt wohnen
-   B) Zusammen in deiner Stadt wohnen
+🍕 **Würdest du lieber...**
+...nur noch Pizza essen dürfen ODER nie wieder Pizza?
 
-Schreib mir ALLE Antworten mit Begründung! 😊`,
-      author: 'Locdoc',
+⏰ **Würdest du lieber...**
+...immer zu früh ODER immer zu spät kommen?
+
+🦸 **Würdest du lieber...**
+...fliegen können ODER unsichtbar sein können?
+
+📱 **Würdest du lieber...**
+...1 Jahr ohne Internet ODER 1 Jahr ohne Telefon?
+
+Antworte auf alles und erkläre warum! Ich will deine verrückten Begründungen hören! 😄`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 8)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 9: Platform 9¾ Easter Egg
     {
       dayNumber: 9,
-      title: 'Ein magischer Tag... �',
-      contentType: 'TEXT',
-      contentTypeA: 'TEXT',
-      contentA: `🎩 HEUTE IST EIN BESONDERER TAG...
+      title: '✨ Magische Erinnerungen',
+      contentTypeA: 'MEMORY',
+      contentA: `✨ MAGISCHE MOMENTE ✨
 
-Manchmal verstecken sich die schönsten Dinge an den unerwartetsten Orten.
+Heute wird es ein bisschen magisch... 🪄
 
-Manchmal muss man genau hinschauen.
+Erinnerst du dich an den Moment, als wir beide merkten, dass wir beide riesige Harry Potter Fans sind? Es war, als hätten wir einen geheimen Code gefunden, den nur wir verstehen.
 
-Manchmal gibt es Geheimnisse, die nur für diejenigen sind, die suchen.
+Seitdem sind so viele magische Momente entstanden:
+- Unsere Diskussionen über Häuser (du bist SO eine Gryffindor! 🦁)
+- Die späten Nächte, in denen wir die Filme durchgebinged haben
+- Deine Theorien über die Bücher
+- Unsere Träume von einem gemeinsamen Besuch in den Studios
 
-Heute ist so ein Tag. 🪄
+Manchmal denke ich, unsere Liebe ist wie Magie. Unerklärbar, wundervoll, mächtig.
 
-P.S.: Schau dir diese Kachel genau an... vielleicht entdeckst du etwas Magisches? ✨
+Du bist mein Patronus - der Gedanke an dich vertreibt jede Dunkelheit. ✨
 
-P.P.S.: Klick auf die "9"... oder vielleicht auf etwas ANDERES? 😉🚂
+**PS:** *Schau genau hin... manchmal verstecken sich magische Geheimnisse an unerwarteten Orten. Wie zum Beispiel zwischen den Gleisen...* 🚂
 
-(Falls du es findest: Es lohnt sich! Ein kleines Weihnachts-Abenteuer wartet...)`,
-      author: 'Locdoc',
-      responseMode: 'DISABLED',
-      availableFrom: new Date(2025, 11, 9)
+In Liebe und Magie,
+Dein Locdoc 🧡
+
+*"After all this time?"*
+*"Always."* 💕`,
+      authorA: 'Locdoc',
+      responseMode: 'OPEN',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 10: Kreativ
     {
       dayNumber: 10,
-      title: 'Gemütlicher Abend 🕯️',
-      contentType: 'COZY_EVENING',
-      contentTypeA: 'COZY_EVENING',
-      contentA: `🕯️ GEMÜTLICHER ABEND
+      title: '📸 Photo Challenge',
+      contentTypeA: 'PHOTO_CHALLENGE',
+      contentA: `📸 7-TAGE PHOTO CHALLENGE 📸
 
-Ich plane für uns einen perfekt gemütlichen Abend (jeder bei sich, aber in Gedanken zusammen):
+Lass uns eine Woche lang jeden Tag ein spezielles Foto teilen!
 
-🛋️ SETTING:
-- Gedimmtes Licht / Kerzen anzünden
-- Weiche Decken rausholen
-- Dicke Socken anziehen
-- Vielleicht Kaminfeuer-Video am Laptop?
+**Die Challenge:**
 
-☕ GETRÄNKE:
-- Heiße Schokolade mit Marshmallows
-- Oder Glühwein? (wenn du magst!)
-- Kekse dazu ✅
+📷 **Tag 1:** Etwas, das dich an mich erinnert
+📷 **Tag 2:** Dein Lieblingsort zuhause
+📷 **Tag 3:** Was du gerade liest/schaust
+📷 **Tag 4:** Dein Frühstück (make it pretty!)
+📷 **Tag 5:** Etwas Rotes (unsere Farbe 💕)
+📷 **Tag 6:** Der Blick aus deinem Fenster
+📷 **Tag 7:** Du (ein Selfie für mich 🥰)
 
-🍪 SNACKS:
-- Plätzchen
-- Schokolade
-- Was Warmes zum Essen
+**Die Regeln:**
+✅ Keine Profi-Fotos nötig - echt ist schöner!
+✅ Jeden Tag um 18:00 Uhr Foto-Austausch
+✅ Eine kleine Geschichte zum Bild erzählen
+✅ Kreativität erwünscht!
 
-📺 UNTERHALTUNG:
-- Gemeinsam "Home Alone" schauen?
-- Oder: Einfach nur telefonieren und reden
-- Oder: Zusammen Musik hören
+Ich mache natürlich mit! Wir schauen dann zusammen unsere kleinen Kunstwerke an. 
 
-DRESSCODE: Hoodie & Jogginghose Pflicht! 😊
-
-ZEIT: Heute Abend, 19:00 Uhr?
-
-Machst du mit? 🧸💕`,
-      author: 'Locdoc',
+Bist du dabei? 📱✨`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 10)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 11: Romantisch
     {
       dayNumber: 11,
-      title: 'Gaming Challenge! �',
-      contentType: 'GAME_CHALLENGE',
-      contentTypeA: 'GAME_CHALLENGE',
-      contentA: `🎮 GAMING-NIGHT!
+      title: '💝 Gründe warum ich dich liebe',
+      contentTypeA: 'LOVE_LETTER',
+      contentA: `💝 11 GRÜNDE WARUM ICH DICH LIEBE 💝
 
-SPIELE: Among Us & Minecraft
-ZEIT: Heute, 19:00 Uhr
-ORT: Discord
+Heute am 11. Dezember bekommst du 11 Gründe (aber es gibt tausende mehr):
 
-🎯 CHALLENGES:
+1️⃣ **Dein Lachen** - Es ist ansteckend und macht jeden schlechten Tag besser
 
-AMONG US (3 Runden):
-- Wer ist der bessere Imposter?
-- Wer überlebt am längsten als Crewmate?
-- Wer findet mehr Imposters?
+2️⃣ **Deine Spontanität** - Mit dir wird es nie langweilig
 
-MINECRAFT (1 Stunde):
-- Wer baut das schönere Haus?
-- Wer findet mehr Diamanten?
-- Wer überlebt die erste Nacht besser?
+3️⃣ **Dein Herz** - Du kümmerst dich so sehr um die Menschen, die du liebst
 
-ZUSATZ-CHALLENGE:
-Verlierer macht morgen Frühstück (virtuell 😄)!
+4️⃣ **Deine Stärke** - Du gibst nie auf, egal wie schwer es wird
 
-REGELN:
-✅ Kein Rage-Quitting!
-✅ Viel Gelächter erwünscht
-✅ Screenshots von witzigen Momenten!
+5️⃣ **Deine Verspieltheit** - Du erinnerst mich daran, das Leben nicht zu ernst zu nehmen
 
-Bereit zu verlieren? �`,
-      author: 'Locdoc',
+6️⃣ **Deine Intelligenz** - Unsere Gespräche sind nie oberflächlich
+
+7️⃣ **Deine Art zu lieben** - Bedingungslos, echt, intensiv
+
+8️⃣ **Deine Träume** - Sie inspirieren mich, meine eigenen zu verfolgen
+
+9️⃣ **Deine Ehrlichkeit** - Ich kann immer ich selbst sein bei dir
+
+🔟 **Deine kleinen Macken** - Sie machen dich zu der Person, in die ich mich verliebt habe
+
+1️⃣1️⃣ **Einfach ALLES** - Du bist perfekt, genau so wie du bist
+
+Ich liebe dich mehr als Worte es je sagen könnten. 🧡💖
+
+Dein Locdoc, für immer und ewig ✨`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 11)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 12: Spiel
     {
       dayNumber: 12,
-      title: 'Kuschel-Quiz 💕',
-      contentType: 'CUDDLE_QUIZ',
-      contentTypeA: 'CUDDLE_QUIZ',
-      contentA: `💕 KUSCHEL-QUIZ
-
-Beantworte folgende wichtige Fragen (für unser erstes ECHTES Kuscheln!):
-
-1️⃣ Lieblings-Kuschel-Position?
-   A) Kleiner Löffel
-   B) Großer Löffel
-   C) Face-to-Face
-   D) Chaotisch übereinander
-
-2️⃣ Optimale Kuschel-Temperatur?
-   A) Mega warm mit 5 Decken
-   B) Eine leichte Decke reicht
-   C) Keine Decke, nur Körperwärme
-   D) Ich bin ein Hitze-Ofen
-
-3️⃣ Kuschel-Soundtrack?
-   A) Totale Stille
-   B) Leise Musik
-   C) Film/Serie im Hintergrund
-   D) Regen-Geräusche
-
-4️⃣ Kuschel-Dauer?
-   A) 5 Minuten dann wird's zu warm
-   B) 30 Minuten sweet spot
-   C) 2+ Stunden Marathon
-   D) Ganzen Tag!
-
-5️⃣ Beste Kuschel-Zeit?
-   A) Morgens beim Aufwachen
-   B) Nachmittags Nickerchen
-   C) Abends vor dem Schlafen
-   D) Jederzeit! Immer!
-
-Deine Antworten? Ich muss das wissen für unser Treffen! 🤔�`,
-      author: 'Locdoc',
-      responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 12)
+      title: '🎮 Quiz: Wie gut kennst du mich?',
+      contentTypeA: 'QUIZ_JSON',
+      contentA: `{
+  "title": "Wie gut kennst du deinen Locdoc?",
+  "questions": [
+    {
+      "question": "Was ist mein absolutes Comfort Food?",
+      "options": ["Pizza Margherita", "Spaghetti Carbonara", "Burger mit Pommes", "Sushi"],
+      "correctAnswer": 0
     },
+    {
+      "question": "Welcher Film ist mein heimlicher Guilty Pleasure?",
+      "options": ["Fast & Furious", "The Notebook", "Star Wars", "Marvel Movies"],
+      "correctAnswer": 1
+    },
+    {
+      "question": "Was mache ich als erstes am Morgen?",
+      "options": ["Kaffee machen", "Handy checken", "An dich denken", "Sport machen"],
+      "correctAnswer": 2
+    },
+    {
+      "question": "Was ist mein Lieblingscompliment von dir?",
+      "options": ["Dass ich gut aussehe", "Dass ich klug bin", "Dass ich dich zum Lachen bringe", "Dass du stolz auf mich bist"],
+      "correctAnswer": 3
+    },
+    {
+      "question": "Wovon träume ich für unsere Zukunft?",
+      "options": ["Weltreise", "Gemeinsames Zuhause", "Hund adoptieren", "Alles davon!"],
+      "correctAnswer": 3
+    },
+    {
+      "question": "Was bedeutet mir am meisten an unserer Beziehung?",
+      "options": ["Die Gespräche", "Dass ich ich selbst sein kann", "Dein Support", "Einfach alles"],
+      "correctAnswer": 3
+    }
+  ]
+}`,
+      authorA: 'Locdoc',
+      responseMode: 'OPEN',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
+    },
+
+    // Tag 13: Gemütlich
     {
       dayNumber: 13,
-      title: 'Decken-Burrito 🌯',
-      contentType: 'BLANKET_BURRITO',
-      contentTypeA: 'BLANKET_BURRITO',
-      contentA: `🌯 DECKEN-BURRITO ANLEITUNG
+      title: '☕ Perfekter gemütlicher Abend',
+      contentTypeA: 'COZY_EVENING',
+      contentA: `☕ REZEPT FÜR DEN PERFEKTEN KUSCHELABEND ☕
 
-Du siehst heute aus als könntest du einen DECKEN-BURRITO gebrauchen!
+Heute bekommst du von mir das Rezept für unseren perfekten gemeinsamen Abend:
 
-ZUTATEN:
-🛌 1x große weiche Decke
-🧸 1x du
-☕ Optional: heißer Kakao
-🍫 Optional: Schokolade
-📱 Optional: Handy für unsere Nachrichten
+**Zutaten:**
+- 1 weiche Decke (am besten flauschig)
+- 2 große Tassen heißen Kakao mit Marshmallows
+- Kuschelklamotten (Jogginghose ist Pflicht!)
+- Kerzenlicht (3-5 Stück für die Atmosphäre)
+- 1 guter Film oder unsere Lieblingsserie
+- Snacks nach Wahl (Chips, Schokolade, alles erlaubt!)
+- Unbegrenzt viel Zeit
 
-ZUBEREITUNG:
-1. Decke flach ausbreiten
-2. Dich in die Mitte legen
-3. Einrollen wie einen Burrito
-4. Nicht mehr bewegen
+**Zubereitung:**
+1. Handy auf lautlos stellen (außer für uns!)
+2. Gemütliche Ecke auf dem Sofa vorbereiten
+3. Dich in meine Arme kuscheln (wichtigster Schritt!)
+4. Film starten, aber eigentlich mehr reden als schauen
+5. Zwischendurch Küsse nicht vergessen
+6. Einfach genießen und die Zeit anhalten
 
-SERVIERVORSCHLAG:
-Am besten auf Sofa/Bett
-Mit Netflix oder Hörbuch
-Bleib mindestens 2 Stunden so!
+**Serviervorschlag:**
+Am besten regelmäßig wiederholen! 💕
 
-WARNUNG: Kann süchtig machen! 🥰
+**Schwierigkeitsgrad:** Leicht
+**Zubereitungszeit:** Ein ganzes Leben lang
+**Ergebnis:** Perfektion ✨
 
-Mach ein Foto von deinem Burrito-Status und schick's mir! 😄📸
+Wann machen wir das das nächste Mal? 🥰
 
-EXTRA: Ich mach auch einen und wir facetimen als Burritos! 🌯🌯`,
-      author: 'Locdoc',
+In Kuschellaune,
+Dein Locdoc 🧡`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 13)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 14: Musik
     {
       dayNumber: 14,
-      title: 'Regentag-Programm 🌧️',
-      contentType: 'RAINY_DAY',
-      contentTypeA: 'RAINY_DAY',
-      contentA: `🌧️ REGENTAG-PROGRAMM
+      title: '🎵 Unsere Love Songs',
+      contentTypeA: 'MUSIC_PLAYLIST',
+      contentA: `🎵 DIE SOUNDTRACK UNSERER LIEBE 🎵
 
-Egal ob es regnet oder nicht - HEUTE ist offiziell Cozy-Day!
+Ich habe dir eine Playlist zusammengestellt mit Liedern, die mich an uns erinnern:
 
-REGENTAG-AKTIVITÄTEN:
-☔ Regen am Fenster beobachten (oder imaginären Regen 😄)
-☕ Heißen Tee/Kakao trinken
-📚 Buch lesen (oder ich les dir was vor?)
-🎵 Regen-Playlist hören
-🍪 Kekse backen (schick mir Fotos!)
-🛋️ Kuscheldecke + Film Marathon
-🕯️ Kerzen anzünden
-💤 Power-Nap machen
-🎨 Etwas kreatives machen
-💭 Einfach nur chillen
+**💕 Unsere Love Songs:**
 
-REGENTAG-REGEL:
-Niemand muss raus! Niemand muss produktiv sein!
-Heute ist offiziell Faulenzen erlaubt! 🌈
+1. **"Perfect" - Ed Sheeran**
+   ↳ *Weil du genau das bist: perfekt für mich*
 
-BONUS: Später zusammen Pfützen-Spring-Videos schauen? 😄
+2. **"All of Me" - John Legend**
+   ↳ *I give you all of me, and you give me all of you*
 
-Was machst du an deinem perfekten Regentag?`,
-      author: 'Locdoc',
+3. **"Thinking Out Loud" - Ed Sheeran**
+   ↳ *Unser Tanz-in-der-Küche Song*
+
+4. **"A Thousand Years" - Christina Perri**
+   ↳ *I have loved you for a thousand years...*
+
+5. **"Die With A Smile" - Bruno Mars & Lady Gaga**
+   ↳ *Unser neuester Favorit!*
+
+6. **"Lover" - Taylor Swift**
+   ↳ *We could leave the Christmas lights up 'til January*
+
+7. **"Everything" - Michael Bublé**
+   ↳ *You're every line, you're every word, you're everything*
+
+8. **"Make You Feel My Love" - Adele**
+   ↳ *I could make you happy, make your dreams come true*
+
+**🎧 Hör-Anweisung:**
+Am besten zusammen hören, Video-Call an, Kerzen an, und einfach nur fühlen.
+
+Welches Lied würdest du hinzufügen? 💕
+
+Musikalische Grüße,
+Dein Locdoc 🎶`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 14)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 15: Halbzeit!
     {
       dayNumber: 15,
-      title: 'Halbzeit! �',
-      contentType: 'GRATITUDE',
-      contentTypeA: 'GRATITUDE',
-      contentA: `🎊 HALBZEIT - WIR HABEN'S ZUR HÄLFTE GESCHAFFT! 🎊
+      title: '🎊 Halbzeit-Feier!',
+      contentTypeA: 'CELEBRATION',
+      contentA: `🎊 HALBZEIT! WIR HABEN DIE HÄLFTE GESCHAFFT! 🎊
 
-15 von 24 Türchen sind offen. Nur noch 9 Tage bis Weihnachten!
+15 Tage sind vorbei, 9 Tage noch bis Weihnachten!
 
-DANKBARKEITS-MOMENT:
+**Lass uns feiern mit:**
 
-Ich bin dankbar für...
-- Jeden "Guten Morgen" Text von dir
-- Unsere nächtlichen Gespräche bis 3 Uhr
-- Dass du meine verrückten Ideen mitmachst
-- Dein Lachen, das ich auch durchs Handy hören kann
-- Dass du BLEIBST, trotz der Entfernung
+🎉 **Mini-Challenge:**
+Schick mir heute 15 Dinge, für die du dankbar bist!
+(Ich mache das Gleiche!)
 
-Die letzten 15 Tage waren besonders. Die nächsten 9 werden noch besser.
+🍾 **Virtueller Champagner-Toast:**
+Heute Abend um 20:00 Uhr - Video-Call!
+Nimm dein Lieblingsgetränk und wir stoßen an!
 
-UND DANN: Nur noch [X] Tage bis zu unserem Treffen! 🚀
+💌 **Erinnerung:**
+Die erste Hälfte war wundervoll. Die zweite wird noch besser!
 
-Wofür bist DU dankbar? Schreib mir 5 Dinge! 💕
+🎁 **Kleiner Teaser:**
+Die nächsten Tage werden noch überraschender...
+Und am Ende wartet etwas ganz Besonderes auf dich! 😉
 
-Die besten Türchen kommen noch... ich hab mir was Besonderes für dich überlegt! 😊✨`,
-      author: 'Locdoc',
+**Was bisher geschah:**
+✨ Wir haben gelacht
+💕 Wir haben uns noch mehr verliebt
+🎮 Wir haben gespielt
+📖 Wir haben Erinnerungen geteilt
+🎵 Wir haben unsere Songs gefeiert
+
+**Was noch kommt:**
+👀 Das bleibt eine Überraschung!
+
+Auf uns! 🥂
+
+Dein stolzer Locdoc 🧡`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 15)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 16: Kreativ
     {
       dayNumber: 16,
-      title: 'Massage-Gutschein 💆',
-      contentType: 'MASSAGE_COUPON',
-      contentTypeA: 'MASSAGE_COUPON',
-      contentA: `💆 MASSAGE-GUTSCHEIN
+      title: '🎨 Male mir etwas',
+      contentTypeA: 'CREATIVE_CHALLENGE',
+      contentA: `🎨 KREATIV-CHALLENGE: MALE MIR ETWAS! 🎨
 
-✨ DIESER GUTSCHEIN BERECHTIGT ZU: ✨
+Heute darfst du kreativ werden!
 
-🙌 EINE 30-MINUTEN MASSAGE
-📍 ORT: Bei unserem nächsten Treffen!
-⏰ ZEIT: Nach deiner Wahl
+**Deine Aufgabe:**
+Male, zeichne oder bastle etwas, das uns beide repräsentiert!
 
-LEISTUNGEN:
-✅ Schulter-Massage (du bist bestimmt verspannt!)
-✅ Rücken-Massage (entspannend!)
-✅ Kopf-Massage (so gut!)
-✅ Hand-Massage
-✅ Fuß-Massage (wenn du willst!)
+**Es kann sein:**
+- Ein Bild von uns beiden (Strichmännchen erlaubt!)
+- Ein Symbol für unsere Liebe
+- Eine Collage aus Fotos oder Zeitschriften
+- Ein abstraktes Kunstwerk
+- Etwas komplett Verrücktes!
 
-EXTRAS INKLUSIVE:
-- Entspannende Musik 🎵
-- Gedimmtes Licht 🕯️
-- Danach: Kuscheln 🧸
-- Garantiert professionell... oder zumindest bemüht! 😄
+**Regeln:**
+✅ Keine Profi-Skills nötig!
+✅ Hauptsache von Herzen!
+✅ So kreativ und chaotisch wie du willst!
+✅ Foto davon schicken!
 
-BEDINGUNGEN:
-- Keine Rückgabe
-- Nicht übertragbar
-- Unbegrenzt gültig
-- Kann mehrfach eingelöst werden 😊
+**Mein Versprechen:**
+Ich hänge dein Kunstwerk auf (egal wie "gut" es ist)!
+Und ich male dir auch etwas! 🎨
 
-Freu dich drauf! 💕`,
-      author: 'Locdoc',
-      responseMode: 'DISABLED',
-      availableFrom: new Date(2025, 11, 16)
+**Inspiration:**
+- Unsere Lieblingsfarben
+- Dinge, die wir zusammen gemacht haben
+- Insider-Jokes
+- Zukunftsträume
+
+Ich bin SO gespannt, was du kreierst! 
+Deine künstlerische Seite fasziniert mich! 💕
+
+In kreativer Vorfreude,
+Dein Locdoc ✏️`,
+      authorA: 'Locdoc',
+      responseMode: 'OPEN',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 17: Romantisch
     {
       dayNumber: 17,
-      title: 'Sternengucken ⭐',
-      contentType: 'STARGAZING',
+      title: '💫 Sternschnuppen-Wünsche',
       contentTypeA: 'STARGAZING',
-      contentA: `⭐ STERNENGUCKEN
+      contentA: `💫 STERNSCHNUPPEN-WÜNSCHE 💫
 
-Heute Abend: STERNENBEOBACHTUNG! (jeder bei sich, aber zur selben Zeit!)
+Heute Nacht schauen wir zusammen in die Sterne!
 
-📍 ORT:
-Balkon/Garten/Fenster - wo du den Himmel siehst
+**Unser virtuelles Stargazing:**
 
-🛋️ SETUP:
-- Decken zum Einwickeln (wird kalt!)
-- Kissen für Kopf
-- Warme Jacke/Hoodie
-- Heißgetränk in Thermoskanne
+🌟 **20:30 Uhr** - Video-Call starten
+🌃 **20:45 Uhr** - Beide ans Fenster oder raus
+⭐ **21:00 Uhr** - Gemeinsam Sterne suchen
+💫 **21:30 Uhr** - Wünsche teilen
 
-✨ WAS WIR SEHEN KÖNNEN:
-- Sternbilder: Orion, Großer Wagen, Kassiopeia
-- Planeten: Jupiter & Venus (hell!)
-- Vielleicht Sternschnuppen? 💫
+**Wenn du eine Sternschnuppe siehst, darfst du dir was wünschen!**
 
-🎵 PLAN:
-- 21:00 Uhr: Beide raus gehen
-- Telefonieren während wir Sterne anschauen
-- Über Universum & verrückte Weltraum-Fakten reden
-- Wünsche bei Sternschnuppen!
+**Meine 3 Wünsche (psst, nicht weitersagen!):**
 
-💭 GESPRÄCHSTHEMEN:
-- Was wäre wenn wir auf dem Mond wären?
-- Unsere Träume & Zukunft
-- Verrückte "Was wäre wenn" Szenarien
+1. Dass wir bald wieder in echt zusammen sind
+2. Dass du immer so glücklich bleibst
+3. Dass wir irgendwann zusammen unter echten Sternenhimmel liegen
 
-Heute Nacht? Gleiche Sterne, verschiedene Orte, zusammen im Herzen. 🌙💕`,
-      author: 'Locdoc',
+**Aufgabe:**
+Finde den Polarstern und denk an mich!
+Ich mache das Gleiche! 💫
+
+**Fun Facts:**
+- Die meisten Sterne, die wir sehen, sind längst erloschen
+- Aber unsere Liebe brennt heller als jeder Stern ✨
+- Die Wahrscheinlichkeit dich zu finden war wie eine Sternschnuppe
+- Aber ich hab dich trotzdem gefunden! 💕
+
+Zieh dich warm an, mein Stern! 🧡
+
+In kosmischer Liebe,
+Dein Locdoc 🌌`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 17)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 18: Spiel
     {
       dayNumber: 18,
-      title: 'Frühstück im Bett �️',
-      contentType: 'BREAKFAST_IN_BED',
-      contentTypeA: 'BREAKFAST_IN_BED',
-      contentA: `🛏️ FRÜHSTÜCK IM BETT GUTSCHEIN
+      title: '🎯 Wahrheit oder Pflicht',
+      contentTypeA: 'TRUTH_OR_DARE',
+      contentA: `🎯 WAHRHEIT ODER PFLICHT 🎯
 
-Bei unserem nächsten Treffen: Du bleibst liegen - ich kümmere mich um alles!
+Zeit für etwas Mutiges! (Aber jugendfreie Version 😄)
 
-MENÜ (nach deinen Wünschen):
-🥐 Croissants oder Brötchen
-🍳 Rührei oder Spiegelei
-🥣 Müsli mit Joghurt
-🍓 Frisches Obst
-☕ Kaffee (oder Tee!)
-🥤 Frischer O-Saft
+**WAHRHEITEN:**
+1. Was war dein erster Gedanke über mich?
+2. Was ist deine größte Angst in Bezug auf uns?
+3. Wann wusstest du, dass du mich liebst?
+4. Was ist das Verrückteste, das du für mich tun würdest?
+5. Welchen Spitznamen hast du mir gegeben (den ich nicht kenne)?
 
-EXTRAS:
-- Frische Blume in Vase 🌸
-- Serviette kunstvoll gefaltet (ich versuch's! 😄)
-- Kleine Überraschung unterm Teller
+**PFLICHTEN:**
+1. Schick mir ein peinliches Foto von dir
+2. Ruf mich an und sing mir ein Lied vor
+3. Poste etwas über mich in deiner Story
+4. Schreib mir ein Gedicht (Reimt sich nicht? Egal!)
+5. Tanz zu deinem Lieblingslied und schick mir ein Video
 
-UNTERHALTUNG:
-📱 Handy zum Scrollen
-📰 Oder etwas zum Lesen
-🎵 Leise Musik im Hintergrund
+**Die Regeln:**
+- Wir spielen abwechselnd
+- Du kannst maximal 2x "Pflicht" wählen hintereinander
+- Bei Wahrheit muss die Antwort ehrlich sein!
+- Bei Pflicht gibt es kein Zurück! 😁
 
-REGEL: Du darfst erst aufstehen wenn du komplett fertig bist! 😊
+Ich fange an: **WAHRHEIT!**
 
-ZEITPUNKT: Bei unserem Treffen, an einem Morgen deiner Wahl!
+Frag mich etwas! 💕
 
-Freu dich drauf! 🥰`,
-      author: 'Locdoc',
-      responseMode: 'DISABLED',
-      availableFrom: new Date(2025, 11, 18)
+Gespannt wartend,
+Dein Locdoc 🎲`,
+      authorA: 'Locdoc',
+      responseMode: 'OPEN',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 19: Zukunft
     {
       dayNumber: 19,
-      title: 'Film-Nest Setup 🎬',
-      contentType: 'MOVIE_NEST',
-      contentTypeA: 'MOVIE_NEST',
-      contentA: `🎬 FILM-NEST SETUP
+      title: '🏠 Unsere Zukunft zusammen',
+      contentTypeA: 'LIFE_GOALS',
+      contentA: `🏠 TRÄUME VON MORGEN 🏠
 
-HEUTE bauen wir das ultimative Cozy-Film-Nest! (jeder bei sich, aber synchron!)
+Lass uns über die Zukunft sprechen. Unsere Zukunft. 💕
 
-NEST-BASIS:
-🛋️ Sofa/Bett komplett umbauen
-🛏️ ALLE Kissen & Decken sammeln
-✨ Lichterkette aufhängen
-🕯️ Duftkerze anzünden
+**In 1 Jahr möchte ich:**
+- Dass die Entfernung kleiner geworden ist
+- Dass wir mindestens 3 große Trips zusammen gemacht haben
+- Dass du weißt, wie ernst ich es mit uns meine
 
-VERPFLEGUNG:
-🍿 Popcorn (salzig UND süß!)
-🍫 Schokolade
-🍕 Pizza bestellen für später?
-🥤 Getränke in Reichweite
+**In 5 Jahren träume ich von:**
+- Einem gemeinsamen Zuhause (egal wo)
+- Einem Hund, den wir zusammen ausführen
+- Sonntagmorgen mit dir und Kaffee im Bett
+- Dass "wir" selbstverständlich geworden ist
 
-FILM-AUSWAHL (zusammen entscheiden):
-Option 1: Love Actually
-Option 2: Der Grinch
-Option 3: Kevin allein zu Haus
-Backup: Deine Lieblingsserie
+**In 10 Jahren sehe ich:**
+- Uns beide, immer noch verliebt wie am ersten Tag
+- Vielleicht eine kleine Familie?
+- Einen Garten, den wir zusammen pflegen
+- Erinnerungen an tausend Abenteuer
 
-REGELN:
-✅ Handys auf stumm (außer unsere Nachrichten!)
-✅ Kein Aufstehen außer Notfall
-✅ Kuscheln mit Kissen (ich wär lieber da 😊)
-✅ Kommentieren des Films erwünscht!
+**Für immer wünsche ich mir:**
+- Jeden Tag mit dir aufwachen zu können
+- Nie aufhören, Gründe zu finden, dich zu lieben
+- Zusammen alt werden
+- Dass du glücklich bist - mit mir an deiner Seite
 
-ZEIT: Heute, 20:00 Uhr?
+**Jetzt bist du dran:**
+Was sind deine Träume für uns? 
+Lass uns diese Zukunft zusammen bauen! 🏗️💕
 
-Bereit für den besten Filmabend? 🎥💕`,
-      author: 'Locdoc',
-      responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 19)
+In hoffnungsvoller Vorfreude,
+Dein Locdoc 🧡✨`,
+      authorA: 'Locdoc',
+      responseMode: 'COLLABORATIVE',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 20: Persönlich
     {
       dayNumber: 20,
-      title: 'Slow Morning 🌅',
-      contentType: 'SLOW_MORNING',
-      contentTypeA: 'SLOW_MORNING',
-      contentA: `☀️ LANGSAMER MORGEN - GUTSCHEIN
+      title: '💝 Was du für mich bist',
+      contentTypeA: 'LOVE_LETTER',
+      contentA: `💝 WAS DU FÜR MICH BIST 💝
 
-Diesen Sonntag machen wir einen SLOW MORNING!
+Meine liebste Miss Chaos,
 
-⏰ KEIN WECKER!
-Wir stehen auf wenn wir aufwachen
+es gibt Tage, an denen ich innehalte und mich frage: "Wie hatte ich Glück, dich zu finden?"
 
-🛌 AUSSCHLAFEN:
-Alle Zeitlimits sind aufgehoben
+Du bist nicht nur meine Freundin. Du bist so viel mehr:
 
-☕ GEMÜTLICHES FRÜHSTÜCK:
-Wir nehmen uns Zeit
-Vielleicht zusammen "frühstücken" (facetime)?
+Du bist mein **sicherer Hafen** - der Ort, wo ich sein kann, wer ich wirklich bin.
 
-🧘 ENTSPANNTE AKTIVITÄTEN:
-- Im Bett rumliegen ✅
-- Miteinander schreiben ✅
-- Telefonieren ✅
-- Musik hören ✅
-- Raus schauen ✅
-- Einfach sein ✅
+Du bist mein **Abenteuer** - mit dir wird das Leben nie langweilig.
 
-📵 REGEL:
-Keine stressigen Nachrichten checken
-Kein Social Media
-Nur wir beide und Ruhe
+Du bist meine **Motivation** - du glaubst an mich, auch wenn ich es nicht tue.
 
-⏱️ ZEITLIMIT:
-Bis mindestens 12:00 Uhr dürfen wir NICHTS produktives tun!
+Du bist mein **Zuhause** - egal wo auf der Welt, mit dir bin ich daheim.
 
-Kommenden Sonntag? Oder dieses Wochenende? 🥰`,
-      author: 'Locdoc',
+Du bist meine **beste Freundin** - niemand versteht mich so wie du.
+
+Du bist meine **Inspiration** - du machst mich zu einem besseren Menschen.
+
+Du bist meine **Realität** - besser als jeder Traum, den ich je hatte.
+
+Aber vor allem: Du bist meine **große Liebe**.
+
+Die Entfernung ist hart. Die Sehnsucht ist real. Aber weißt du was? Es ist es wert. DU bist es wert. Jeden einzelnen schweren Moment wert.
+
+Denn am Ende des Tages gibt es nichts Wichtigeres als dich.
+
+Danke, dass du existierst. Danke, dass du mich liebst. Danke, dass du du bist.
+
+Ich liebe dich über alles. 🧡💖
+
+Für immer dein,
+Locdoc
+
+PS: Nur noch 4 Türchen! Halt durch, die besten kommen noch! ✨`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 20)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 21: Countdown
     {
       dayNumber: 21,
-      title: 'Unsere Lebensziele 🎯',
-      contentType: 'LIFE_GOALS',
-      contentTypeA: 'LIFE_GOALS',
-      contentA: `🎯 UNSERE LEBENSZIELE
+      title: '⏰ Countdown zu Weihnachten',
+      contentTypeA: 'COUNTDOWN',
+      contentA: `⏰ 3 TAGE BIS WEIHNACHTEN! ⏰
 
-Lass uns über die Zukunft reden - UNSERE Zukunft!
+Es wird ernst! Nur noch 3 Türchen nach diesem! 🎄
 
-IN 1 JAHR (2026):
-- Wo wollen wir sein?
-- Was wollen wir erreicht haben?
-- Wie sieht unsere Beziehung aus?
+**Dein Weihnachts-Countdown-Plan:**
 
-IN 5 JAHREN (2030):
-- Wo wohnen wir?
-- Was machen wir beruflich?
-- Große Reisen? Zusammenleben?
+🎅 **Heute (21.12.):**
+- Gemütlich machen
+- Weihnachtsmusik hören
+- An mich denken 💕
 
-IN 10 JAHREN (2035):
-- Wie sieht unser Leben aus?
-- Was ist uns wichtig?
-- Verrückte Träume?
+🎄 **Morgen (22.12.):**
+- Letzter Vorbereitungstag
+- Vorfreude aufbauen
+- Video-Call am Abend!
 
-GEMEINSAME ZIELE:
-1. [Schreib mir deine Ideen!]
-2. 
-3. 
+🎁 **Übermorgen (23.12.):**
+- Aufregung steigt
+- Fast geschafft!
+- Eine besondere Überraschung wartet...
 
-MEINE ZIELE FÜR UNS:
-- Endlich keine Fernbeziehung mehr
-- Zusammen aufwachen
-- Gemeinsame Wohnung?
-- Zusammen alt werden 💕
+❄️ **Heiligabend (24.12.):**
+- DAS FINALE!
+- Die größte Überraschung
+- Und ein Hinweis auf etwas NOCH Größeres... 👀
 
-Was sind DEINE Ziele für uns? Schreib mir alles! Keine Träume sind zu groß! 🚀`,
-      author: 'Locdoc',
-      responseMode: 'COLLABORATIVE',
-      availableFrom: new Date(2025, 11, 21)
+**Mini-Challenge:**
+Schick mir jeden dieser 3 Tage:
+- Ein Foto von deinem Tag
+- Eine Sache, auf die du dich freust
+- Ein "Ich liebe dich" (bitte! 🥰)
+
+Die Endphase hat begonnen! 🎊
+
+Aufgeregt wie ein Kind,
+Dein Locdoc 🧡`,
+      authorA: 'Locdoc',
+      responseMode: 'OPEN',
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 22: Vorbereitung
     {
       dayNumber: 22,
-      title: 'Countdown zu Weihnachten ⏰',
-      contentType: 'COUNTDOWN',
-      contentTypeA: 'COUNTDOWN',
-      contentA: `⏰ COUNTDOWN
+      title: '🎄 Weihnachtsstimmung',
+      contentTypeA: 'COZY_EVENING',
+      contentA: `🎄 PERFEKTE WEIHNACHTSSTIMMUNG 🎄
 
-Nur noch 3 Tage bis Weihnachten! 🎄
+Nur noch 2 Tage! Lass uns die Vorfreude zelebrieren! 
 
-WAS PASSIERT DANN:
-Weihnachten! Und unser erstes Weihnachten "zusammen" (virtuell, aber bald real!)
+**Deine Aufgabe für heute:**
 
-DARAUF FREUE ICH MICH:
-- Geschenke austauschen (hab ich schon!)
-- Zusammen Weihnachtsfilme schauen
-- Den ganzen Tag miteinander verbringen
-- Dich glücklich machen 💕
+☕ **Mach dir was Warmes:**
+Tee, Kakao, Glühwein - egal, Hauptsache gemütlich!
 
-VORBEREITUNG:
-[X] Geschenk besorgt
-[X] Weihnachtsfilm ausgesucht
-[X] Plätzchen gebacken
-[ ] Noch 2 Türchen öffnen!
+🕯️ **Kerzen anzünden:**
+So viele wie möglich! (Aber sicher! 🔥)
 
-EXTRA COUNTDOWN:
-Und nur noch [X] Tage bis zu unserem ECHTEN Treffen! 🚀
+🎵 **Weihnachtsmusik:**
+"Last Christmas", "All I Want For Christmas" - die Klassiker!
 
-Die Spannung steigt! Bist du auch schon so aufgeregt? 😊✨`,
-      author: 'Locdoc',
+📱 **Video-Call heute Abend:**
+20:00 Uhr - Wir schauen zusammen einen Weihnachtsfilm!
+(Ich stimme für "Tatsächlich Liebe" oder "Der Grinch"!)
+
+💭 **Denk an:**
+- Alle schönen Momente dieses Jahr
+- Was du dir für nächstes Jahr wünschst
+- Wie sehr ich dich liebe 💕
+
+**Kleiner Teaser für morgen:**
+🎁 Tag 23 wird emotional...
+🎁 Tag 24 wird MEGA...
+🎁 Und dann... kommt die SILVESTER-MISSION! 🚀
+
+Ich kann es kaum erwarten! Du auch? 🥰
+
+In festlicher Stimmung,
+Dein Locdoc 🎅🧡`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 22)
+      linkedToPrevious: false,
+      linkedToNext: false,
+
     },
+
+    // Tag 23: Emotional
     {
       dayNumber: 23,
-      title: 'Vor dem großen Tag... 💝',
-      contentType: 'APPRECIATION',
-      contentTypeA: 'APPRECIATION',
-      contentA: `💝 VOR DEM GROSSEN TAG...
+      title: '💫 Danke für dieses Jahr',
+      contentTypeA: 'LOVE_LETTER',
+      contentA: `💫 DANKE FÜR DIESES JAHR 💫
 
-Morgen ist Heiligabend. Das letzte Türchen.
+Mein Schatz,
 
-ABER HEUTE möchte ich einfach nur DANKE sagen.
+morgen ist Weihnachten. Aber heute möchte ich einfach nur Danke sagen.
 
-DANKE FÜR:
-- Jeden "Guten Morgen" Text
-- Jede durchlachte Nacht bis 3 Uhr
-- Deine Geduld wenn ich spamme
-- Dass du meine verrückten Ideen mitmachst
-- Dein Verständnis an schlechten Tagen
-- Dass du BLEIBST
+**Danke für:**
 
-DANKE DASS DU:
-- Mich zum Lachen bringst
-- Mich verstehst
-- Mich erträgst 😄
-- Mich liebst
+💕 Jede Nachricht, die meinen Tag besser gemacht hat
+📞 Jeden Anruf, egal wie spät oder früh
+😂 Jeden Lacher, den wir geteilt haben
+😢 Jede Träne, die du mir abgewischt hast
+🎉 Jede Feier, die du mit mir geteilt hast
+😔 Jeden schweren Moment, den wir gemeistert haben
+💪 Jede Motivation, die du mir gegeben hast
+🌟 Jeden Traum, den du mit mir träumst
+⏰ Jede Minute, die du mir schenkst
+❤️ Jedes "Ich liebe dich"
 
-Diese 23 Tage waren besonders. Nicht wegen dem Kalender.
-Sondern weil ich sie mit DIR teilen durfte.
+**Danke dafür, dass du:**
+- Geduldig mit mir bist
+- An uns glaubst
+- Die Entfernung erträgst
+- Mich so liebst, wie ich bin
+- Meine verrückte Seite magst
+- Meine ernste Seite verstehst
+- Niemals aufgibst
+- Einfach DU bist
 
-Morgen kommt das Finale. Aber eigentlich...
-ist jeder Tag mit dir ein Geschenk.
+Dieses Jahr war nicht immer leicht. Aber mit dir an meiner Seite war es das beste Jahr meines Lebens.
 
-Ich hab dich lieb, Miss Chaos. 💖
+Und nächstes Jahr? Wird noch besser. Versprochen. 💫
 
+Ich liebe dich mehr als alles auf dieser Welt.
+
+Morgen kommt das Finale. Aber das ist nicht das Ende.
+Das ist erst der Anfang von allem. 🚀
+
+In tiefer Dankbarkeit und Liebe,
 Dein Locdoc 🧡
 
-P.S.: Morgen wird besonders. Versprochen. ✨`,
-      author: 'Locdoc',
+PS: Morgen wird magisch. Versprochen. ✨`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 23)
+      linkedToPrevious: false,
+      linkedToNext: true,
+
     },
+
+    // Tag 24: Das Finale!
     {
       dayNumber: 24,
-      title: 'Frohe Weihnachten! 🎄✨',
-      contentType: 'TEXT',
-      contentTypeA: 'TEXT',
-      contentA: `🎄✨ FROHE WEIHNACHTEN, MISS CHAOS! ✨🎄
+      title: '🎄 FROHE WEIHNACHTEN! 🎁',
+      contentTypeA: 'LOVE_LETTER',
+      contentA: `🎄✨ FROHE WEIHNACHTEN, MEIN SCHATZ! ✨🎄
 
-Wir haben es geschafft - alle 24 Türchen!
+WIR HABEN ES GESCHAFFT! 24 TAGE! 🎉
 
-24 Tage voller Überraschungen.
-24 Tage voller uns.
-24 Tage die zeigen sollten: Du bist mir wichtig.
+Meine allerliebste Miss Chaos,
 
-ABER DAS WAR NUR DER ANFANG.
+heute ist der Tag. Weihnachten. Das Fest der Liebe. Und ich möchte diesen besonderen Tag mit den wichtigsten Worten beginnen:
 
-Dieser Kalender endet heute.
-Aber WIR nicht.
+**ICH LIEBE DICH.** 💖🧡
 
-2026 wird UNSER Jahr.
-Das Jahr wo aus "irgendwann" ein "bald" wird.
-Das Jahr wo aus Kilometern Zentimeter werden.
-Das Jahr wo aus Bildschirmen echte Umarmungen werden.
+Diese 24 Tage waren eine Reise. Durch Erinnerungen, durch Träume, durch Lachen und manchmal auch Sehnsucht. Aber vor allem waren sie ein Zeichen meiner Liebe zu dir.
 
-Ich weiß, die Entfernung ist schwer.
-Aber du bist es wert.
-WIR sind es wert.
+**Mein Weihnachtsgeschenk an dich:**
+- Mein Herz (hast du schon, aber es ist immer noch das wertvollste, was ich habe)
+- Mein Versprechen, immer für dich da zu sein
+- Mein Traum, mit dir alt zu werden
+- Meine Hoffnung auf ein gemeinsames Leben
+- Meine Liebe - bedingungslos und für immer
 
-Also: FROHE WEIHNACHTEN! 🎅
+**Was ich mir von dir wünsche:**
+Eigentlich nichts. Du bist genug. Du bist mehr als genug.
+Du bist alles. 💫
 
-Danke für jeden Moment.
-Danke für jedes Lachen.
-Danke dass du DU bist.
+Aber wenn du mir etwas schenken möchtest:
+Schenk mir noch viele solcher Tage mit dir.
+Schenk mir dein Lächeln, wenn ich es am meisten brauche.
+Schenk mir deine Hand, und ich halte sie für immer.
 
-Ich hab dich lieb. Mehr als dieser Kalender je zeigen könnte. 💕
+**Das Weihnachtswunder:**
+Das Wunder ist nicht, dass heute Weihnachten ist.
+Das Wunder ist, dass es dich gibt.
+Und dass du mich liebst. 💕
 
-Dein Locdoc 🧡
+Frohe Weihnachten, mein Engel! 🎄
 
-P.S.: Ruf mich SOFORT an! Ich hab noch eine echte Überraschung! 📞🎁
+Für immer und ewig dein,
+Locdoc 🧡✨
 
-P.P.S.: Und das hier ist nicht das Ende... nur der Anfang von was Größerem. ✨
+---
 
-FROHE WEIHNACHTEN! 🎄❤️`,
-      author: 'Locdoc',
+**🎁 P.S. - WICHTIG! 🎁**
+
+Weihnachten ist vorbei, aber unsere Geschichte geht weiter!
+
+Es gibt noch EINE LETZTE MISSION... 🚀
+Ein geheimes Türchen zwischen den Jahren...
+Eine Aufgabe, die uns ins neue Jahr führt...
+
+**🎆 DIE SILVESTER-MISSION wartet auf dich! 🎆**
+
+*Hinweis: Schau nach dem 24. Dezember nochmal in den Kalender...*
+*Manche Geheimnisse offenbaren sich erst, wenn die Zeit reif ist...* ⏰✨
+
+🔒 *Aktivierung: 28. Dezember 2025* 🔒`,
+      authorA: 'Locdoc',
       responseMode: 'OPEN',
-      availableFrom: new Date(2025, 11, 24)
+      linkedToPrevious: true,
+      linkedToNext: false,
+
     }
   ];
 
+  // Erstelle alle Türchen
   for (const day of days) {
     // Entferne alte Felder die nicht mehr im Schema sind
-    const { contentType, content, author, availableFrom, ...validDay } = day as any;
+    const { contentType, content, author, ...validDay } = day as any;
     
-    await prisma.day.upsert({
-      where: { dayNumber: validDay.dayNumber },
-      update: validDay,
-      create: validDay
+    await prisma.day.create({
+      data: validDay
     });
+    console.log(`✅ Türchen ${day.dayNumber} erstellt`);
   }
 
-  console.log('✅ Seeding abgeschlossen! 24 Türchen wurden erstellt.');
+  console.log('✨ Seeding abgeschlossen! 24 Türchen wurden mit vollständigem Inhalt erstellt.');
+  console.log('🎄 Inklusive:');
+  console.log('   - Mehrteilige Love Story (Tag 4-6)');
+  console.log('   - Platform 9¾ Easter Egg Hinweis (Tag 9)');
+  console.log('   - Emotionales Weihnachtsfinale (Tag 23-24)');
+  console.log('   - Silvester-Mission Teaser (Tag 24)');
+  console.log('🎆 Nächster Schritt: Silvester-Kästchen implementieren!');
 }
 
 main()
