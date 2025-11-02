@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const currentYear = serverDate.getFullYear();
   
   // Kalender-Konfiguration
-  const CALENDAR_YEAR = parseInt(process.env.CALENDAR_YEAR || '2024');
+  const CALENDAR_YEAR = parseInt(process.env.CALENDAR_YEAR || '2025');
   const CALENDAR_MONTH = parseInt(process.env.CALENDAR_MONTH || '11'); // Dezember
   
   // Berechne, welche Türen entsperrt sind

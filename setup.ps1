@@ -26,7 +26,7 @@ if (-Not (Test-Path ".env")) {
 # Warnung für Passwort
 Write-Host ""
 Write-Host "⚠️  WICHTIG: Hast du das Passwort in der .env Datei geändert?" -ForegroundColor Yellow
-Write-Host "Standard-Passwort: IhrGeheimerCode2024" -ForegroundColor Yellow
+Write-Host "Standard-Passwort: IhrGeheimerCode2025" -ForegroundColor Yellow
 $response = Read-Host "Drücke Enter um fortzufahren (oder STRG+C zum Abbrechen)"
 Write-Host ""
 

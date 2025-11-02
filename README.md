@@ -17,8 +17,9 @@ npm run dev
 ```
 
 → **Kalender:** http://localhost:5173  
-→ **Admin:** http://localhost:5173/admin  
-→ **Passwort:** `weihnachten2024`
+→ **Passwort:** `weihnachten2025`  
+→ **Admin:** http://localhost:5173/admin (passwortgeschützt)  
+→ **Admin-Passwort:** `admin2025`
 
 ## ✨ Features
 
@@ -235,7 +236,7 @@ npx prisma db seed
 ### Türchen öffnet sich nicht:
 - Prüfe Systemdatum (muss aktuell sein)
 - Datenbank: `availableFrom` Feld prüfen
-- Im Seed: `new Date(2024, 11, X)` (11 = Dezember!)
+- Im Seed: `new Date(2025, 11, X)` (11 = Dezember!)
 
 ## 💡 Tipps
 
@@ -256,14 +257,30 @@ npx prisma db seed
 - **Woche 3:** Zukunft (Lebensziele, Bucket List, Traumboard)
 - **Woche 4:** Kreativ & Finale (Kunst, Foto-Challenge, Zeitkapsel)
 
-## 📊 Statistik
+## � Sicherheit
 
-- **50+** Content-Typen
-- **25+** Copy-Paste Vorlagen
+### Passwortschutz
+- **Kalender-Zugriff:** Geschützt mit `CALENDAR_PASSWORD`
+- **Admin-Bereich:** Zusätzlich geschützt mit `ADMIN_PASSWORD`
+- **Login-Seite:** `/admin/login` (automatischer Redirect)
+- **Logout:** `/admin/logout`
+
+### Umgebungsvariablen (.env)
+```bash
+CALENDAR_PASSWORD="weihnachten2025"
+ADMIN_PASSWORD="admin2025"
+CALENDAR_YEAR=2025
+```
+
+## �📊 Statistik
+
+- **65+** Content-Typen (inkl. 15 neue interaktive/gemeinsame Türchen)
+- **40+** Copy-Paste Vorlagen
 - **10** Kategorien
 - **5** Response-Modi
 - **24** Türchen
 - **2** Personen: Locdoc 🧡 & Miss Chaos 💖
+- **🔐** Admin-Bereich passwortgeschützt
 
 ## 🎁 Viel Spaß!
 

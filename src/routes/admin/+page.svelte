@@ -846,6 +846,7 @@ DATUM FÜR REAL: [Wann machen wir das?]`
         🗄️ Prisma Studio
       </button>
       <a href="/" class="btn-secondary">← Zum Kalender</a>
+      <a href="/admin/logout" class="btn-logout">🔓 Logout</a>
     </div>
   </header>
   
@@ -1559,6 +1560,26 @@ DATUM FÜR REAL: [Wann machen wir das?]`
   
   .btn-secondary:hover {
     background: #7f8c8d;
+  }
+  
+  .btn-logout {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #e67e22;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .btn-logout:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
   }
   
   .btn-danger {
