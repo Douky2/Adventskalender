@@ -734,6 +734,7 @@
     z-index: 10;
     margin-top: 0.15rem;
     margin-bottom: 0.4rem;
+    overflow: hidden;
   }
   
   .platform-934-badge::before {
