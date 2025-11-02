@@ -180,41 +180,77 @@
   <div class="calendar-grid">
     {#each data.days as day, i}
       {#if mounted}
-        <a 
-          href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
-          class="calendar-door"
-          class:locked={day.isLocked}
-          class:unlocked={!day.isLocked}
-          class:door-9-active={day.dayNumber === 9 && clickedDoor9}
-          on:click={(e) => handleDoorClick(day.dayNumber, e)}
-          in:scale={{
-            duration: 400,
-            delay: i * 50,
-            easing: cubicOut,
-            start: 0.8
-          }}
-        >
-          <div class="door-content">
-            <div class="door-number">{day.dayNumber}</div>
-            {#if day.isLocked}
-              <div class="lock-icon">🔒</div>
-            {:else}
-              <div class="unlock-icon">✨</div>
-            {/if}
+        {#if day.dayNumber === 9}
+          <!-- Special Platform 9¾ Door -->
+          <div class="platform-934-container">
+            <a 
+              href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
+              class="calendar-door door-9"
+              class:locked={day.isLocked}
+              class:unlocked={!day.isLocked}
+              on:click={(e) => handleDoorClick(day.dayNumber, e)}
+              in:scale={{
+                duration: 400,
+                delay: i * 50,
+                easing: cubicOut,
+                start: 0.8
+              }}
+            >
+              <div class="door-content">
+                <div class="door-number">9</div>
+                {#if day.isLocked}
+                  <div class="lock-icon">🔒</div>
+                {:else}
+                  <div class="unlock-icon">✨</div>
+                {/if}
+              </div>
+              <div class="door-shine"></div>
+            </a>
+            
+            <!-- Magic ¾ Button -->
+            <button 
+              class="three-quarters-button" 
+              class:active={clickedDoor9}
+              on:click={handleThreeQuartersClick}
+              in:scale={{ duration: 400, delay: (i * 50) + 200 }}
+            >
+              <span class="three-quarters-text">¾</span>
+              <span class="hogwarts-hint">🪄</span>
+            </button>
           </div>
-          <div class="door-shine"></div>
-        </a>
+        {:else}
+          <!-- Normal Door -->
+          <a 
+            href="/day/{day.dayNumber}{data.simulationMode ? '?simulation=true' : ''}" 
+            class="calendar-door"
+            class:locked={day.isLocked}
+            class:unlocked={!day.isLocked}
+            on:click={(e) => handleDoorClick(day.dayNumber, e)}
+            in:scale={{
+              duration: 400,
+              delay: i * 50,
+              easing: cubicOut,
+              start: 0.8
+            }}
+          >
+            <div class="door-content">
+              <div class="door-number">{day.dayNumber}</div>
+              {#if day.isLocked}
+                <div class="lock-icon">🔒</div>
+              {:else}
+                <div class="unlock-icon">✨</div>
+              {/if}
+            </div>
+            <div class="door-shine"></div>
+          </a>
+        {/if}
       {/if}
     {/each}
   </div>
   
   <footer>
     <p>💕 Mit Liebe erstellt für unsere Fernbeziehung 💕</p>
-    <p>
-      <a href="/admin" class="admin-link">🛠️ Admin-Panel</a>
-      <span class="footer-separator"> | </span>
-      <span class="three-quarters" on:click={handleThreeQuartersClick} class:active={clickedDoor9}>¾</span>
-    </p>
+    <p><a href="/admin" class="admin-link">🛠️ Admin-Panel</a></p>
   </footer>
 </div>
 
@@ -689,47 +725,115 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   }
   
-  .footer-separator {
-    color: rgba(255, 255, 255, 0.3);
-    margin: 0 1rem;
+  /* Platform 9¾ Special Container */
+  .platform-934-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
   }
   
-  .three-quarters {
+  .door-9 {
+    position: relative;
+  }
+  
+  .three-quarters-button {
+    background: linear-gradient(135deg, #740001 0%, #ae0001 100%);
+    border: 3px solid #d4af37;
+    color: #ffd700;
+    font-size: 2rem;
+    font-weight: 900;
+    padding: 0.8rem;
+    border-radius: 15px;
     cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
-    display: inline-block;
-    padding: 0.3rem 0.8rem;
-    border-radius: 8px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 
+      0 8px 16px rgba(116, 0, 1, 0.4),
+      0 0 20px rgba(212, 175, 55, 0.3),
+      inset 0 2px 10px rgba(255, 215, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    aspect-ratio: 2.5;
   }
   
-  .three-quarters:hover {
-    color: #ffd700;
-    transform: scale(1.2);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  .three-quarters-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+    animation: magicPulse 3s ease-in-out infinite;
   }
   
-  .three-quarters.active {
-    color: #ffd700;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 1);
-    animation: goldPulse 1s ease-in-out infinite;
+  @keyframes magicPulse {
+    0%, 100% { 
+      transform: translate(-50%, -50%) scale(1); 
+      opacity: 0.3; 
+    }
+    50% { 
+      transform: translate(-50%, -50%) scale(1.5); 
+      opacity: 0.8; 
+    }
   }
   
-  @keyframes goldPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.3); }
+  .three-quarters-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 
+      0 0 10px rgba(255, 215, 0, 0.8),
+      2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   
-  .door-9-active {
-    animation: door9Glow 0.5s ease-in-out;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8) !important;
+  .hogwarts-hint {
+    position: relative;
+    z-index: 2;
+    font-size: 1.5rem;
+    animation: wandFloat 2s ease-in-out infinite;
   }
   
-  @keyframes door9Glow {
-    0%, 100% { box-shadow: 0 8px 32px rgba(255, 152, 0, 0.6); }
-    50% { box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+  @keyframes wandFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(15deg); }
+  }
+  
+  .three-quarters-button:hover {
+    transform: translateY(-8px) scale(1.1) rotate(2deg);
+    box-shadow: 
+      0 16px 32px rgba(116, 0, 1, 0.6),
+      0 0 40px rgba(255, 215, 0, 0.6),
+      inset 0 2px 15px rgba(255, 215, 0, 0.4);
+  }
+  
+  .three-quarters-button.active {
+    animation: platform934Activated 1s ease-in-out infinite;
+    box-shadow: 
+      0 16px 32px rgba(116, 0, 1, 0.8),
+      0 0 60px rgba(255, 215, 0, 1),
+      inset 0 2px 20px rgba(255, 215, 0, 0.6);
+  }
+  
+  @keyframes platform934Activated {
+    0%, 100% { 
+      transform: scale(1); 
+      box-shadow: 
+        0 16px 32px rgba(116, 0, 1, 0.8),
+        0 0 60px rgba(255, 215, 0, 1),
+        inset 0 2px 20px rgba(255, 215, 0, 0.6);
+    }
+    50% { 
+      transform: scale(1.15) rotate(5deg); 
+      box-shadow: 
+        0 20px 40px rgba(116, 0, 1, 1),
+        0 0 80px rgba(255, 215, 0, 1),
+        inset 0 2px 25px rgba(255, 215, 0, 0.8);
+    }
   }
   
   /* Platform 9¾ Modal */

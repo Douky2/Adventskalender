@@ -410,7 +410,7 @@ liebes zukünftiges Wir,
 
 wenn du das liest, ist ein Jahr vergangen. 
 
-Heute, am 19. Dezember 2024, sind wir noch getrennt durch viele Kilometer. Aber wir träumen davon, nächstes Jahr zusammen zu sein.
+Heute, am 19. Dezember 2025, sind wir noch getrennt durch viele Kilometer. Aber wir träumen davon, nächstes Jahr zusammen zu sein.
 
 Was ich mir für uns wünsche:
 - Dass wir zusammen aufwachen können
