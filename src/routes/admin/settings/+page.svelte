@@ -333,21 +333,7 @@
     border: 2px solid #f5c6cb;
   }
   
-  .warning-box {
-    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-    border: 2px solid #ffc107;
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    margin-top: 2rem;
-    color: #856404;
-  }
-  
-  .warning-box code {
-    background: rgba(0, 0, 0, 0.1);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-  }
+  /* .warning-box removed - replaced with .info-box */
   
   .info-box {
     background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);

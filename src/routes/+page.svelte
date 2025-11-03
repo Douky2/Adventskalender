@@ -507,6 +507,8 @@
     }
   }
   
+  /* Christmas decorations CSS moved to ChristmasDecor.svelte component */
+  
   .snowflakes-container {
     position: fixed;
     top: 0;
@@ -1283,11 +1285,7 @@
     transform: translateX(-50%);
   }
   
-  .snowman-bottom .btn-3 {
-    top: 45%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  /* All snowman, tree, heart, etc. decoration styles moved to ChristmasDecor.svelte */
   
   /* Geschenke überall verteilt */
   .presents {
