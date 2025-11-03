@@ -81,6 +81,11 @@
     'RECIPE': { icon: '🍳', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', borderColor: '#fa709a' },
     'BOOK_RECOMMENDATION': { icon: '📚', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderColor: '#667eea' },
     'MAP': { icon: '🗺️', gradient: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)', borderColor: '#a8edea' },
+    'COZY_EVENING': { icon: '🕯️', gradient: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)', borderColor: '#fcb69f' },
+    'MUSIC_PLAYLIST': { icon: '🎵', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', borderColor: '#667eea' },
+    'CELEBRATION': { icon: '🎉', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', borderColor: '#fa709a' },
+    'CREATIVE_CHALLENGE': { icon: '💡', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', borderColor: '#f093fb' },
+    'STARGAZING': { icon: '✨', gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)', borderColor: '#30cfd0' },
   };
   
   $: config = typeConfig[contentType] || { icon: '📝', gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', borderColor: '#c3cfe2' };
