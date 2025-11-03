@@ -32,18 +32,27 @@
 <div class="heart heart-2">💖</div>
 <div class="heart heart-3">💝</div>
 
-<!-- Christmas Tree - Links unten (einzelner schöner Baum) -->
+<!-- Christmas Tree - Schöner 3-teiliger Baum -->
 <div class="christmas-tree">
-  <div class="tree-topper">⭐</div>
-  <div class="tree-body">�</div>
-  <div class="tree-decorations">
-    <span class="ornament o1">🔴</span>
-    <span class="ornament o2">🟡</span>
-    <span class="ornament o3">🔵</span>
-    <span class="ornament o4">⚪</span>
-    <span class="ornament o5">🟣</span>
+  <div class="tree-star">⭐</div>
+  <div class="tree-part tree-top">
+    <span class="tree-emoji">🌲</span>
+    <span class="ornament ornament-1">🔴</span>
+    <span class="ornament ornament-2">🟡</span>
   </div>
-  <div class="tree-lights-sparkle">✨</div>
+  <div class="tree-part tree-middle">
+    <span class="tree-emoji">🌲</span>
+    <span class="ornament ornament-3">🔵</span>
+    <span class="ornament ornament-4">🟠</span>
+    <span class="ornament ornament-5">🟣</span>
+  </div>
+  <div class="tree-part tree-bottom">
+    <span class="tree-emoji">🌲</span>
+    <span class="ornament ornament-6">🔴</span>
+    <span class="ornament ornament-7">🟡</span>
+    <span class="ornament ornament-8">⚪</span>
+  </div>
+  <div class="tree-trunk">🟫</div>
 </div>
 
 <!-- Geschenke - Schön gruppiert unter dem Baum und verteilt -->
@@ -92,15 +101,45 @@
 <div class="bells">
   <div class="bell bell-1">🔔</div>
   <div class="bell bell-2">🔔</div>
+  <div class="bell bell-3">🔔</div>
 </div>
 
-<!-- Snowman - Rechts unten (kompakter) -->
+<!-- Plätzchen -->
+<div class="cookies">
+  <div class="cookie cookie-1">🍪</div>
+  <div class="cookie cookie-2">🍪</div>
+  <div class="cookie cookie-3">🍪</div>
+</div>
+
+<!-- Lebkuchenmänner -->
+<div class="gingerbread">
+  <div class="gingerbread-man gm-1">🤎</div>
+  <div class="gingerbread-man gm-2">🤎</div>
+</div>
+
+<!-- Rentier -->
+<div class="reindeer">
+  <div class="reindeer-1">🦌</div>
+</div>
+
+<!-- Snowman - Schön aufgebaut -->
 <div class="snowman">
-  <div class="snowman-complete">☃️</div>
-  <div class="snowman-accessories">
-    <span class="snowman-hat">🎩</span>
-    <span class="snowman-scarf">🧣</span>
+  <div class="snowman-hat">🎩</div>
+  <div class="snowman-head">
+    <span class="snowman-face">⛄</span>
   </div>
+  <div class="snowman-body">
+    <div class="snowman-middle">
+      <span class="snowman-circle">⚪</span>
+      <span class="snowman-button btn-1">🔘</span>
+      <span class="snowman-button btn-2">🔘</span>
+    </div>
+    <div class="snowman-bottom">
+      <span class="snowman-circle">⚪</span>
+      <span class="snowman-button btn-3">🔘</span>
+    </div>
+  </div>
+  <div class="snowman-scarf">🧣</div>
 </div>
 
 <style>
@@ -170,101 +209,96 @@
     }
   }
   
-  /* Christmas Tree - Neues Design */
+  /* Christmas Tree - Schöner 3-teiliger Baum */
   .christmas-tree {
     position: fixed;
-    left: 3%;
-    bottom: 5%;
-    z-index: 1;
+    left: 5%;
+    bottom: 8%;
+    z-index: 2;
     pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
-  .tree-topper {
-    font-size: 3rem;
-    text-align: center;
-    animation: starShine 2s ease-in-out infinite;
-    filter: drop-shadow(0 0 20px gold);
+  .tree-star {
+    font-size: 3.5rem;
+    animation: starRotate 4s linear infinite;
+    filter: drop-shadow(0 0 15px gold);
     margin-bottom: -1rem;
+    z-index: 3;
   }
   
-  @keyframes starShine {
-    0%, 100% {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-      filter: drop-shadow(0 0 20px gold);
-    }
-    50% {
-      opacity: 0.8;
-      transform: rotate(10deg) scale(1.1);
-      filter: drop-shadow(0 0 30px gold);
-    }
+  @keyframes starRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   
-  .tree-body {
-    font-size: 10rem;
-    text-align: center;
-    filter: drop-shadow(0 0 25px rgba(0, 200, 0, 0.8));
+  .tree-part {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -1.5rem 0;
+  }
+  
+  .tree-top .tree-emoji {
+    font-size: 4rem;
+  }
+  
+  .tree-middle .tree-emoji {
+    font-size: 6rem;
+  }
+  
+  .tree-bottom .tree-emoji {
+    font-size: 8rem;
+  }
+  
+  .tree-emoji {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
     animation: treeGlow 3s ease-in-out infinite;
   }
   
   @keyframes treeGlow {
     0%, 100% {
-      filter: drop-shadow(0 0 25px rgba(0, 200, 0, 0.8));
+      filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
     }
     50% {
-      filter: drop-shadow(0 0 35px rgba(0, 255, 0, 0.9));
+      filter: drop-shadow(0 0 30px rgba(0, 255, 100, 0.8));
     }
-  }
-  
-  .tree-decorations {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
   }
   
   .ornament {
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     animation: ornamentSwing 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
   }
   
-  .ornament.o1 { top: 20%; left: 30%; animation-delay: 0s; }
-  .ornament.o2 { top: 35%; right: 25%; animation-delay: 0.6s; }
-  .ornament.o3 { top: 50%; left: 35%; animation-delay: 1.2s; }
-  .ornament.o4 { top: 60%; right: 30%; animation-delay: 1.8s; }
-  .ornament.o5 { top: 70%; left: 40%; animation-delay: 2.4s; }
+  /* Kugeln direkt AM Baum positioniert */
+  .tree-top .ornament-1 { top: 35%; left: 25%; animation-delay: 0s; }
+  .tree-top .ornament-2 { top: 40%; right: 25%; animation-delay: 0.8s; }
+  
+  .tree-middle .ornament-3 { top: 30%; left: 18%; animation-delay: 0.4s; }
+  .tree-middle .ornament-4 { top: 45%; right: 20%; animation-delay: 1.2s; }
+  .tree-middle .ornament-5 { top: 55%; left: 30%; animation-delay: 1.6s; }
+  
+  .tree-bottom .ornament-6 { top: 25%; left: 15%; animation-delay: 0.6s; }
+  .tree-bottom .ornament-7 { top: 40%; right: 18%; animation-delay: 1.4s; }
+  .tree-bottom .ornament-8 { top: 50%; left: 35%; animation-delay: 2s; }
   
   @keyframes ornamentSwing {
     0%, 100% {
-      transform: rotate(-3deg) scale(1);
+      transform: rotate(-5deg) scale(1);
     }
     50% {
-      transform: rotate(3deg) scale(1.05);
+      transform: rotate(5deg) scale(1.1);
     }
   }
   
-  .tree-lights-sparkle {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+  .tree-trunk {
     font-size: 2rem;
-    animation: lightsSparkle 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes lightsSparkle {
-    0%, 100% {
-      opacity: 0.4;
-      transform: translateX(-50%) scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: translateX(-50%) scale(1.2);
-      filter: drop-shadow(0 0 15px gold);
-    }
+    margin-top: -1rem;
   }
   
   /* Geschenke - Gruppiert unter dem Baum */
@@ -476,12 +510,14 @@
   .bell {
     position: absolute;
     font-size: 2rem;
-    opacity: 0.3;
+    opacity: 0.35;
     animation: bellRing 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
   }
   
-  .bell-1 { top: 10%; right: 10%; animation-delay: 0s; }
-  .bell-2 { top: 30%; left: 5%; animation-delay: 2s; }
+  .bell-1 { top: 8%; right: 12%; animation-delay: 0s; }
+  .bell-2 { top: 25%; left: 8%; animation-delay: 2s; }
+  .bell-3 { bottom: 25%; right: 15%; animation-delay: 1s; }
   
   @keyframes bellRing {
     0%, 90%, 100% {
@@ -495,122 +531,278 @@
     }
   }
   
-  /* Snowman - Neues kompaktes Design */
-  .snowman {
+  /* Plätzchen */
+  .cookies {
     position: fixed;
-    right: 5%;
-    bottom: 5%;
-    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    text-align: center;
+    z-index: 1;
   }
   
-  .snowman-complete {
-    font-size: 8rem;
-    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9));
+  .cookie {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.4;
+    animation: cookieSpin 8s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(210, 180, 140, 0.6));
+  }
+  
+  .cookie-1 { top: 15%; left: 20%; animation-delay: 0s; }
+  .cookie-2 { top: 70%; left: 15%; animation-delay: 2s; }
+  .cookie-3 { bottom: 20%; right: 25%; animation-delay: 4s; }
+  
+  @keyframes cookieSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  
+  /* Lebkuchenmänner */
+  .gingerbread {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .gingerbread-man {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.35;
+    animation: gingerbreadWave 3s ease-in-out infinite;
+  }
+  
+  .gm-1 { top: 40%; left: 10%; animation-delay: 0s; }
+  .gm-2 { bottom: 30%; right: 20%; animation-delay: 1.5s; }
+  
+  @keyframes gingerbreadWave {
+    0%, 100% {
+      transform: translateY(0) rotate(-3deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(3deg);
+    }
+  }
+  
+  /* Rentier */
+  .reindeer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .reindeer-1 {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    font-size: 3rem;
+    opacity: 0.4;
+    animation: reindeerJump 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(139, 69, 19, 0.6));
+  }
+  
+  @keyframes reindeerJump {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    30% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Snowman - Schön aufgebaut */
+  .snowman {
+    position: fixed;
+    right: 8%;
+    bottom: 10%;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .snowman-hat {
+    font-size: 3rem;
+    margin-bottom: -0.8rem;
+    animation: hatTilt 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    z-index: 3;
+  }
+  
+  @keyframes hatTilt {
+    0%, 100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+  
+  .snowman-head {
+    position: relative;
+    z-index: 2;
+    margin-bottom: -0.5rem;
+  }
+  
+  .snowman-face {
+    font-size: 5rem;
+    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.9));
     animation: snowmanBob 3s ease-in-out infinite;
   }
   
   @keyframes snowmanBob {
     0%, 100% {
-      transform: translateY(0) rotate(0deg);
+      transform: translateY(0);
     }
     50% {
-      transform: translateY(-5px) rotate(2deg);
-    }
-  }
-  
-  .snowman-accessories {
-    position: relative;
-    margin-top: -2rem;
-  }
-  
-  .snowman-hat {
-    position: absolute;
-    top: -6rem;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 3rem;
-    animation: hatTilt 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-  }
-  
-  @keyframes hatTilt {
-    0%, 100% {
-      transform: translateX(-50%) rotate(0deg);
-    }
-    50% {
-      transform: translateX(-50%) rotate(-8deg);
+      transform: translateY(-3px);
     }
   }
   
   .snowman-scarf {
     position: absolute;
-    top: -3rem;
+    top: 8rem;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     animation: scarfWave 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 100, 100, 0.6));
+    filter: drop-shadow(0 0 12px rgba(255, 100, 100, 0.7));
+    z-index: 3;
   }
   
   @keyframes scarfWave {
     0%, 100% {
-      transform: translateX(-50%) rotate(0deg);
+      transform: translateX(-50%) rotate(-5deg);
     }
     50% {
-      transform: translateX(-45%) rotate(5deg);
+      transform: translateX(-50%) rotate(5deg);
     }
   }
   
+  .snowman-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: -1rem;
+  }
+  
+  .snowman-middle,
+  .snowman-bottom {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -1.5rem 0;
+  }
+  
+  .snowman-circle {
+    font-size: 4.5rem;
+    filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.9));
+  }
+  
+  .snowman-bottom .snowman-circle {
+    font-size: 6rem;
+  }
+  
+  .snowman-button {
+    position: absolute;
+    font-size: 1.2rem;
+    animation: buttonShine 2s ease-in-out infinite;
+  }
+  
+  .snowman-middle .btn-1 { top: 35%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+  .snowman-middle .btn-2 { top: 65%; left: 50%; transform: translateX(-50%); animation-delay: 0.6s; }
+  .snowman-bottom .btn-3 { top: 50%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
+  
+  @keyframes buttonShine {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+  
+  /* Responsive Design */
   @media (max-width: 768px) {
     .christmas-tree {
-      left: 1%;
-      bottom: 2%;
-      transform: scale(0.6);
+      left: 2%;
+      bottom: 3%;
+      transform: scale(0.7);
     }
     
     .snowman {
-      right: 1%;
-      bottom: 2%;
-      transform: scale(0.6);
+      right: 2%;
+      bottom: 3%;
+      transform: scale(0.7);
     }
     
     .presents-group {
       left: 2%;
       bottom: 1%;
-      transform: scale(0.6);
+      transform: scale(0.7);
     }
     
     .presents-corner {
       top: 2%;
       right: 2%;
-      transform: scale(0.6);
+      transform: scale(0.7);
     }
     
     .candle {
       font-size: 1.5rem;
     }
     
-    .candy-cane {
-      font-size: 1.2rem;
+    .star {
+      font-size: 1.5rem;
     }
   }
   
   @media (max-width: 480px) {
-    .christmas-tree,
-    .snowman {
-      transform: scale(0.4);
+    .christmas-tree {
+      transform: scale(0.5);
+      left: 1%;
+      bottom: 1%;
     }
     
-    .presents-group,
+    .snowman {
+      transform: scale(0.5);
+      right: 1%;
+      bottom: 1%;
+    }
+    
+    .presents-group {
+      transform: scale(0.5);
+    }
+    
     .presents-corner {
       display: none;
     }
     
     .candles,
-    .candy-canes {
+    .candy-canes,
+    .bells {
       opacity: 0.3;
+    }
+    
+    .heart {
+      display: none;
     }
   }
 </style>
