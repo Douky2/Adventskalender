@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import { fade, scale, fly } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
+  import ChristmasDecor from '$lib/components/ChristmasDecor.svelte';
   
   let mounted = false;
   
@@ -16,6 +17,7 @@
     if (typeof window !== 'undefined') {
       door9Visited = localStorage.getItem('door9_visited') === 'true';
     }
+    mounted = true;
   });
   
   function handleThreeQuartersClick(event: MouseEvent) {
@@ -35,134 +37,14 @@
       door9Visited = true;
     }
   }
-  
-  onMount(() => {
-    mounted = true;
-    createSnowflakes();
-  });
-  
-  function createSnowflakes() {
-    const container = document.querySelector('.snowflakes-container');
-    if (!container) return;
-    
-    for (let i = 0; i < 50; i++) {
-      const snowflake = document.createElement('div');
-      snowflake.className = 'snowflake';
-      snowflake.innerHTML = '❄';
-      snowflake.style.left = Math.random() * 100 + '%';
-      snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      snowflake.style.animationDelay = Math.random() * 5 + 's';
-      snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
-      snowflake.style.opacity = (Math.random() * 0.6 + 0.3).toString();
-      container.appendChild(snowflake);
-    }
-  }
-  
-  onMount(() => {
-    mounted = true;
-    createSnowflakes();
-  });
 </script>
 
 <svelte:head>
   <title>Unser Adventskalender 🎄</title>
 </svelte:head>
 
-<div class="snowflakes-container"></div>
-
-<!-- Dezente Herzen (nur 3 Stück) -->
-<div class="heart heart-1">💕</div>
-<div class="heart heart-2">💖</div>
-<div class="heart heart-3">💝</div>
-
-<!-- Christmas Tree Decoration -->
-<div class="christmas-tree">
-  <div class="tree-star">⭐</div>
-  <div class="tree-part tree-top">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-1">🔴</span>
-    <span class="ornament ornament-2">🟡</span>
-    <span class="ornament ornament-3">🔵</span>
-  </div>
-  <div class="tree-part tree-middle">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-4">🟣</span>
-    <span class="ornament ornament-5">⚪</span>
-    <span class="ornament ornament-6">🔴</span>
-    <span class="ornament ornament-7">🟡</span>
-  </div>
-  <div class="tree-part tree-bottom">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-8">�</span>
-    <span class="ornament ornament-9">�🟣</span>
-    <span class="ornament ornament-10">⚪</span>
-  </div>
-  <div class="tree-trunk">🟫</div>
-  <div class="tree-lights">✨</div>
-</div>
-
-<!-- Geschenke überall verteilt -->
-<div class="presents">
-  <div class="present present-1">🎁</div>
-  <div class="present present-2">🎁</div>
-  <div class="present present-3">🎁</div>
-  <div class="present present-4">🎁</div>
-  <div class="present present-5">🎁</div>
-  <div class="present present-6">🎁</div>
-</div>
-
-<!-- Sterne im Hintergrund -->
-<div class="stars">
-  <div class="star star-1">⭐</div>
-  <div class="star star-2">✨</div>
-  <div class="star star-3">⭐</div>
-  <div class="star star-4">✨</div>
-  <div class="star star-5">⭐</div>
-  <div class="star star-6">✨</div>
-  <div class="star star-7">⭐</div>
-  <div class="star star-8">✨</div>
-</div>
-
-<!-- Kerzen überall verteilt -->
-<div class="candles">
-  <div class="candle candle-1">🕯️</div>
-  <div class="candle candle-2">🕯️</div>
-  <div class="candle candle-3">🕯️</div>
-  <div class="candle candle-4">🕯️</div>
-  <div class="candle candle-5">🕯️</div>
-  <div class="candle candle-6">🕯️</div>
-</div>
-
-<!-- Zusätzliche Deko: Zuckerstangen -->
-<div class="candy-canes">
-  <div class="candy-cane candy-1">🍭</div>
-  <div class="candy-cane candy-2">🍭</div>
-  <div class="candy-cane candy-3">🍭</div>
-</div>
-
-<!-- Glocken -->
-<div class="bells">
-  <div class="bell bell-1">🔔</div>
-  <div class="bell bell-2">🔔</div>
-</div>
-
-<!-- Snowman Decoration -->
-<div class="snowman">
-  <div class="snowman-hat">🎩</div>
-  <div class="snowman-top">
-    <span class="snowman-face">☃️</span>
-  </div>
-  <div class="snowman-middle">
-    <span class="snowman-body-circle">⚪</span>
-    <span class="snowman-button btn-1">⚫</span>
-    <span class="snowman-button btn-2">⚫</span>
-  </div>
-  <div class="snowman-bottom">
-    <span class="snowman-body-circle">⚪</span>
-    <span class="snowman-button btn-3">⚫</span>
-  </div>
-  <div class="snowman-scarf">🧣</div>
-</div>
+<!-- Christmas Decorations Component -->
+<ChristmasDecor {mounted} />
 
 <div class="container">
   <header>
