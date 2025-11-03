@@ -138,6 +138,24 @@
         </div>
       </div>
       
+      <div class="settings-section">
+        <h2>🧪 Entwicklung</h2>
+        
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              id="simulationMode" 
+              name="simulationMode"
+              checked={data.settings.simulationMode}
+            />
+            <span class="label-icon">🔓</span>
+            Simulationsmodus aktivieren
+          </label>
+          <small>Alle Türchen sind sofort zugänglich (für Tests)</small>
+        </div>
+      </div>
+      
       <div class="form-actions">
         <button type="submit" class="btn-primary">
           💾 Einstellungen speichern
@@ -145,10 +163,8 @@
         <a href="/admin" class="btn-secondary">Abbrechen</a>
       </div>
       
-      <div class="warning-box">
-        <strong>⚠️ Wichtig:</strong> Nach dem Speichern muss der Server neugestartet werden, damit die Änderungen wirksam werden!
-        <br>
-        <code>npm run dev</code> (Entwicklung) oder <code>pm2 restart adventskalender</code> (Produktion)
+      <div class="info-box">
+        <strong>✨ Database-backed Settings:</strong> Änderungen werden in der Datenbank gespeichert und sind sofort aktiv - kein Server-Neustart nötig!
       </div>
     </form>
   </div>
@@ -331,6 +347,29 @@
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
+  }
+  
+  .info-box {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    border: 2px solid #17a2b8;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-top: 2rem;
+    color: #0c5460;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
   }
   
   @media (max-width: 768px) {
