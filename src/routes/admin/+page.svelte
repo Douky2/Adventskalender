@@ -1391,11 +1391,24 @@ Heute Nacht? 🌙`
       
       <!-- Tools & Verwaltung -->
       <div class="header-group">
-        <h3 class="group-title">🔧 Tools & Verwaltung</h3>
+        <h3 class="group-title">🔧 Content Builder Tools</h3>
         <div class="header-actions">
+          <a href="/admin/template-builder" class="btn-builder">
+            📝 Template Builder
+          </a>
+          <a href="/admin/story-chain-builder" class="btn-builder">
+            📖 Story Chain Builder
+          </a>
           <a href="/admin/quiz-builder" class="btn-quiz">
             🎯 Quiz-Builder
           </a>
+        </div>
+      </div>
+      
+      <!-- System & Verwaltung -->
+      <div class="header-group">
+        <h3 class="group-title">🔧 System Tools</h3>
+        <div class="header-actions">
           <a href="/admin/tracking" class="btn-tracking">
             🔄 Tracking Reset
           </a>
@@ -1858,6 +1871,16 @@ Heute Nacht? 🌙`
     border: none;
     cursor: pointer;
     display: block;
+  }
+  
+  .btn-builder {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+  
+  .btn-builder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
   }
   
   .btn-quiz {

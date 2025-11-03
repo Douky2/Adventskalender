@@ -192,7 +192,7 @@
   :global(body) {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    background: linear-gradient(135deg, #1e2837 0%, #243447 25%, #2a4158 50%, #1f3545 75%, #1a2833 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -206,9 +206,10 @@
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(255, 220, 150, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 180, 120, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(200, 220, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 60% 60%, rgba(255, 200, 150, 0.04) 0%, transparent 50%);
     pointer-events: none;
     animation: backgroundFloat 20s ease-in-out infinite;
   }
