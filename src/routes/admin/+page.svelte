@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
+  import GenericContent from '$lib/components/GenericContent.svelte';
   
   export let data;
   export let form;
@@ -1762,30 +1763,17 @@ Heute Nacht? 🌙`
           <div class="preview-panel">
             <h3>Vorschau</h3>
             <div class="preview-content">
-              <h2>{editingDay.title}</h2>
-              {#if editingDay.author}
-                <p class="preview-author">Von: {editingDay.author}</p>
-              {/if}
-              
-              {#if editingDay.contentType === 'TEXT'}
-                <div class="preview-text">
-                  {#each editingDay.content.split('\n') as line}
-                    {#if line.trim()}
-                      <p>{line}</p>
-                    {/if}
-                  {/each}
-                </div>
-              {:else if editingDay.contentType === 'IMAGE_URL'}
-                <img src={editingDay.content} alt={editingDay.title} style="max-width: 100%; border-radius: 8px;" />
-              {:else if editingDay.contentType === 'VIDEO_EMBED' || editingDay.contentType === 'PLAYLIST' || editingDay.contentType === 'MAP'}
-                <iframe 
-                  src={editingDay.content}
-                  title={editingDay.title}
-                  style="width: 100%; min-height: 400px; border-radius: 8px; border: none;"
-                ></iframe>
-              {:else if editingDay.contentType === 'QUIZ_JSON'}
-                <pre class="preview-json">{editingDay.content}</pre>
-              {/if}
+              <!-- Verwende GenericContent für vollständige Darstellung aller Content-Typen -->
+              <GenericContent 
+                title={editingDay.title}
+                content={editingDay.content}
+                contentType={editingDay.contentType}
+                author={editingDay.author}
+                responseMode={editingDay.responseMode}
+                linkedToPrevious={editingDay.linkedToPrevious}
+                linkedToNext={editingDay.linkedToNext}
+                unlocked={true}
+              />
             </div>
           </div>
         {/if}
