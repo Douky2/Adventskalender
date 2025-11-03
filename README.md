@@ -496,6 +496,77 @@ Mehrtägige Geschichten über mehrere Türchen verlinken:
 
 ## ⚙️ Admin-Bereich
 
+### 🆕 Version 2.0 Admin Features
+
+#### 👁️ **Live-Vorschau System**
+- **In-Editor Vorschau:** Toggle mit "👁️ Vorschau" Button
+- **Zeigt exakt wie Kalenderseite:** Gleiche Komponenten, Styles
+- **Person A + B Boxen:** Orange (Locdoc) & Pink (Miss Chaos)
+- **Live-Tab Vorschau:** `🚀 Live-Vorschau in neuem Tab öffnen`
+  - Öffnet Tag mit `?simulation=true` Parameter
+  - Immer entsperrt - teste alles sofort!
+  - Perfekt für Quiz-Tests & interaktive Inhalte
+
+#### 📚 **Story-Chain-Übersicht**
+Erscheint automatisch wenn verbundene Tage existieren:
+
+```
+📚 Mehrtägige Zusammenhänge & Story-Ketten
+├─ 🔗 Story: weihnachtsgeschichte (4 Tage)
+│  ├─ Tag 1 → Tag 2 → Tag 3 → Tag 4
+│  └─ [👁️ Alle Tage dieser Kette anschauen]
+│
+└─ 🔗 Verbundene Tage (3 Tage)
+   ├─ Tag 10 → Tag 11 ✅ → Tag 12
+   └─ [👁️ Alle Tage dieser Kette anschauen]
+```
+
+**Features:**
+- Klickbare Timeline-Karten → springt direkt zum Editor
+- Grüne ✅ Badges = Person B hat geantwortet
+- Batch-Vorschau = alle Tage einer Kette in separaten Tabs öffnen
+- Auto-Erkennung via `linkedToPrevious/Next` oder `storyChainId`
+
+#### 📝 **Template-System (132+ Vorlagen)**
+Jeder Content-Type mit Vorlage zeigt:
+```
+┌────────────────────────────────┐
+│ 📝 Vorlage verfügbar!          │
+│ [✨ Vorlage einfügen & anpassen]│
+│ Klicke um eine fertige Vorlage│
+│ zu laden, die du dann         │
+│ personalisieren kannst!       │
+└────────────────────────────────┘
+```
+
+**Vorlage-Kategorien:**
+- 💌 Romantisch (10+) - Liebesbriefe, Wertschätzung
+- 🎬 Virtual Dates (8+) - Discord, Gaming, Kochen
+- 🎮 Spiele (15+) - Quizze, Challenges, Debates
+- 🛋️ Gemütlich (10+) - Cozy evenings, Kuscheltage
+- 🎨 Kreativ (12+) - Foto/Kunst Challenges
+- 📖 Story (8+) - Erinnerungen, Geschichten
+- 🎯 Zukunft (10+) - Bucket Lists, Träume, Ziele
+- 🌟 Spezial (10+) - Zeitkapseln, Überraschungen
+
+#### 🛠️ **Builder Tools**
+Zugriff über Admin-Header:
+
+1. **📝 Template Builder** (`/admin/template-builder`)
+   - Durchsuche alle 132+ Vorlagen
+   - Nach Kategorie gefiltert
+   - Copy-to-Clipboard Funktion
+
+2. **📖 Story Chain Builder** (`/admin/story-chain-builder`)
+   - Plane mehrtägige Geschichten visuell
+   - Generiert TypeScript-Code zum Kopieren
+   - Konfiguriere linkedToPrevious/Next/storyChainId
+
+3. **🎯 Quiz-Builder** (`/admin/quiz-builder`)
+   - Erstelle Quizze mit Editor
+   - JSON-Validator
+   - Live-Vorschau
+
 ### Hauptfunktionen
 
 #### ✏️ Türchen bearbeiten
