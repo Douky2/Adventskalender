@@ -2,11 +2,16 @@
   import { enhance } from '$app/forms';
   import { fade, fly } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
+  import { getContentComponent } from '$lib/components/content-types';
   
   export let data;
   export let form;
   
   let showResponseForm = false;
+  
+  // Get the appropriate component for each content type
+  $: componentA = getContentComponent(data.content?.contentTypeA || 'TEXT');
+  $: componentB = data.content?.contentTypeB ? getContentComponent(data.content.contentTypeB) : null;
 </script>
 
 <svelte:head>
