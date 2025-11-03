@@ -7,7 +7,40 @@ async function main() {
 
   // Lösche alle existierenden Einträge
   await prisma.day.deleteMany({});
+  await prisma.setting.deleteMany({});
   console.log('🗑️  Alte Daten gelöscht');
+
+  // Erstelle Standard-Settings
+  await prisma.setting.createMany({
+    data: [
+      {
+        key: 'CALENDAR_PASSWORD',
+        value: 'advent2024',
+        description: 'Passwort für den Kalender-Zugang'
+      },
+      {
+        key: 'ADMIN_PASSWORD',
+        value: 'admin123',
+        description: 'Passwort für das Admin-Panel'
+      },
+      {
+        key: 'PERSON_A_NAME',
+        value: 'Locdoc',
+        description: 'Name von Person A'
+      },
+      {
+        key: 'PERSON_B_NAME',
+        value: 'Miss Chaos',
+        description: 'Name von Person B'
+      },
+      {
+        key: 'SIMULATION_MODE',
+        value: 'false',
+        description: 'Simulationsmodus (alle Türchen offen)'
+      }
+    ]
+  });
+  console.log('⚙️  Settings erstellt');
 
   // 24 Türchen mit echtem, vollständigem Inhalt für Locdoc 🧡 & Miss Chaos 💖
   const days = [
