@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import GenericContent from '$lib/components/GenericContent.svelte';
+  import { getContentComponent } from '$lib/components/content-types';
   
   export let data;
   export let form;
@@ -8,6 +8,9 @@
   let editingDay: any = null;
   let showPreview = false;
   let showPrismaInfo = false;
+  
+  // Reactive component for preview
+  $: previewComponent = editingDay ? getContentComponent(editingDay.contentTypeA || 'TEXT') : null;
   
   function openPrismaStudio() {
     showPrismaInfo = true;
@@ -29,6 +32,84 @@
   
   function togglePreview() {
     showPreview = !showPreview;
+  }
+  
+  // Story Chain Helper Functions
+  function getStoryChains(days: any[]) {
+    const chains: any[] = [];
+    const processed = new Set();
+    
+    // Group by storyChainId
+    const byChainId = days.filter(d => d.storyChainId && !processed.has(d.id));
+    const chainGroups = new Map();
+    
+    byChainId.forEach(day => {
+      if (!chainGroups.has(day.storyChainId)) {
+        chainGroups.set(day.storyChainId, []);
+      }
+      chainGroups.get(day.storyChainId).push(day);
+      processed.add(day.id);
+    });
+    
+    chainGroups.forEach((chainDays, storyChainId) => {
+      chains.push({
+        storyChainId,
+        days: chainDays.sort((a, b) => a.dayNumber - b.dayNumber)
+      });
+    });
+    
+    // Find linked chains without storyChainId
+    days.forEach(day => {
+      if (processed.has(day.id)) return;
+      if (!day.linkedToPrevious && !day.linkedToNext) return;
+      
+      const linkedDays = [day];
+      processed.add(day.id);
+      
+      // Find next days
+      let current = day;
+      while (current.linkedToNext) {
+        const next = days.find(d => d.dayNumber === current.dayNumber + 1 && d.linkedToPrevious);
+        if (next && !processed.has(next.id)) {
+          linkedDays.push(next);
+          processed.add(next.id);
+          current = next;
+        } else {
+          break;
+        }
+      }
+      
+      // Find previous days
+      current = day;
+      while (current.linkedToPrevious) {
+        const prev = days.find(d => d.dayNumber === current.dayNumber - 1 && d.linkedToNext);
+        if (prev && !processed.has(prev.id)) {
+          linkedDays.unshift(prev);
+          processed.add(prev.id);
+          current = prev;
+        } else {
+          break;
+        }
+      }
+      
+      if (linkedDays.length > 1) {
+        chains.push({
+          storyChainId: null,
+          days: linkedDays.sort((a, b) => a.dayNumber - b.dayNumber)
+        });
+      }
+    });
+    
+    return chains;
+  }
+  
+  function previewChain(chainDays: any[]) {
+    // Open all days in the chain in separate tabs
+    chainDays.forEach((day, idx) => {
+      setTimeout(() => {
+        window.open(`/day/${day.dayNumber}?simulation=true`, '_blank');
+      }, idx * 300); // Stagger by 300ms to avoid browser blocking
+    });
   }
   
   let selectedTemplate = '';
@@ -1498,6 +1579,62 @@ Heute Nacht? 🌙`
   {/if}
   
   <div class="content-wrapper">
+    <!-- Story-Chain-Übersicht -->
+    {#if data.days.filter(d => d.linkedToPrevious || d.linkedToNext || d.storyChainId).length > 0}
+      <div class="story-overview">
+        <h2>📚 Mehrtägige Zusammenhänge & Story-Ketten</h2>
+        <p class="overview-hint">Hier siehst du alle Tage, die miteinander verbunden sind</p>
+        
+        <div class="story-chains">
+          {#each getStoryChains(data.days) as chain}
+            <div class="chain-card">
+              <div class="chain-header">
+                <span class="chain-icon">🔗</span>
+                <h3>
+                  {#if chain.storyChainId}
+                    Story: {chain.storyChainId}
+                  {:else}
+                    Verbundene Tage
+                  {/if}
+                </h3>
+                <span class="chain-count">{chain.days.length} Tage</span>
+              </div>
+              
+              <div class="chain-timeline">
+                {#each chain.days as day, idx}
+                  <div class="timeline-item">
+                    <button 
+                      class="timeline-day"
+                      class:has-content-b={day.contentB}
+                      on:click={() => editDay(day)}
+                    >
+                      <span class="timeline-number">Tag {day.dayNumber}</span>
+                      <span class="timeline-title">{day.title}</span>
+                      {#if day.contentB}
+                        <span class="timeline-badge">✅</span>
+                      {/if}
+                    </button>
+                    {#if idx < chain.days.length - 1}
+                      <div class="timeline-arrow">→</div>
+                    {/if}
+                  </div>
+                {/each}
+              </div>
+              
+              <div class="chain-actions">
+                <button 
+                  class="btn-preview-chain" 
+                  on:click={() => previewChain(chain.days)}
+                >
+                  👁️ Alle Tage dieser Kette anschauen
+                </button>
+              </div>
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+    
     <!-- Türchen-Liste -->
     <div class="days-list">
       <h2>Alle Türchen</h2>
@@ -1759,21 +1896,61 @@ Heute Nacht? 🌙`
           </div>
         </form>
         
-        {#if showPreview}
+        {#if showPreview && previewComponent}
           <div class="preview-panel">
-            <h3>Vorschau</h3>
-            <div class="preview-content">
-              <!-- Verwende GenericContent für vollständige Darstellung aller Content-Typen -->
-              <GenericContent 
-                title={editingDay.title}
-                content={editingDay.content}
-                contentType={editingDay.contentType}
-                author={editingDay.author}
-                responseMode={editingDay.responseMode}
-                linkedToPrevious={editingDay.linkedToPrevious}
-                linkedToNext={editingDay.linkedToNext}
-                unlocked={true}
-              />
+            <h3>📋 Vorschau - So wird es aussehen</h3>
+            <div class="preview-wrapper">
+              <div class="preview-header">
+                <div class="preview-day-badge">Tag {editingDay.dayNumber}</div>
+                <h2 class="preview-title">{editingDay.title || 'Titel fehlt'}</h2>
+              </div>
+              
+              <!-- Person A Box (Locdoc) -->
+              <div class="preview-box preview-box-a">
+                <svelte:component 
+                  this={previewComponent} 
+                  content={editingDay.contentA}
+                  author={editingDay.authorA}
+                  contentType={editingDay.contentTypeA}
+                />
+                
+                {#if editingDay.taskForB && editingDay.responseMode !== 'DISABLED'}
+                  <div class="preview-task">
+                    <h3>📋 Aufgabe für {editingDay.authorB || 'Miss Chaos'}:</h3>
+                    <p>{editingDay.taskForB}</p>
+                    {#if editingDay.responseMode === 'COLLABORATIVE'}
+                      <span class="preview-mode-badge collaborative">🤝 Zusammenarbeit</span>
+                    {:else if editingDay.responseMode === 'OPEN'}
+                      <span class="preview-mode-badge open">💬 Offen</span>
+                    {/if}
+                  </div>
+                {/if}
+              </div>
+              
+              <!-- Person B Box (Miss Chaos) -->
+              {#if editingDay.responseMode !== 'DISABLED'}
+                <div class="preview-box preview-box-b">
+                  <span class="preview-badge">{editingDay.authorB || 'Miss Chaos'} 💖</span>
+                  {#if editingDay.contentB}
+                    <div class="preview-response-content">
+                      {#each editingDay.contentB.split('\n') as line}
+                        {#if line.trim()}<p>{line}</p>{/if}
+                      {/each}
+                    </div>
+                  {:else}
+                    <div class="preview-empty">
+                      <p>💭 Noch keine Antwort von {editingDay.authorB || 'Miss Chaos'}...</p>
+                    </div>
+                  {/if}
+                </div>
+              {/if}
+            </div>
+            
+            <div class="preview-actions">
+              <button type="button" class="btn-preview-live" on:click={() => window.open(`/day/${editingDay.dayNumber}?simulation=true`, '_blank')}>
+                🚀 Live-Vorschau in neuem Tab öffnen (entsperrt)
+              </button>
+              <p class="preview-hint">💡 Die Vorschau ist immer entsperrt, damit du alles testen kannst!</p>
             </div>
           </div>
         {/if}
@@ -2505,13 +2682,340 @@ Heute Nacht? 🌙`
   
   .preview-panel h3 {
     margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-size: 1.3rem;
+  }
+  
+  .preview-wrapper {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid #e0e0e0;
+  }
+  
+  .preview-box { 
+    margin: 1.5rem 0; 
+    padding: 2.5rem; 
+    border-radius: 20px; 
+    border: 3px solid; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Locdoc Box - Orange */
+  .preview-box-a { 
+    background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 50%, #fff 100%); 
+    border-color: #ff9800;
+  }
+  
+  /* Miss Chaos Box - Pink */
+  .preview-box-b { 
+    background: linear-gradient(135deg, #fff0f6 0%, #ffe4f0 50%, #fff 100%); 
+    border-color: #ff4d94;
+  }
+  
+  .preview-badge { 
+    display: inline-block; 
+    padding: 0.6rem 1.8rem; 
+    border-radius: 50px; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    margin-bottom: 1.2rem; 
+    color: white;
+    background: linear-gradient(135deg, #ff4d94 0%, #e91e63 100%);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .preview-task {
+    margin-top: 2rem;
+    padding: 1.8rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    border-left: 5px solid #ff9800;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .preview-task h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+  }
+  
+  .preview-task p {
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+    color: #34495e;
+  }
+  
+  .preview-mode-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .preview-mode-badge.collaborative {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+  
+  .preview-mode-badge.open {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+  }
+  
+  .preview-empty {
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 2px dashed #ff4d94;
+  }
+  
+  .preview-empty p {
+    margin: 0;
+    color: #7f8c8d;
+    font-style: italic;
+  }
+  
+  .preview-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 3px solid #e0e0e0;
+  }
+  
+  .preview-day-badge {
+    background: linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #ff4d94 100%);
+    color: white;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  }
+  
+  .preview-title {
+    margin: 0;
+    font-size: 2rem;
+    background: linear-gradient(135deg, #ff9800 0%, #ff4d94 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+  }
+  
+  .preview-response-content {
+    line-height: 1.6;
     color: #2c3e50;
   }
   
-  .preview-content {
-    background: #f8f9fa;
-    padding: 2rem;
+  .preview-response-content p {
+    margin: 0.5rem 0;
+  }
+  
+  .preview-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 2px solid #ecf0f1;
+  }
+  
+  .btn-preview-live {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
     border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-preview-live:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  }
+  
+  .preview-hint {
+    margin-top: 0.8rem;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
+  /* Story Chain Overview */
+  .story-overview {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 3px solid #66bb6a;
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+  }
+  
+  .story-overview h2 {
+    margin: 0 0 0.5rem 0;
+    color: #2e7d32;
+    font-size: 1.8rem;
+  }
+  
+  .overview-hint {
+    margin: 0 0 1.5rem 0;
+    color: #558b2f;
+    font-style: italic;
+  }
+  
+  .story-chains {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .chain-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 2px solid #81c784;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .chain-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e8f5e9;
+  }
+  
+  .chain-icon {
+    font-size: 2rem;
+  }
+  
+  .chain-header h3 {
+    margin: 0;
+    flex: 1;
+    color: #2e7d32;
+    font-size: 1.3rem;
+  }
+  
+  .chain-count {
+    background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .chain-timeline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .timeline-day {
+    background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+    border: 2px solid #ff9800;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    position: relative;
+  }
+  
+  .timeline-day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+    border-color: #f57c00;
+  }
+  
+  .timeline-day.has-content-b {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-color: #66bb6a;
+  }
+  
+  .timeline-number {
+    font-weight: 700;
+    color: #e65100;
+    font-size: 0.85rem;
+  }
+  
+  .timeline-title {
+    color: #2c3e50;
+    font-size: 0.9rem;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .timeline-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #66bb6a;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .timeline-arrow {
+    color: #66bb6a;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .chain-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding-top: 1rem;
+    border-top: 2px solid #e8f5e9;
+  }
+  
+  .btn-preview-chain {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-preview-chain:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
   }
   
   .preview-text {
