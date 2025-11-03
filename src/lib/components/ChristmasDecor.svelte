@@ -32,40 +32,48 @@
 <div class="heart heart-2">💖</div>
 <div class="heart heart-3">💝</div>
 
-<!-- Christmas Tree - Schöner 3-teiliger Baum -->
-<div class="christmas-tree">
-  <div class="tree-star">⭐</div>
-  <div class="tree-part tree-top">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-1">🔴</span>
-    <span class="ornament ornament-2">🟡</span>
+<!-- Christmas Tree Group - Gestaffelte Tiefenwirkung -->
+<div class="christmas-tree-forest">
+  <!-- Hintere Bäume für Tiefe -->
+  <div class="tree-back tree-back-left">
+    <span class="tree-emoji-small">🌲</span>
+    <span class="ornament-small om-1">🔴</span>
+    <span class="ornament-small om-2">🟡</span>
   </div>
-  <div class="tree-part tree-middle">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-3">🔵</span>
-    <span class="ornament ornament-4">🟠</span>
-    <span class="ornament ornament-5">🟣</span>
+  
+  <div class="tree-back tree-back-right">
+    <span class="tree-emoji-small">🌲</span>
+    <span class="ornament-small om-3">🔵</span>
+    <span class="ornament-small om-4">⚪</span>
   </div>
-  <div class="tree-part tree-bottom">
-    <span class="tree-emoji">🌲</span>
-    <span class="ornament ornament-6">🔴</span>
-    <span class="ornament ornament-7">🟡</span>
-    <span class="ornament ornament-8">⚪</span>
+  
+  <!-- Hauptbaum im Vordergrund -->
+  <div class="christmas-tree-main">
+    <div class="tree-star-main">⭐</div>
+    <div class="tree-main-body">
+      <span class="tree-emoji-large">🌲</span>
+      <!-- Natürlich verteilte Kugeln -->
+      <span class="ornament main-o1">🔴</span>
+      <span class="ornament main-o2">�</span>
+      <span class="ornament main-o3">🔵</span>
+      <span class="ornament main-o4">�</span>
+      <span class="ornament main-o5">🟣</span>
+      <span class="ornament main-o6">⚪</span>
+      <span class="ornament main-o7">🔴</span>
+      <!-- Glitzer-Effekte -->
+      <span class="tree-sparkle sp1">✨</span>
+      <span class="tree-sparkle sp2">✨</span>
+    </div>
+    <div class="tree-trunk-main">🟫</div>
   </div>
-  <div class="tree-trunk">🟫</div>
 </div>
 
-<!-- Geschenke - Schön gruppiert unter dem Baum und verteilt -->
-<div class="presents-group">
-  <div class="present p1">🎁</div>
-  <div class="present p2">🎁</div>
-  <div class="present p3">🎁</div>
-</div>
-
-<!-- Extra Geschenke oben rechts -->
-<div class="presents-corner">
-  <div class="present corner1">🎁</div>
-  <div class="present corner2">🎁</div>
+<!-- Geschenke - Natürlich versetzt gruppiert -->
+<div class="presents-cluster">
+  <div class="present pr1">🎁</div>
+  <div class="present pr2">🎁</div>
+  <div class="present pr3">🎁</div>
+  <div class="present pr4">🎁</div>
 </div>
 
 <!-- Sterne im Hintergrund -->
@@ -122,24 +130,41 @@
   <div class="reindeer-1">🦌</div>
 </div>
 
-<!-- Snowman - Schön aufgebaut -->
-<div class="snowman">
-  <div class="snowman-hat">🎩</div>
-  <div class="snowman-head">
-    <span class="snowman-face">⛄</span>
+<!-- Snowman - Harmonische Proportionen -->
+<div class="snowman-improved">
+  <!-- Hut fest auf dem Kopf -->
+  <div class="snowman-hat-fixed">🎩</div>
+  
+  <!-- Kopf (größer) -->
+  <div class="snowman-head-new">
+    <span class="snowman-head-ball">⚪</span>
+    <span class="snowman-eye eye-left">•</span>
+    <span class="snowman-eye eye-right">•</span>
+    <span class="snowman-nose">🥕</span>
+    <span class="snowman-smile">︶</span>
   </div>
-  <div class="snowman-body">
-    <div class="snowman-middle">
-      <span class="snowman-circle">⚪</span>
-      <span class="snowman-button btn-1">🔘</span>
-      <span class="snowman-button btn-2">🔘</span>
-    </div>
-    <div class="snowman-bottom">
-      <span class="snowman-circle">⚪</span>
-      <span class="snowman-button btn-3">🔘</span>
-    </div>
+  
+  <!-- Schal mit natürlichem Fall -->
+  <div class="snowman-scarf-flowing">
+    <span class="scarf-main">🧣</span>
+    <span class="scarf-tail">～</span>
   </div>
-  <div class="snowman-scarf">🧣</div>
+  
+  <!-- Mittlerer Körper -->
+  <div class="snowman-body-middle">
+    <span class="snowman-body-ball">⚪</span>
+    <span class="snowman-button btn-mid-1">🔘</span>
+    <span class="snowman-button btn-mid-2">🔘</span>
+    <!-- Arme (Zweige) -->
+    <span class="snowman-arm arm-left">🌿</span>
+    <span class="snowman-arm arm-right">🌿</span>
+  </div>
+  
+  <!-- Unterer Körper (kleiner für Pyramidenform) -->
+  <div class="snowman-body-bottom">
+    <span class="snowman-bottom-ball">⚪</span>
+    <span class="snowman-button btn-bottom">🔘</span>
+  </div>
 </div>
 
 <style>
@@ -209,107 +234,187 @@
     }
   }
   
-  /* Christmas Tree - Schöner 3-teiliger Baum */
-  .christmas-tree {
+  /* Christmas Tree Forest - Gestaffelte Tiefe */
+  .christmas-tree-forest {
     position: fixed;
     left: 5%;
     bottom: 8%;
     z-index: 2;
     pointer-events: none;
+    width: 12rem;
+    height: 15rem;
+  }
+  
+  /* Hintere Bäume für Tiefenwirkung */
+  .tree-back {
+    position: absolute;
+    opacity: 0.7;
+    z-index: 1;
+  }
+  
+  .tree-back-left {
+    left: -2rem;
+    bottom: 2rem;
+    transform: scale(0.75);
+  }
+  
+  .tree-back-right {
+    right: -1.5rem;
+    bottom: 1.5rem;
+    transform: scale(0.7);
+  }
+  
+  .tree-emoji-small {
+    font-size: 5rem;
+    filter: drop-shadow(0 0 15px rgba(0, 200, 0, 0.5));
+    display: inline-block;
+    animation: treeGlowSubtle 4s ease-in-out infinite;
+  }
+  
+  @keyframes treeGlowSubtle {
+    0%, 100% {
+      filter: drop-shadow(0 0 15px rgba(0, 200, 0, 0.5));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(0, 220, 0, 0.6));
+    }
+  }
+  
+  .ornament-small {
+    position: absolute;
+    font-size: 0.9rem;
+    animation: ornamentSwingSubtle 3s ease-in-out infinite;
+  }
+  
+  .tree-back .om-1 { top: 30%; left: 25%; animation-delay: 0s; }
+  .tree-back .om-2 { top: 50%; right: 28%; animation-delay: 1s; }
+  .tree-back .om-3 { top: 35%; left: 30%; animation-delay: 0.5s; }
+  .tree-back .om-4 { top: 55%; right: 25%; animation-delay: 1.5s; }
+  
+  /* Hauptbaum im Vordergrund */
+  .christmas-tree-main {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  .tree-star {
+  .tree-star-main {
     font-size: 3.5rem;
-    animation: starRotate 4s linear infinite;
-    filter: drop-shadow(0 0 15px gold);
-    margin-bottom: -1rem;
-    z-index: 3;
+    animation: starRotateGlow 4s linear infinite;
+    filter: drop-shadow(0 0 20px gold);
+    margin-bottom: -0.8rem;
   }
   
-  @keyframes starRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  
-  .tree-part {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: -1.5rem 0;
-  }
-  
-  .tree-top .tree-emoji {
-    font-size: 4rem;
-  }
-  
-  .tree-middle .tree-emoji {
-    font-size: 6rem;
-  }
-  
-  .tree-bottom .tree-emoji {
-    font-size: 8rem;
-  }
-  
-  .tree-emoji {
-    filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
-    animation: treeGlow 3s ease-in-out infinite;
-  }
-  
-  @keyframes treeGlow {
-    0%, 100% {
-      filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.6));
+  @keyframes starRotateGlow {
+    0% { 
+      transform: rotate(0deg); 
+      filter: drop-shadow(0 0 20px gold);
     }
     50% {
-      filter: drop-shadow(0 0 30px rgba(0, 255, 100, 0.8));
+      filter: drop-shadow(0 0 30px gold);
+    }
+    100% { 
+      transform: rotate(360deg);
+      filter: drop-shadow(0 0 20px gold);
     }
   }
   
-  .ornament {
-    position: absolute;
-    font-size: 1.3rem;
-    animation: ornamentSwing 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+  .tree-main-body {
+    position: relative;
   }
   
-  /* Kugeln direkt AM Baum positioniert */
-  .tree-top .ornament-1 { top: 35%; left: 25%; animation-delay: 0s; }
-  .tree-top .ornament-2 { top: 40%; right: 25%; animation-delay: 0.8s; }
+  .tree-emoji-large {
+    font-size: 9rem;
+    filter: drop-shadow(0 0 25px rgba(0, 255, 0, 0.7));
+    animation: treeGlowMain 3s ease-in-out infinite;
+    display: inline-block;
+  }
   
-  .tree-middle .ornament-3 { top: 30%; left: 18%; animation-delay: 0.4s; }
-  .tree-middle .ornament-4 { top: 45%; right: 20%; animation-delay: 1.2s; }
-  .tree-middle .ornament-5 { top: 55%; left: 30%; animation-delay: 1.6s; }
+  @keyframes treeGlowMain {
+    0%, 100% {
+      filter: drop-shadow(0 0 25px rgba(0, 255, 0, 0.7));
+    }
+    50% {
+      filter: drop-shadow(0 0 35px rgba(0, 255, 100, 0.9));
+    }
+  }
   
-  .tree-bottom .ornament-6 { top: 25%; left: 15%; animation-delay: 0.6s; }
-  .tree-bottom .ornament-7 { top: 40%; right: 18%; animation-delay: 1.4s; }
-  .tree-bottom .ornament-8 { top: 50%; left: 35%; animation-delay: 2s; }
+  /* Natürlich verteilte Kugeln */
+  .ornament {
+    position: absolute;
+    font-size: 1.4rem;
+    animation: ornamentSwing 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+  }
+  
+  .main-o1 { top: 15%; left: 20%; animation-delay: 0s; }
+  .main-o2 { top: 25%; right: 18%; animation-delay: 0.6s; }
+  .main-o3 { top: 35%; left: 15%; animation-delay: 1.2s; }
+  .main-o4 { top: 45%; right: 22%; animation-delay: 0.3s; }
+  .main-o5 { top: 55%; left: 25%; animation-delay: 1.8s; }
+  .main-o6 { top: 65%; right: 20%; animation-delay: 0.9s; }
+  .main-o7 { top: 75%; left: 30%; animation-delay: 1.5s; }
   
   @keyframes ornamentSwing {
     0%, 100% {
-      transform: rotate(-5deg) scale(1);
+      transform: rotate(-6deg) scale(1);
     }
     50% {
-      transform: rotate(5deg) scale(1.1);
+      transform: rotate(6deg) scale(1.08);
     }
   }
   
-  .tree-trunk {
-    font-size: 2rem;
-    margin-top: -1rem;
+  @keyframes ornamentSwingSubtle {
+    0%, 100% {
+      transform: rotate(-4deg) scale(1);
+    }
+    50% {
+      transform: rotate(4deg) scale(1.05);
+    }
   }
   
-  /* Geschenke - Gruppiert unter dem Baum */
-  .presents-group {
+  /* Glitzer-Effekte */
+  .tree-sparkle {
+    position: absolute;
+    font-size: 1.8rem;
+    animation: sparkleFloat 2s ease-in-out infinite;
+    opacity: 0.8;
+  }
+  
+  .sp1 { top: 20%; left: 10%; animation-delay: 0s; }
+  .sp2 { top: 50%; right: 12%; animation-delay: 1s; }
+  
+  @keyframes sparkleFloat {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translateY(-8px) scale(1.15);
+      opacity: 1;
+    }
+  }
+  
+  .tree-trunk-main {
+    font-size: 2.2rem;
+    margin-top: -1rem;
+    filter: drop-shadow(0 0 8px rgba(139, 69, 19, 0.5));
+  }
+  
+  /* Geschenke - Natürlich versetzt gruppiert */
+  .presents-cluster {
     position: fixed;
     left: 5%;
-    bottom: 3%;
-    display: flex;
-    gap: 1rem;
-    z-index: 1;
+    bottom: 2%;
+    z-index: 2;
     pointer-events: none;
+    width: 8rem;
+    height: 4rem;
   }
   
   .presents-corner {
@@ -323,17 +428,17 @@
   }
   
   .present {
-    font-size: 3rem;
-    opacity: 0.8;
+    position: absolute;
+    font-size: 2.4rem;
     animation: presentBounce 2.5s ease-in-out infinite;
-    filter: drop-shadow(0 0 15px rgba(255, 150, 150, 0.6));
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
   }
   
-  .present.p1 { animation-delay: 0s; }
-  .present.p2 { animation-delay: 0.4s; }
-  .present.p3 { animation-delay: 0.8s; }
-  .present.corner1 { animation-delay: 1.2s; font-size: 2.5rem; }
-  .present.corner2 { animation-delay: 1.6s; font-size: 2.5rem; }
+  /* Versetzte, dichte Gruppierung wie frisch hingelegt */
+  .pr1 { left: 0; bottom: 0; animation-delay: 0s; transform: rotate(-5deg); }
+  .pr2 { left: 2.5rem; bottom: 0.5rem; animation-delay: 0.4s; transform: rotate(3deg); z-index: 2; }
+  .pr3 { left: 1.2rem; bottom: 2rem; animation-delay: 0.8s; transform: rotate(-3deg); }
+  .pr4 { left: 4rem; bottom: 0; animation-delay: 1.2s; transform: rotate(5deg); }
   
   @keyframes presentBounce {
     0%, 100% {
@@ -623,8 +728,8 @@
     }
   }
   
-  /* Snowman - Schön aufgebaut */
-  .snowman {
+  /* Snowman - Harmonische Proportionen (Pyramidenform) */
+  .snowman-improved {
     position: fixed;
     right: 8%;
     bottom: 10%;
@@ -635,133 +740,213 @@
     align-items: center;
   }
   
-  .snowman-hat {
-    font-size: 3rem;
-    margin-bottom: -0.8rem;
-    animation: hatTilt 4s ease-in-out infinite;
-    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    z-index: 3;
+  /* Hut fest auf dem Kopf sitzend */
+  .snowman-hat-fixed {
+    font-size: 3.2rem;
+    margin-bottom: -1.2rem;
+    animation: hatTiltCharm 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.6));
+    z-index: 4;
+    transform: rotate(-8deg);
   }
   
-  @keyframes hatTilt {
+  @keyframes hatTiltCharm {
     0%, 100% {
-      transform: rotate(-5deg);
+      transform: rotate(-8deg);
     }
     50% {
-      transform: rotate(5deg);
+      transform: rotate(-12deg);
     }
   }
   
-  .snowman-head {
+  /* Kopf - größer für harmonische Proportionen */
+  .snowman-head-new {
     position: relative;
-    z-index: 2;
-    margin-bottom: -0.5rem;
+    z-index: 3;
+    margin-bottom: -1rem;
   }
   
-  .snowman-face {
-    font-size: 5rem;
-    filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.9));
-    animation: snowmanBob 3s ease-in-out infinite;
+  .snowman-head-ball {
+    font-size: 5.5rem;
+    filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.95));
+    animation: snowmanBobGentle 3s ease-in-out infinite;
+    display: inline-block;
   }
   
-  @keyframes snowmanBob {
+  @keyframes snowmanBobGentle {
     0%, 100% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
   }
   
-  .snowman-scarf {
+  /* Freundliches Gesicht */
+  .snowman-eye {
     position: absolute;
-    top: 8rem;
+    font-size: 1.5rem;
+    color: #000;
+    top: 38%;
+  }
+  
+  .eye-left { left: 35%; }
+  .eye-right { right: 35%; }
+  
+  .snowman-nose {
+    position: absolute;
+    font-size: 1.8rem;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 3.5rem;
-    animation: scarfWave 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 12px rgba(255, 100, 100, 0.7));
-    z-index: 3;
   }
   
-  @keyframes scarfWave {
+  .snowman-smile {
+    position: absolute;
+    font-size: 2rem;
+    color: #000;
+    top: 65%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Schal mit natürlichem Fall und Bewegung */
+  .snowman-scarf-flowing {
+    position: relative;
+    z-index: 2;
+    margin-top: -0.5rem;
+    margin-bottom: -0.8rem;
+  }
+  
+  .scarf-main {
+    font-size: 3.8rem;
+    display: inline-block;
+    animation: scarfFlow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(100, 150, 255, 0.7));
+  }
+  
+  .scarf-tail {
+    position: absolute;
+    font-size: 2rem;
+    left: 65%;
+    top: 2rem;
+    animation: scarfTailWave 2.5s ease-in-out infinite;
+    color: rgba(100, 150, 255, 0.8);
+  }
+  
+  @keyframes scarfFlow {
     0%, 100% {
-      transform: translateX(-50%) rotate(-5deg);
+      transform: rotate(-3deg);
     }
     50% {
-      transform: translateX(-50%) rotate(5deg);
+      transform: rotate(3deg);
     }
   }
   
-  .snowman-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: -1rem;
+  @keyframes scarfTailWave {
+    0%, 100% {
+      transform: translateX(0) rotate(5deg);
+    }
+    50% {
+      transform: translateX(5px) rotate(15deg);
+    }
   }
   
-  .snowman-middle,
-  .snowman-bottom {
+  /* Mittlerer Körper */
+  .snowman-body-middle {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: -1.5rem 0;
+    margin-bottom: -1.2rem;
   }
   
-  .snowman-circle {
-    font-size: 4.5rem;
-    filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.9));
+  .snowman-body-ball {
+    font-size: 4.8rem;
+    filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.9));
+    display: inline-block;
   }
   
-  .snowman-bottom .snowman-circle {
-    font-size: 6rem;
+  /* Arme - kräftigere Zweige */
+  .snowman-arm {
+    position: absolute;
+    font-size: 2.5rem;
+    top: 45%;
+    animation: armWave 4s ease-in-out infinite;
   }
   
+  .arm-left {
+    left: -2.5rem;
+    transform: rotate(-45deg);
+    animation-delay: 0s;
+  }
+  
+  .arm-right {
+    right: -2.5rem;
+    transform: rotate(45deg);
+    animation-delay: 2s;
+  }
+  
+  @keyframes armWave {
+    0%, 100% {
+      transform: rotate(var(--arm-base-rotate, 0deg));
+    }
+    50% {
+      transform: rotate(calc(var(--arm-base-rotate, 0deg) + 10deg));
+    }
+  }
+  
+  .arm-left { --arm-base-rotate: -45deg; }
+  .arm-right { --arm-base-rotate: 45deg; }
+  
+  /* Knöpfe */
   .snowman-button {
     position: absolute;
     font-size: 1.2rem;
     animation: buttonShine 2s ease-in-out infinite;
+    color: #333;
   }
   
-  .snowman-middle .btn-1 { top: 35%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
-  .snowman-middle .btn-2 { top: 65%; left: 50%; transform: translateX(-50%); animation-delay: 0.6s; }
-  .snowman-bottom .btn-3 { top: 50%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
+  .btn-mid-1 { top: 35%; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+  .btn-mid-2 { top: 65%; left: 50%; transform: translateX(-50%); animation-delay: 0.6s; }
+  .btn-bottom { top: 45%; left: 50%; transform: translateX(-50%); animation-delay: 1.2s; }
   
   @keyframes buttonShine {
     0%, 100% {
-      opacity: 0.7;
-      transform: scale(1);
+      opacity: 0.8;
+      transform: translateX(-50%) scale(1);
     }
     50% {
       opacity: 1;
-      transform: scale(1.1);
+      transform: translateX(-50%) scale(1.15);
     }
+  }
+  
+  /* Unterer Körper - kleiner für Pyramidenform */
+  .snowman-body-bottom {
+    position: relative;
+  }
+  
+  .snowman-bottom-ball {
+    font-size: 4.2rem;
+    filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.85));
+    display: inline-block;
   }
   
   /* Responsive Design */
   @media (max-width: 768px) {
-    .christmas-tree {
+    .christmas-tree-forest {
       left: 2%;
       bottom: 3%;
       transform: scale(0.7);
     }
     
-    .snowman {
+    .snowman-improved {
       right: 2%;
       bottom: 3%;
       transform: scale(0.7);
     }
     
-    .presents-group {
+    .presents-cluster {
       left: 2%;
       bottom: 1%;
-      transform: scale(0.7);
-    }
-    
-    .presents-corner {
-      top: 2%;
-      right: 2%;
       transform: scale(0.7);
     }
     
@@ -772,36 +957,39 @@
     .star {
       font-size: 1.5rem;
     }
+    
+    .cookie, .gingerbread-man {
+      font-size: 1.5rem;
+    }
   }
   
   @media (max-width: 480px) {
-    .christmas-tree {
+    .christmas-tree-forest {
       transform: scale(0.5);
       left: 1%;
       bottom: 1%;
     }
     
-    .snowman {
+    .snowman-improved {
       transform: scale(0.5);
       right: 1%;
       bottom: 1%;
     }
     
-    .presents-group {
+    .presents-cluster {
       transform: scale(0.5);
-    }
-    
-    .presents-corner {
-      display: none;
     }
     
     .candles,
     .candy-canes,
-    .bells {
+    .bells,
+    .cookies,
+    .gingerbread {
       opacity: 0.3;
     }
     
-    .heart {
+    .heart,
+    .reindeer {
       display: none;
     }
   }
