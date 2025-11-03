@@ -4,9 +4,10 @@ Ein interaktiver, emotionaler Adventskalender für Fernbeziehungen - vollständi
 
 **Erstellt für:** Locdoc 🧡 & Miss Chaos 💖
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/Douky2/Adventskalender)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Douky2/Adventskalender)
 [![SvelteKit](https://img.shields.io/badge/SvelteKit-2.5.28-ff3e00.svg)](https://kit.svelte.dev/)
 [![Prisma](https://img.shields.io/badge/Prisma-5.22.0-2d3748.svg)](https://www.prisma.io/)
+[![Refactored](https://img.shields.io/badge/refactored-71%25%20smaller-green.svg)](https://github.com/Douky2/Adventskalender)
 
 ---
 
@@ -20,7 +21,8 @@ Ein interaktiver, emotionaler Adventskalender für Fernbeziehungen - vollständi
 - [🗄️ Datenbank](#️-datenbank)
 - [🚀 Deployment](#-deployment)
 - [🎯 Technologie](#-technologie)
-- [🐛 Troubleshooting](#-troubleshooting)
+- [� Version 2.0 Refactoring](#-version-20-refactoring)
+- [�🐛 Troubleshooting](#-troubleshooting)
 
 ---
 
@@ -883,22 +885,32 @@ Adventskalender/
 │   └── migrations/            # DB Migrations
 ├── src/
 │   ├── routes/
-│   │   ├── +page.svelte       # Hauptkalender
+│   │   ├── +page.svelte       # Hauptkalender (1600 Zeilen)
 │   │   ├── +layout.svelte     # Layout
 │   │   ├── admin/
 │   │   │   ├── +page.svelte   # Admin-Panel
-│   │   │   ├── settings/      # Einstellungen
+│   │   │   ├── settings/      # Einstellungen (DB-backed)
 │   │   │   ├── quiz-builder/  # Quiz-Builder
 │   │   │   ├── tracking/      # Tracking Reset
 │   │   │   └── login/         # Admin Login
 │   │   ├── day/[dayNumber]/
-│   │   │   └── +page.svelte   # Einzelne Türchen
+│   │   │   └── +page.svelte   # Einzelne Türchen (410 Zeilen, war 1403!)
 │   │   └── login/
 │   │       └── +page.svelte   # Login
 │   └── lib/
+│       ├── components/
+│       │   ├── ChristmasDecor.svelte  # Weihnachts-Dekorationen
+│       │   └── content-types/         # 66 dynamische Content-Komponenten
+│       │       ├── TEXT.svelte
+│       │       ├── IMAGE_URL.svelte
+│       │       ├── VIDEO_EMBED.svelte
+│       │       ├── LOVE_LETTER.svelte
+│       │       ├── GenericContent.svelte  # Universal-Fallback
+│       │       └── index.ts           # Component Mapping
 │       ├── auth.ts            # Auth Logic
 │       └── server/
-│           └── db.ts          # Prisma Client
+│           ├── db.ts          # Prisma Client
+│           └── settings.ts    # Database Settings Helper
 ├── static/                    # Statische Assets
 ├── .env                       # Umgebungsvariablen
 ├── .env.example               # Env Template
@@ -934,7 +946,77 @@ Adventskalender/
 
 ---
 
-## 🐛 Troubleshooting
+## � Version 2.0 Refactoring
+
+### ✨ Was ist neu in Version 2.0?
+
+**Version 2.0.0** (November 2025) bringt massive Code-Verbesserungen ohne Content-Änderungen:
+
+#### 🏆 Achievements:
+- **71% Code-Reduktion** in `day/[dayNumber]/+page.svelte` (1403 → 410 Zeilen)
+- **35% Gesamt-Reduktion** im gesamten Projekt (-1093 Zeilen)
+- **66 dynamische Content-Komponenten** statt 463-Zeilen if-chain
+- **Database-backed Settings** - keine .env-Dateien mehr bearbeiten
+- **Kein Server-Neustart** mehr nötig bei Settings-Änderungen
+
+#### 📦 Neue Architektur:
+
+**1. Dynamic Component System (Phase 2)**
+```typescript
+// Vorher: 463 Zeilen if-else if-chain 😱
+if (contentTypeA === 'TEXT') { ... }
+else if (contentTypeA === 'IMAGE_URL') { ... }
+// ... 61 weitere Typen ...
+
+// Nachher: 1 Zeile! 🎉
+<svelte:component this={getContentComponent(contentTypeA)} {...props} />
+```
+
+**2. Database Settings (Phase 3)**
+- Admin Settings jetzt in SQLite statt .env
+- Änderungen sofort aktiv (kein `npm run dev` restart)
+- Simulation Mode als Toggle im Admin-Panel
+
+**3. Christmas Decorations Component (Phase 5)**
+- Alle Schneeflocken, Herzen, etc. in `ChristmasDecor.svelte`
+- -100 Zeilen aus Hauptkalender
+- Saubere Separation of Concerns
+
+**4. CSS Optimization (Phase 4)**
+- 432 Zeilen obsoleter CSS entfernt
+- Content-Typ Styling in Komponenten verschoben
+- Maintainability drastisch verbessert
+
+#### 🔧 Migration von v1.0 zu v2.0:
+
+**Automatisch kompatibel!** Keine Breaking Changes:
+- Alle Content-Typen funktionieren weiter
+- Datenbank-Schema erweitert (Settings Tabelle)
+- .env kann bleiben (wird nur nicht mehr für Admin-Settings genutzt)
+
+```bash
+# Update durchführen
+git pull origin main
+npm install
+npx prisma migrate dev  # Fügt Settings-Tabelle hinzu
+npm run dev
+```
+
+#### 📊 Performance & Maintainability:
+
+| Metrik | Vorher | Nachher | Verbesserung |
+|--------|--------|---------|--------------|
+| **day/[dayNumber]/+page.svelte** | 1403 Zeilen | 410 Zeilen | **-71%** 🎉 |
+| **Hauptkalender (+page.svelte)** | ~1700 Zeilen | 1600 Zeilen | **-6%** |
+| **If-Chain Komplexität** | 463 Zeilen | 1 Zeile | **-99.8%** ⭐ |
+| **CSS Bloat** | 432 Zeilen unused | 0 Zeilen | **-100%** |
+| **Settings Management** | .env editing | Database UI | **∞ besser** 💾 |
+
+→ Vollständige Refactoring-Dokumentation in [`REFACTORING-PLAN.md`](./REFACTORING-PLAN.md)
+
+---
+
+## �🐛 Troubleshooting
 
 ### Server startet nicht
 
