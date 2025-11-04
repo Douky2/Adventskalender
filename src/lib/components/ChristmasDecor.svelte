@@ -102,6 +102,41 @@
 <div class="reindeer reindeer-2">🦌</div>
 <div class="reindeer reindeer-3">🦌</div>
 
+<!-- Mehr Weihnachts-Elemente -->
+<div class="santa santa-1">🎅</div>
+<div class="santa santa-2">🎅</div>
+
+<div class="mistletoe mistletoe-1">🎄</div>
+<div class="mistletoe mistletoe-2">🎄</div>
+<div class="mistletoe mistletoe-3">🎄</div>
+
+<div class="light light-1">💡</div>
+<div class="light light-2">💡</div>
+<div class="light light-3">💡</div>
+<div class="light light-4">💡</div>
+
+<div class="angel angel-1">👼</div>
+<div class="angel angel-2">👼</div>
+
+<div class="wreath wreath-1">🎀</div>
+<div class="wreath wreath-2">🎀</div>
+<div class="wreath wreath-3">🎀</div>
+
+<div class="ornament ornament-1">🔴</div>
+<div class="ornament ornament-2">🔵</div>
+<div class="ornament ornament-3">🟡</div>
+<div class="ornament ornament-4">🟢</div>
+
+<div class="sleigh sleigh-1">🛷</div>
+<div class="sleigh sleigh-2">🛷</div>
+
+<div class="snowglobe snowglobe-1">🌨️</div>
+<div class="snowglobe snowglobe-2">🌨️</div>
+
+<div class="hot-chocolate hc-1">☕</div>
+<div class="hot-chocolate hc-2">☕</div>
+<div class="hot-chocolate hc-3">☕</div>
+
 <style>
   /* Snowflakes Container */
   .snowflakes-container {
@@ -346,9 +381,166 @@
   .reindeer-2 { top: 42%; left: 85%; animation-delay: 1s; }
   .reindeer-3 { bottom: 70%; right: 50%; animation-delay: 2s; }
   
+  /* === WEIHNACHTSMÄNNER === */
+  .santa {
+    position: fixed;
+    font-size: 35px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.75;
+    animation: wave 4s ease-in-out infinite;
+  }
+  
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    75% { transform: rotate(-10deg); }
+  }
+  
+  .santa-1 { top: 15%; right: 8%; }
+  .santa-2 { bottom: 18%; left: 12%; animation-delay: 2s; }
+  
+  /* === MISTELZWEIGE === */
+  .mistletoe {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+    animation: sway 3s ease-in-out infinite;
+  }
+  
+  .mistletoe-1 { top: 12%; left: 30%; }
+  .mistletoe-2 { top: 18%; right: 35%; animation-delay: 1s; }
+  .mistletoe-3 { bottom: 80%; left: 60%; animation-delay: 2s; }
+  
+  /* === LICHTERKETTEN === */
+  .light {
+    position: fixed;
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 2;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  
+  .light-1 { top: 8%; left: 15%; }
+  .light-2 { top: 8%; right: 15%; animation-delay: 0.5s; }
+  .light-3 { bottom: 8%; left: 20%; animation-delay: 1s; }
+  .light-4 { bottom: 8%; right: 20%; animation-delay: 1.5s; }
+  
+  /* === ENGEL === */
+  .angel {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.8;
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .angel-1 { top: 5%; left: 50%; }
+  .angel-2 { bottom: 85%; right: 10%; animation-delay: 2.5s; }
+  
+  /* === KRÄNZE/SCHLEIFEN === */
+  .wreath {
+    position: fixed;
+    font-size: 26px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.7;
+    animation: spin 8s linear infinite;
+  }
+  
+  .wreath-1 { top: 35%; left: 8%; }
+  .wreath-2 { bottom: 45%; right: 8%; animation-delay: 2s; }
+  .wreath-3 { top: 65%; right: 25%; animation-delay: 4s; }
+  
+  /* === CHRISTBAUMKUGELN === */
+  .ornament {
+    position: fixed;
+    font-size: 22px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.7;
+    animation: swing 2.5s ease-in-out infinite;
+  }
+  
+  .ornament-1 { top: 22%; left: 38%; }
+  .ornament-2 { top: 48%; right: 38%; animation-delay: 0.6s; }
+  .ornament-3 { bottom: 32%; left: 42%; animation-delay: 1.2s; }
+  .ornament-4 { bottom: 58%; right: 42%; animation-delay: 1.8s; }
+  
+  /* === SCHLITTEN === */
+  .sleigh {
+    position: fixed;
+    font-size: 28px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.65;
+    animation: slide 6s ease-in-out infinite;
+  }
+  
+  @keyframes slide {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-15px); }
+  }
+  
+  .sleigh-1 { top: 75%; left: 18%; }
+  .sleigh-2 { bottom: 12%; right: 22%; animation-delay: 3s; }
+  
+  /* === SCHNEEKUGELN === */
+  .snowglobe {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.7;
+    animation: shake 4s ease-in-out infinite;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+  }
+  
+  .snowglobe-1 { top: 52%; left: 12%; }
+  .snowglobe-2 { bottom: 38%; right: 12%; animation-delay: 2s; }
+  
+  /* === HEISSE SCHOKOLADE === */
+  .hot-chocolate {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.7;
+    animation: steam 3s ease-in-out infinite;
+  }
+  
+  @keyframes steam {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.05); }
+  }
+  
+  .hc-1 { top: 38%; left: 75%; }
+  .hc-2 { bottom: 48%; left: 28%; animation-delay: 1s; }
+  .hc-3 { top: 68%; right: 32%; animation-delay: 2s; }
+  
   /* Mobile Optimierung */
   @media (max-width: 768px) {
-    .tree, .snowman, .present { font-size: 25px; }
-    .heart, .star, .candle, .candy, .bell, .cookie, .reindeer { font-size: 18px; }
+    .tree, .snowman, .present, .santa, .sleigh { font-size: 25px; }
+    .heart, .star, .candle, .candy, .bell, .cookie, .reindeer, .angel, .wreath, .ornament, .snowglobe, .hot-chocolate { font-size: 18px; }
+    .mistletoe, .light { font-size: 16px; }
   }
 </style>

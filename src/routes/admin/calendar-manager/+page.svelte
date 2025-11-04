@@ -23,6 +23,9 @@
     'Überraschungen',
     'Gutscheine',
     'Challenges',
+    'Abenteuer',
+    'Wellness',
+    'Nostalgisch',
     'Allgemein'
   ];
   
@@ -281,6 +284,18 @@
         </div>
         <div class="tip">
           ⚡ <strong>Schnell-Funktion:</strong> "Auto-Fill Vorschlag" füllt leere Tage automatisch aus
+        </div>
+        <div class="tip">
+          🎨 <strong>Kategorien:</strong> Wechsle zwischen Romantisch, Spiele, Kreativ, Abenteuer & mehr
+        </div>
+        <div class="tip">
+          🔍 <strong>Suche:</strong> Gib Stichwörter ein um bestimmte Tiles zu finden
+        </div>
+        <div class="tip">
+          👁️ <strong>Vorschau:</strong> Klicke auf "Vorschau" um zu sehen wie der Tag aussehen wird
+        </div>
+        <div class="tip">
+          📊 <strong>Statistik:</strong> Die Zahlen oben zeigen dir den Fortschritt deines Kalenders
         </div>
       </div>
     </div>

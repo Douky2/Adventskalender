@@ -1071,12 +1071,78 @@ Eine Aufgabe, die uns ins neue Jahr führt...
     console.log(`✅ Türchen ${day.dayNumber} erstellt`);
   }
 
-  console.log('✨ Seeding abgeschlossen! 24 Türchen wurden mit vollständigem Inhalt erstellt.');
+  console.log('✨ Türchen-Seeding abgeschlossen! 24 Türchen wurden mit vollständigem Inhalt erstellt.');
   console.log('🎄 Inklusive:');
   console.log('   - Mehrteilige Love Story (Tag 4-6)');
   console.log('   - Platform 9¾ Easter Egg Hinweis (Tag 9)');
   console.log('   - Emotionales Weihnachtsfinale (Tag 23-24)');
   console.log('   - Silvester-Mission Teaser (Tag 24)');
+  
+  // === TILE LIBRARY SEEDING ===
+  console.log('\n🎨 Starte Tile-Library Seeding...');
+  
+  // Lösche alte Tiles (optional - auskommentiert für Sicherheit)
+  // await prisma.tile.deleteMany({});
+  
+  const demoTiles = [
+    // ROMANTISCH
+    { title: '💌 Liebesbrief Tag 1', description: 'Romantischer Start', category: 'Romantisch', contentType: 'LOVE_LETTER', content: 'Mein Liebling,\n\nheute beginnt eine besondere Zeit. 24 Tage voller Überraschungen.\n\nMit Liebe, [Name] 💕', author: 'A', responseMode: 'DISABLED', tags: 'start, liebe' },
+    { title: '✍️ Romantisches Gedicht', description: 'Kurzes Liebesgedicht', category: 'Romantisch', contentType: 'POEM', content: 'In jedem Sonnenstrahl,\nSehe ich dein Lächeln,\nMit dir ist jeder Tag so schön. 💕', author: 'A', responseMode: 'DISABLED', tags: 'gedicht, romantik' },
+    { title: '💫 Unsere Erinnerung', description: 'Gemeinsame Erinnerung', category: 'Romantisch', contentType: 'MEMORY', content: 'Weißt du noch, unser erster Spaziergang im Schnee?\n\nDas war magisch. ❤️', author: 'A', responseMode: 'OPEN', taskForB: 'Teile deine Lieblingserinnerung', tags: 'erinnerung, romantik' },
+    
+    // SPIELE
+    { title: '❓ Kennst du mich Quiz', description: 'Wissens-Quiz', category: 'Spiele', contentType: 'GAME_QUESTION', content: 'Was ist meine Lieblings-Weihnachtstradition?\n\nA) Plätzchen backen 🍪\nB) Weihnachtsmarkt 🎄\nC) Filme schauen 🎬\nD) Geschenke einpacken 🎁', author: 'A', responseMode: 'CHOICE', taskForB: 'Wähle die Antwort', tags: 'quiz, spiel' },
+    { title: '🤔 Würdest du lieber', description: 'Entscheidungs-Spiel', category: 'Spiele', contentType: 'WOULD_YOU_RATHER', content: 'Würdest du lieber...\n\n🅰️ Winter im Schnee\n\noder\n\n🅱️ Winter am Strand\n\n?', author: 'A', responseMode: 'OPEN', taskForB: 'Wähle und erkläre', tags: 'spiel, entscheidung' },
+    { title: '🧩 Advents-Rätsel', description: 'Weihnachtsrätsel', category: 'Spiele', contentType: 'RIDDLE', content: 'Ich bringe Licht in dunkle Nacht,\n24 Türchen hab ich hier,\nWas bin ich? 🤔', author: 'A', responseMode: 'OPEN', taskForB: 'Lösung schreiben', tags: 'rätsel, advent' },
+    
+    // KREATIV
+    { title: '🍪 Vanillekipferl backen', description: 'Plätzchenrezept', category: 'Kreativ', contentType: 'RECIPE', content: '🍪 VANILLEKIPFERL\n\nZutaten:\n▸ 280g Mehl\n▸ 210g Butter\n▸ 100g Mandeln\n\nLass uns backen! 👨‍🍳', author: 'A', responseMode: 'COLLABORATIVE', taskForB: 'Wann backen wir?', tags: 'backen, plätzchen' },
+    { title: '🎵 Weihnachts-Playlist', description: 'Gemeinsame Playlist', category: 'Kreativ', contentType: 'COLLABORATIVE_PLAYLIST', content: '🎶 Lass uns eine Advents-Playlist erstellen!\n\nFüge 5 Songs hinzu! ✨', author: 'A', responseMode: 'COLLABORATIVE', taskForB: 'Songs hinzufügen', tags: 'musik, playlist' },
+    { title: '🎬 Film-Abend', description: 'Weihnachtsfilm', category: 'Kreativ', contentType: 'MOVIE_NIGHT', content: '🍿 FILM-ABEND\n\nFilm: "Tatsächlich... Liebe"\nWann: Nächstes Wochenende\n\nBist du dabei? 💕', author: 'A', responseMode: 'OPEN', taskForB: 'Zusagen', tags: 'film, date' },
+    
+    // GUTSCHEINE
+    { title: '🎫 Kuschel-Gutschein', description: 'Gemütlicher Abend', category: 'Gutscheine', contentType: 'COUPON', content: '🎁 GUTSCHEIN\n\n▸ Kuschel-Abend\n▸ Mit Kerzenlicht\n▸ Unbegrenzte Umarmungen 💕\n\nEinlösbar: Jederzeit!', author: 'A', responseMode: 'DISABLED', tags: 'gutschein, kuscheln' },
+    { title: '💆 Massage-Gutschein', description: 'Rückenmassage', category: 'Gutscheine', contentType: 'COUPON', content: '💆‍♀️ MASSAGE-GUTSCHEIN\n\n▸ 30 Min Rückenmassage\n▸ Mit Kerzen & Musik\n\nGültig bis: 31.12.2025 ❤️', author: 'A', responseMode: 'DISABLED', tags: 'gutschein, massage' },
+    
+    // AUFGABEN
+    { title: '✨ Komplimente-Aufgabe', description: '3 Dinge die du liebst', category: 'Fragen', contentType: 'TASK', content: '💕 Schreibe mir 3 Dinge, die du an mir liebst.\n\nIch bin gespannt! 😊', author: 'A', responseMode: 'OPEN', taskForB: 'Schreibe 3 Komplimente', tags: 'aufgabe, komplimente' },
+    { title: '📸 Foto-Challenge', description: 'Besonderes Foto', category: 'Spiele', contentType: 'PHOTO_CHALLENGE', content: '📸 FOTO-CHALLENGE\n\nMache ein Foto von etwas, das dich an mich erinnert! 🤩', author: 'A', responseMode: 'OPEN', taskForB: 'Foto machen', tags: 'foto, challenge' },
+    
+    // ABENTEUER
+    { title: '🗺️ Mini-Schnitzeljagd', description: 'Kleine Überraschung', category: 'Abenteuer', contentType: 'TASK', content: '🔍 SCHNITZELJAGD\n\nHinweis: Schau dort nach, wo wir jeden Morgen sind ☕\n\nViel Spaß! 🏃‍♀️', author: 'A', responseMode: 'OPEN', taskForB: 'Finde die Überraschung', tags: 'schnitzeljagd, abenteuer' },
+    { title: '🎯 Tages-Challenge', description: 'Mutprobe', category: 'Abenteuer', contentType: 'CHALLENGE', content: '💪 MUTPROBE\n\nHeute: [Deine Challenge hier]\n\nTraust du dich? 🤩', author: 'A', responseMode: 'OPEN', taskForB: 'Challenge annehmen', tags: 'challenge, mut' },
+    
+    // WELLNESS
+    { title: '🧘 Entspannungs-Tag', description: 'Wellness-Programm', category: 'Wellness', contentType: 'TASK', content: '🧘‍♀️ WELLNESS-TAG\n\n▸ Entspannungsbad 🛁\n▸ Gesichtsmaske 💆‍♀️\n▸ Tee & Buch 📖\n\nDu hast es verdient! ✨', author: 'A', responseMode: 'OPEN', taskForB: 'Genieße deinen Tag', tags: 'wellness, entspannung' },
+    { title: '💧 Wasser-Challenge', description: '2L Wasser trinken', category: 'Wellness', contentType: 'CHALLENGE', content: '💧 WASSER-CHALLENGE\n\nHeute: 2 Liter Wasser trinken!\n\nSchaffst du das? 💪', author: 'A', responseMode: 'OPEN', taskForB: '2L trinken', tags: 'wellness, gesundheit' },
+    
+    // NOSTALGISCH
+    { title: '📸 Unsere Timeline', description: 'Erinnerungen', category: 'Nostalgisch', contentType: 'MEMORY', content: '📼 ERINNERUNGEN\n\nUnser erstes Treffen: [Datum]\nUnser erstes Date: [Datum]\n\nJeder Moment war magisch 💕', author: 'A', responseMode: 'OPEN', taskForB: 'Welcher war am schönsten?', tags: 'erinnerung, nostalgie' },
+    { title: '🎵 Unser Song', description: 'Besonderer Song', category: 'Nostalgisch', contentType: 'TEXT', content: '🎵 UNSER LIED\n\n[Song-Titel]\n\nHöre ihn heute und erinnere dich... 💕🎶', author: 'A', responseMode: 'OPEN', taskForB: 'Gedanken teilen', tags: 'musik, erinnerung' },
+    
+    // ÜBERRASCHUNGEN
+    { title: '🎁 Mysterium-Box', description: 'Versteckte Überraschung', category: 'Überraschungen', contentType: 'SURPRISE', content: '🎁 MYSTERIUM-BOX\n\nIch habe etwas versteckt!\n\nOrt: [Hinweis]\n\nViel Spaß beim Suchen! 🔍', author: 'A', responseMode: 'DISABLED', tags: 'überraschung, versteck' },
+    { title: '⏰ Countdown', description: 'Ankündigung', category: 'Überraschungen', contentType: 'TASK', content: '⏰ COUNTDOWN\n\nIn [X] Tagen passiert etwas Besonderes!\n\nMehr verrate ich nicht! 🤫', author: 'A', responseMode: 'OPEN', taskForB: 'Rate was es ist', tags: 'countdown, spannung' },
+  ];
+  
+  let tileCount = 0;
+  for (const tileData of demoTiles) {
+    await prisma.tile.create({ data: tileData });
+    tileCount++;
+  }
+  
+  console.log(`✅ ${tileCount} Demo-Tiles erstellt!`);
+  console.log('\n📊 Kategorien:');
+  console.log('   💕 Romantisch: 3 Tiles');
+  console.log('   🎮 Spiele: 4 Tiles');
+  console.log('   🎨 Kreativ: 3 Tiles');
+  console.log('   🎫 Gutscheine: 2 Tiles');
+  console.log('   ✅ Aufgaben: 2 Tiles');
+  console.log('   🗺️ Abenteuer: 2 Tiles');
+  console.log('   🧘 Wellness: 2 Tiles');
+  console.log('   📼 Nostalgisch: 2 Tiles');
+  console.log('   🎁 Überraschungen: 2 Tiles');
+  console.log(`\n🎉 Gesamt: ${tileCount} Tiles bereit zum Verwenden!`);
   console.log('🎆 Nächster Schritt: Silvester-Kästchen implementieren!');
 }
 

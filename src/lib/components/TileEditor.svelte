@@ -31,35 +31,38 @@
     'Überraschungen',
     'Gutscheine',
     'Challenges',
+    'Abenteuer',
+    'Wellness',
+    'Nostalgisch',
     'Allgemein'
   ];
   
   const contentTypes = [
-    { value: 'TEXT', label: 'Text', icon: '📝', description: 'Einfacher Text', help: 'Für Briefe, Gedichte, Geschichten. Der vielseitigste Typ!' },
-    { value: 'LOVE_LETTER', label: 'Liebesbrief', icon: '💌', description: 'Romantischer Brief', help: 'Perfekt für emotionale, romantische Nachrichten mit schönem Layout' },
-    { value: 'STORY', label: 'Geschichte', icon: '📖', description: 'Längere Erzählung', help: 'Für mehrteilige Geschichten oder längere Texte mit Kapiteln' },
-    { value: 'POEM', label: 'Gedicht', icon: '✍️', description: 'Gedicht/Verse', help: 'Zeigt Gedichte mit spezieller Formatierung und Versbrechungen' },
-    { value: 'MEMORY', label: 'Erinnerung', icon: '💫', description: 'Gemeinsame Erinnerung', help: 'Erzähle von einem besonderen gemeinsamen Moment' },
-    { value: 'QUOTE', label: 'Zitat', icon: '💭', description: 'Inspirierendes Zitat', help: 'Zeigt Zitate in schönem Design mit Autor' },
-    { value: 'WOULD_YOU_RATHER', label: 'Würdest du lieber', icon: '🤔', description: 'Entscheidungsspiel', help: 'Stelle lustige "Würdest du lieber...?" Fragen' },
-    { value: 'THIS_OR_THAT', label: 'Dies oder Das', icon: '⚡', description: 'Schnelles Entscheidungsspiel', help: 'Zwei Optionen zur Wahl - schnell und lustig!' },
-    { value: 'GAME_QUESTION', label: 'Quiz-Frage', icon: '❓', description: 'Multiple Choice Quiz', help: 'Erstelle Quiz-Fragen mit mehreren Antwortoptionen' },
-    { value: 'RIDDLE', label: 'Rätsel', icon: '🧩', description: 'Rätsel zu lösen', help: 'Stelle ein Rätsel mit versteckter Antwort' },
-    { value: 'TASK', label: 'Aufgabe', icon: '✅', description: 'Aufgabe erledigen', help: 'Gib eine Aufgabe die erledigt werden soll' },
-    { value: 'CHALLENGE', label: 'Challenge', icon: '🎯', description: 'Herausforderung', help: 'Stelle eine lustige oder romantische Challenge' },
-    { value: 'RECIPE', label: 'Rezept', icon: '🍪', description: 'Backrezept', help: 'Teile ein Rezept zum gemeinsamen Backen' },
-    { value: 'MOVIE_NIGHT', label: 'Film-Abend', icon: '🎬', description: 'Film-Empfehlung', help: 'Schlage einen Film für einen gemeinsamen Abend vor' },
-    { value: 'COLLABORATIVE_PLAYLIST', label: 'Playlist', icon: '🎵', description: 'Musik-Playlist', help: 'Erstelle oder teile eine Playlist für euch' },
-    { value: 'PHOTO_CHALLENGE', label: 'Foto-Challenge', icon: '📷', description: 'Foto-Aufgabe', help: 'Fordere zu einem bestimmten Foto heraus' },
-    { value: 'COUPON', label: 'Gutschein', icon: '🎫', description: 'Geschenk-Gutschein', help: 'Erstelle einen Gutschein für etwas Besonderes' },
-    { value: 'SURPRISE', label: 'Überraschung', icon: '🎁', description: 'Geheime Überraschung', help: 'Kündige eine Überraschung an oder verstecke einen Hinweis' }
+    { value: 'TEXT', label: 'Text', icon: '📝', description: 'Einfacher Text', help: 'Für Briefe, Gedichte, Geschichten. Der vielseitigste Typ! Unterstützt Markdown für Formatierung. Perfekt für: längere Texte, persönliche Nachrichten, Gedanken teilen.' },
+    { value: 'LOVE_LETTER', label: 'Liebesbrief', icon: '💌', description: 'Romantischer Brief', help: 'Perfekt für emotionale, romantische Nachrichten mit schönem Layout. Wird mit Herz-Rahmen und romantischen Farben angezeigt. Ideal für: Liebesgeständnisse, Danksagungen, romantische Gedanken.' },
+    { value: 'STORY', label: 'Geschichte', icon: '📖', description: 'Längere Erzählung', help: 'Für mehrteilige Geschichten oder längere Texte mit Kapiteln. Nutze linkedToPrevious/linkedToNext für Story-Chains! Perfekt für: Fortsetzungsgeschichten, gemeinsame Stories, längere Erzählungen.' },
+    { value: 'POEM', label: 'Gedicht', icon: '✍️', description: 'Gedicht/Verse', help: 'Zeigt Gedichte mit spezieller Formatierung und Versbrechungen. Jede neue Zeile wird als Vers behandelt. Ideal für: Liebesgedichte, Reime, poetische Gedanken, Verse zum Advent.' },
+    { value: 'MEMORY', label: 'Erinnerung', icon: '💫', description: 'Gemeinsame Erinnerung', help: 'Erzähle von einem besonderen gemeinsamen Moment. Wird mit nostalgischem Design angezeigt. Perfekt für: Throwbacks, besondere Momente teilen, Erinnerungen wachrufen, Timeline erstellen.' },
+    { value: 'QUOTE', label: 'Zitat', icon: '💭', description: 'Inspirierendes Zitat', help: 'Zeigt Zitate in schönem Design mit Autor. Format: "Zitat-Text" — Autor. Ideal für: inspirierende Sprüche, Lieblingsz itate, Weisheiten, motivierende Worte.' },
+    { value: 'WOULD_YOU_RATHER', label: 'Würdest du lieber', icon: '🤔', description: 'Entscheidungsspiel', help: 'Stelle lustige "Würdest du lieber...?" Fragen mit zwei Optionen A und B. Wird interaktiv! Perfekt für: tiefe Gespräche, lustige Szenarien, Kennenlernen, philosophische Fragen.' },
+    { value: 'THIS_OR_THAT', label: 'Dies oder Das', icon: '⚡', description: 'Schnelles Entscheidungsspiel', help: 'Zwei Optionen zur Wahl - schnell und lustig! Mehrere Fragen hintereinander möglich. Ideal für: Vorlieben herausfinden, schnelle Spiele, Zukunftspläne diskutieren.' },
+    { value: 'GAME_QUESTION', label: 'Quiz-Frage', icon: '❓', description: 'Multiple Choice Quiz', help: 'Erstelle Quiz-Fragen mit 2-4 Antwortoptionen (A, B, C, D). Markiere die richtige Antwort! Perfekt für: Wissenstest, "Kennst du mich?"-Spiele, Advents-Quiz, lustige Fakten.' },
+    { value: 'RIDDLE', label: 'Rätsel', icon: '🧩', description: 'Rätsel zu lösen', help: 'Stelle ein Rätsel mit versteckter Antwort. Optional: Füge Tipps hinzu die nach Zeit erscheinen! Ideal für: Denkaufgaben, Schnitzeljagd-Hinweise, Escape Room Style, kreative Rätsel.' },
+    { value: 'TASK', label: 'Aufgabe', icon: '✅', description: 'Aufgabe erledigen', help: 'Gib eine Aufgabe die erledigt werden soll. Setze taskForB für klare Anweisungen! Perfekt für: tägliche Challenges, Komplimente-Aufgaben, kreative Tasks, gemeinsame Aktivitäten.' },
+    { value: 'CHALLENGE', label: 'Challenge', icon: '🎯', description: 'Herausforderung', help: 'Stelle eine lustige oder romantische Challenge. Kann mit Foto/Video-Beweis sein! Ideal für: Mutproben, Foto-Challenges, Sport-Challenges, kreative Herausforderungen, Bucket List Items.' },
+    { value: 'RECIPE', label: 'Rezept', icon: '🍪', description: 'Backrezept', help: 'Teile ein Rezept zum gemeinsamen Backen oder Kochen. Format: Zutaten-Liste, dann Zubereitung. Perfekt für: Weihnachtsplätzchen, gemeinsame Dinner-Pläne, Tradition schaffen.' },
+    { value: 'MOVIE_NIGHT', label: 'Film-Abend', icon: '🎬', description: 'Film-Empfehlung', help: 'Schlage einen Film für einen gemeinsamen Abend vor. Inkl. Datum, Snacks, Warum-Begründung! Ideal für: Date-Planung, Weihnachtsfilme, gemütliche Abende, Film-Marathon.' },
+    { value: 'COLLABORATIVE_PLAYLIST', label: 'Playlist', icon: '🎵', description: 'Musik-Playlist', help: 'Erstelle oder teile eine Playlist für euch beide. Link zu Spotify/YouTube einfügen! Perfekt für: gemeinsame Musik entdecken, Stimmungen teilen, Song-Favoriten, Roadtrip-Playlists.' },
+    { value: 'PHOTO_CHALLENGE', label: 'Foto-Challenge', icon: '📷', description: 'Foto-Aufgabe', help: 'Fordere zu einem bestimmten Foto heraus. Gib Thema, Stil oder Ort vor! Ideal für: kreative Fotos, Selfie-Challenges, Stadt-Safari, "Erinnert an dich"-Fotos, Scavenger Hunt.' },
+    { value: 'COUPON', label: 'Gutschein', icon: '🎫', description: 'Geschenk-Gutschein', help: 'Erstelle einen Gutschein für etwas Besonderes. Inkl. Was, Wann, Gültig bis! Perfekt für: Massage, Dinner-Date, Freifahrtschein, Wunsch erfüllen, Zeit schenken.' },
+    { value: 'SURPRISE', label: 'Überraschung', icon: '🎁', description: 'Geheime Überraschung', help: 'Kündige eine Überraschung an oder verstecke einen Hinweis! Wird mysteriös angezeigt. Ideal für: Geschenk-Teaser, Schnitzeljagd-Start, Ausflug-Ankündigung, Spannung aufbauen.' }
   ];
   
   const responseModes = [
-    { value: 'DISABLED', label: '🚫 Keine Antwort', description: 'Nur anschauen', help: 'Person B kann nur lesen, nicht antworten. Gut für Überraschungen!' },
-    { value: 'OPEN', label: '✍️ Freie Antwort', description: 'Freitext-Antwort', help: 'Person B kann frei antworten. Perfekt für Fragen und Aufgaben!' },
-    { value: 'COLLABORATIVE', label: '🤝 Zusammenarbeit', description: 'Gemeinsames Projekt', help: 'Für Dinge die ihr zusammen macht (Playlist, Rezept, etc.)' },
-    { value: 'CHOICE', label: '☑️ Multiple Choice', description: 'Auswahl-Optionen', help: 'Person B wählt aus vorgegebenen Optionen (für Quiz)' }
+    { value: 'DISABLED', label: '🚫 Keine Antwort', description: 'Nur anschauen', help: 'Person B kann nur lesen, nicht antworten. Gut für: Überraschungen, Gutscheine, Ankündigungen, Gedichte, einfache Nachrichten. Der Inhalt steht für sich!' },
+    { value: 'OPEN', label: '✍️ Freie Antwort', description: 'Freitext-Antwort', help: 'Person B kann frei antworten in einem Textfeld. Perfekt für: Fragen beantworten, Aufgaben beschreiben, Gedanken teilen, Feedback geben, kreative Antworten, offene Diskussionen.' },
+    { value: 'COLLABORATIVE', label: '🤝 Zusammenarbeit', description: 'Gemeinsames Projekt', help: 'Für Dinge die ihr zusammen macht und beide beitragen! Ideal für: gemeinsame Playlists erstellen, Rezepte zusammen planen, Geschichten weiterschreiben, Bucket Lists ergänzen, Projekte gemeinsam entwickeln.' },
+    { value: 'CHOICE', label: '☑️ Multiple Choice', description: 'Auswahl-Optionen', help: 'Person B wählt aus vorgegebenen Optionen (A, B, C, D). Perfekt für: Quiz-Fragen, "Würdest du lieber"-Spiele, Entscheidungen treffen, Favoriten wählen, Abstimmungen.' }
   ];
   
   let showTemplates = false;
@@ -460,6 +463,509 @@ Einlösbar für:
 Bedingungen: [z.B. "Muss legal sein 😄"]
 
 Einmalig einlösbar! ✨`
+    },
+    
+    // === ABENTEUER (8 neue Templates) ===
+    {
+      category: 'Abenteuer',
+      contentType: 'TASK',
+      title: '🗺️ Schnitzeljagd',
+      content: `🔍 SCHNITZELJAGD 🔍
+
+Heute habe ich eine Schnitzeljagd für dich vorbereitet!
+
+HINWEIS 1: [Ort/Rätsel 1]
+→ Dort findest du den nächsten Hinweis
+
+HINWEIS 2: [wird enthüllt wenn Hinweis 1 gefunden]
+
+Belohnung am Ende: 🎁 [Deine Überraschung]
+
+Viel Spaß beim Suchen! 🏃‍♀️`,
+      taskForB: 'Finde alle Hinweise',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'CHALLENGE',
+      title: '🌟 Mutprobe',
+      content: `💪 MUTPROBE DES TAGES 💪
+
+Heute fordere ich dich heraus:
+[z.B. "Sprich einen Fremden an und frage nach der Uhrzeit"]
+
+Schwierigkeitsgrad: [😊 Leicht / 😅 Mittel / 😱 Schwer]
+
+Traust du dich? 🤩
+
+Beweis: [Selfie/Story/Video]`,
+      taskForB: 'Challenge annehmen!',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'SURPRISE',
+      title: '🎒 Überraschungs-Ausflug',
+      content: `🚗 ÜBERRASCHUNGS-AUSFLUG 🚗
+
+Pack deine Tasche!
+
+Wir gehen nach: [GEHEIM! 🤫]
+
+Mitnehmen:
+▸ [z.B. "Bequeme Schuhe"]
+▸ [z.B. "Warme Jacke"]
+▸ [z.B. "Gute Laune"]
+
+Abfahrt: [DATUM/ZEIT]
+
+Ich verrate nicht wo es hingeht! 😎✨`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'TASK',
+      title: '📍 Geocaching-Mission',
+      content: `🧭 GEOCACHING-ABENTEUER 🧭
+
+Koordinaten: [Koordinaten oder Adresse]
+
+Deine Mission:
+1. Finde den versteckten Cache
+2. Löse das Rätsel darin
+3. Lass eine Nachricht da
+
+Schwierigkeit: ⭐⭐⭐
+
+Belohnung: Ehre & Ruhm! 🏆`,
+      taskForB: 'Cache finden und Rätsel lösen',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'PHOTO_CHALLENGE',
+      title: '📸 Stadt-Foto-Safari',
+      content: `📷 FOTO-SAFARI IN DER STADT 📷
+
+Fotografiere heute:
+▸ Etwas Rotes 🔴
+▸ Ein lustiges Schild 🪧
+▸ Einen Hund 🐕
+▸ Street Art 🎨
+▸ Etwas das nach mir riecht 😄
+
+Zeit: Bis [UHRZEIT]
+
+Auf die Plätze, fertig, los! 📸✨`,
+      taskForB: 'Alle Fotos machen',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'CHALLENGE',
+      title: '🎭 Verkleidungs-Challenge',
+      content: `🎭 VERKLEIDUNGS-CHALLENGE 🎭
+
+Zieh heute etwas an, das du normalerweise NIE tragen würdest!
+
+Ideen:
+- [z.B. "Komplett in einer Farbe"]
+- [z.B. "Retro 80er Style"]
+- [z.B. "Business-Look"]
+
+Foto-Beweis erforderlich! 📸
+
+Traust du dich? 😜`,
+      taskForB: 'Verkleiden und Foto schicken',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'TASK',
+      title: '🌙 Nacht-Abenteuer',
+      content: `🌙 NACHT-ABENTEUER 🌙
+
+Heute Nacht um [UHRZEIT]:
+[z.B. "Treffen wir uns am See"]
+
+Was wir machen:
+▸ [z.B. "Sterne beobachten"]
+▸ [z.B. "Mit Taschenlampen spazieren"]
+▸ [z.B. "Geheime Mission 😏"]
+
+Zieh dich warm an! 🧥✨`,
+      taskForB: 'Sei bereit für das Abenteuer',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Abenteuer',
+      contentType: 'RIDDLE',
+      title: '🔐 Escape Room Rätsel',
+      content: `🔐 ESCAPE ROOM RÄTSEL 🔐
+
+Du bist eingesperrt! Löse das Rätsel um rauszukommen:
+
+[DEIN RÄTSEL - z.B.
+"Im ersten Moment siehst du 5,
+doch schaust du genau sind es 6.
+Was ist es?"]
+
+💡 Tipp 1: [Hinweis nach 5 Min]
+💡 Tipp 2: [Hinweis nach 10 Min]
+
+Lösung: ___________
+
+Ticktock... ⏰`,
+      taskForB: 'Löse das Rätsel',
+      responseMode: 'OPEN'
+    },
+
+    // === WELLNESS (7 neue Templates) ===
+    {
+      category: 'Wellness',
+      contentType: 'TASK',
+      title: '🧘‍♀️ Entspannungs-Routine',
+      content: `🧘‍♀️ WELLNESS-TAG 🧘‍♀️
+
+Heute ist Entspannungstag!
+
+Dein Programm:
+▸ 10 Min Meditation 🧘
+▸ Entspannungsbad 🛁
+▸ Gesichtsmaske 💆‍♀️
+▸ Tee & gutes Buch 📖
+
+Gönn dir das! Du hast es verdient. ✨
+
+PS: Ich kümmere mich um [z.B. "das Essen"] 💕`,
+      taskForB: 'Entspannen und genießen',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'COUPON',
+      title: '🛁 Spa-Tag Zuhause',
+      content: `💆‍♀️ SPA-TAG GUTSCHEIN 💆‍♀️
+
+Dein Personal-Spa erwartet dich!
+
+Inkludiert:
+▸ Schaumbad mit Kerzen 🕯️
+▸ Rückenmassage 💆
+▸ Gesichtsmaske 😌
+▸ Snacks & Getränke 🍓
+▸ Entspannungsmusik 🎵
+
+Dauer: Den ganzen Nachmittag
+Dresscode: Bademantel! 🥼
+
+Einlösbar: [DATUM]`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'RECIPE',
+      title: '🥗 Gesundes Smoothie-Rezept',
+      content: `🥤 POWER-SMOOTHIE 🥤
+
+Zutaten:
+▸ 1 Banane 🍌
+▸ 1 Handvoll Spinat 🥬
+▸ 1 EL Erdnussbutter 🥜
+▸ 200ml Mandelmilch 🥛
+▸ 1 TL Honig 🍯
+
+Zubereitung:
+Alles in den Mixer → Fertig!
+
+Gesund & Lecker! 💪✨`,
+      taskForB: 'Smoothie zusammen machen',
+      responseMode: 'COLLABORATIVE'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'TASK',
+      title: '🌅 Morgen-Ritual',
+      content: `🌅 MORGEN-RITUAL 🌅
+
+Starte heute mit diesem Ritual:
+
+1. 5 Min Dehnen 🤸‍♀️
+2. Warmes Zitronenwasser 🍋
+3. 3 Dinge für die du dankbar bist aufschreiben ✍️
+4. Positiven Gedanken setzen 💭
+
+Berichte mir wie es war! 🌟`,
+      taskForB: 'Morgen-Ritual durchführen',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'CHALLENGE',
+      title: '💧 Wasser-Challenge',
+      content: `💧 WASSER-CHALLENGE 💧
+
+Heute: 2 Liter Wasser trinken!
+
+Warum? Weil du es wert bist gesund zu sein! 💕
+
+Regeln:
+▸ Trinke alle 2 Stunden ein Glas
+▸ Dokumentiere es (Strichliste)
+▸ Berichte abends
+
+Schaffst du das? 💪`,
+      taskForB: '2L Wasser trinken',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'COLLABORATIVE_PLAYLIST',
+      title: '🎵 Entspannungs-Playlist',
+      content: `🎵 CHILL-PLAYLIST 🎵
+
+Lass uns eine Entspannungs-Playlist erstellen!
+
+Jeder fügt 5 Songs hinzu die:
+▸ Entspannend sind
+▸ Gute Vibes haben
+▸ Zum Chillen perfekt sind
+
+Link: [PLAYLIST-LINK]
+
+Dann hören wir sie zusammen! 🧘‍♀️✨`,
+      taskForB: 'Füge deine Songs hinzu',
+      responseMode: 'COLLABORATIVE'
+    },
+    {
+      category: 'Wellness',
+      contentType: 'TASK',
+      title: '🌳 Natur-Spaziergang',
+      content: `🌳 NATUR-AUSZEIT 🌳
+
+Heute: 30 Minuten in der Natur!
+
+Aufgabe:
+▸ Handy auf Flugmodus 📵
+▸ Bewusst atmen 🌬️
+▸ 5 Dinge wahrnehmen (Sehen, Hören, Riechen)
+▸ Foto von etwas Schönem 📸
+
+Digital Detox! 🌿✨`,
+      taskForB: 'Natur-Spaziergang machen',
+      responseMode: 'OPEN'
+    },
+
+    // === NOSTALGISCH (6 neue Templates) ===
+    {
+      category: 'Nostalgisch',
+      contentType: 'MEMORY',
+      title: '📼 Unsere Timeline',
+      content: `📼 ERINNERUNGEN AN UNS 📼
+
+Unser erstes Treffen: [DATUM/ORT]
+Unser erstes Date: [DATUM/ORT]
+Unser erster Kuss: [DATUM/ORT]
+Als ich wusste, dass ich dich liebe: [MOMENT]
+
+Welche Erinnerung fehlt hier noch? 💕`,
+      taskForB: 'Ergänze deine Lieblings-Erinnerung',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Nostalgisch',
+      contentType: 'PHOTO_CHALLENGE',
+      title: '📸 Throwback-Foto',
+      content: `📸 THROWBACK THURSDAY 📸
+
+Suche ein altes Foto von:
+[z.B. "unserem ersten gemeinsamen Urlaub"]
+
+Und erzähle:
+▸ Was ist auf dem Foto zu sehen?
+▸ Was hast du damals gedacht/gefühlt?
+▸ Was würdest du deinem früheren Ich sagen?
+
+Nostalgie pur! 💕✨`,
+      taskForB: 'Foto finden und Story erzählen',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Nostalgisch',
+      contentType: 'STORY',
+      title: '📖 Unsere Liebesgeschichte',
+      content: `📖 ES WAR EINMAL... 📖
+
+Kapitel 1: Wie wir uns kennenlernten
+
+[ERZÄHLE DIE GESCHICHTE WIE IHR EUCH GETROFFEN HABT]
+
+Was dachtest du, als du mich das erste Mal sahst?
+
+--- FORTSETZUNG ---
+
+Schreib das nächste Kapitel! 💕`,
+      taskForB: 'Geschichte weiterschreiben',
+      responseMode: 'COLLABORATIVE'
+    },
+    {
+      category: 'Nostalgisch',
+      contentType: 'GAME_QUESTION',
+      title: '🎯 Weißt du noch...?',
+      content: `🎯 ERINNERUNGS-QUIZ 🎯
+
+Weißt du noch, was wir bei unserem [X.] Date gemacht haben?
+
+A) [Option 1]
+B) [Option 2]
+C) [Option 3]
+D) [Option 4]
+
+Mal sehen wie gut dein Gedächtnis ist! 😊`,
+      taskForB: 'Rate die richtige Antwort',
+      responseMode: 'CHOICE'
+    },
+    {
+      category: 'Nostalgisch',
+      contentType: 'TEXT',
+      title: '💌 Brief an mein früheres Ich',
+      content: `💌 BRIEF AN MEIN FRÜHERES ICH 💌
+
+Liebes Ich von [vor X Jahren],
+
+Du wirst nicht glauben was passiert ist...
+
+[SCHREIBE WAS DU DEINEM FRÜHEREN ICH ÜBER EURE BEZIEHUNG ERZÄHLEN WÜRDEST]
+
+Du wirst so glücklich sein! 💕
+
+Liebe Grüße aus der Zukunft`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Nostalgisch',
+      contentType: 'TASK',
+      title: '🎵 Unser Song',
+      content: `🎵 UNSER LIED 🎵
+
+Erinnerst du dich an "unseren Song"?
+
+[SONG-TITEL & KÜNSTLER]
+
+Höre ihn heute und erinnere dich an:
+▸ [Warum dieser Song besonders ist]
+▸ [Wann wir ihn das erste Mal zusammen gehört haben]
+
+Dann erzähl mir deine Gedanken! 💕🎶`,
+      taskForB: 'Song hören und Gedanken teilen',
+      responseMode: 'OPEN'
+    },
+
+    // === ÜBERRASCHUNGEN (6 neue Templates) ===
+    {
+      category: 'Überraschungen',
+      contentType: 'SURPRISE',
+      title: '🎁 Mysterium-Box',
+      content: `🎁 MYSTERIUM-BOX 🎁
+
+Ich habe etwas für dich versteckt!
+
+Ort: [VERSTECK-HINWEIS]
+
+Es ist:
+▸ Etwas das du magst ✓
+▸ Etwas das dich überraschen wird ✓
+▸ Von Herzen ✓
+
+Viel Spaß beim Suchen! 🔍✨`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Überraschungen',
+      contentType: 'TASK',
+      title: '🎉 Countdown-Überraschung',
+      content: `⏰ COUNTDOWN ⏰
+
+In [X] Tagen passiert etwas Besonderes!
+
+Hinweise:
+▸ Es hat mit [Thema] zu tun
+▸ Du wirst es lieben
+▸ Halte dir [Datum] frei!
+
+Mehr verrate ich nicht! 🤫✨
+
+Spekuliere ruhig! 😄`,
+      taskForB: 'Rate was es sein könnte',
+      responseMode: 'OPEN'
+    },
+    {
+      category: 'Überraschungen',
+      contentType: 'SURPRISE',
+      title: '💐 Geheime Lieferung',
+      content: `💐 GEHEIME LIEFERUNG 💐
+
+Heute kommt etwas für dich an!
+
+Zeit: [ungefähr UHRZEIT]
+Ort: [z.B. "An der Tür" / "Bei der Arbeit"]
+
+Was es ist? Das ist noch geheim! 🎁
+
+PS: Halte deine Kamera bereit für deine Reaktion! 📸💕`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Überraschungen',
+      contentType: 'CHALLENGE',
+      title: '🎰 Überraschungs-Los',
+      content: `🎰 GLÜCKSRAD DER ÜBERRASCHUNGEN 🎰
+
+Ziehe ein Los (1-5):
+
+1️⃣ [Überraschung 1 - z.B. "Frühstück ans Bett"]
+2️⃣ [Überraschung 2 - z.B. "Dinner Date"]
+3️⃣ [Überraschung 3 - z.B. "Kino-Abend"]
+4️⃣ [Überraschung 4 - z.B. "Massage"]
+5️⃣ [Überraschung 5 - z.B. "Joker - dein Wunsch!"]
+
+Wähle eine Zahl! 🎲`,
+      taskForB: 'Ziehe ein Los (1-5)',
+      responseMode: 'CHOICE'
+    },
+    {
+      category: 'Überraschungen',
+      contentType: 'SURPRISE',
+      title: '🗝️ Schlüssel zur Überraschung',
+      content: `🗝️ SCHLÜSSEL ZUM GEHEIMNIS 🗝️
+
+Ich habe dir einen Hinweis hinterlassen!
+
+Schau nach in/bei: [ORT]
+
+Dort findest du den nächsten Hinweis zu deiner Überraschung!
+
+Die Jagd ist eröffnet! 🏃‍♀️✨`,
+      responseMode: 'DISABLED'
+    },
+    {
+      category: 'Überraschungen',
+      contentType: 'TASK',
+      title: '📬 Geheime Post',
+      content: `📬 GEHEIME POST 📬
+
+Check deinen Briefkasten/Postfach!
+
+Ich habe dir etwas geschickt... 💌
+
+Hinweis: Es ist:
+▸ [z.B. "Etwas zum Lesen"]
+▸ [z.B. "Von Herzen"]
+▸ [z.B. "Nur für dich"]
+
+Neugierig? 😊✨`,
+      taskForB: 'Post checken und freuen',
+      responseMode: 'OPEN'
     }
   ];
   
