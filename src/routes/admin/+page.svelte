@@ -1475,6 +1475,12 @@ Heute Nacht? 🌙`
       <div class="header-group">
         <h3 class="group-title">🔧 Content Builder Tools</h3>
         <div class="header-actions">
+          <a href="/admin/tiles" class="btn-tiles">
+            🎨 Tile Library
+          </a>
+          <a href="/admin/calendar-manager" class="btn-calendar">
+            📅 Calendar Manager
+          </a>
           <a href="/admin/template-builder" class="btn-builder">
             📝 Template Builder
           </a>
@@ -2036,6 +2042,26 @@ Heute Nacht? 🌙`
     border: none;
     cursor: pointer;
     display: block;
+  }
+  
+  .btn-tiles {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+  }
+  
+  .btn-tiles:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  }
+  
+  .btn-calendar {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+  }
+  
+  .btn-calendar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   }
   
   .btn-builder {

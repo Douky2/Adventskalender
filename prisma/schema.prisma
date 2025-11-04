@@ -49,6 +49,42 @@ model Message {
   timestamp   DateTime @default(now())
 }
 
+// Tile (Kachel) System - Getrennte Content-Verwaltung
+model Tile {
+  id              Int      @id @default(autoincrement())
+  
+  // Basis-Informationen
+  title           String
+  description     String?  // Kurze Beschreibung für die Tile-Library
+  category        String   @default("Allgemein") // "Romantisch", "Spiele", "Kreativ", etc.
+  
+  // Content
+  contentType     String   // Content-Type wie bei Day
+  content         String   // Der eigentliche Inhalt
+  author          String?
+  
+  // Aufgaben-Konfiguration
+  taskForB        String?
+  responseMode    String   @default("DISABLED")
+  
+  // Story-Chain Informationen (für mehrtägige Inhalte)
+  linkedToPrevious Boolean @default(false)
+  linkedToNext     Boolean @default(false)
+  storyChainId     String?
+  
+  // Metadaten
+  tags            String?  // Comma-separated tags für Suche
+  isFavorite      Boolean  @default(false)
+  usageCount      Int      @default(0) // Wie oft wurde diese Tile verwendet?
+  
+  // Kalender-Zuordnung
+  assignedToDayNumber Int?   @unique // null = nicht zugeordnet, 1-24 = zugeordnet
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
 model Setting {
   id          Int      @id @default(autoincrement())
   key         String   @unique

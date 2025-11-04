@@ -552,17 +552,29 @@ Jeder Content-Type mit Vorlage zeigt:
 #### 🛠️ **Builder Tools**
 Zugriff über Admin-Header:
 
-1. **📝 Template Builder** (`/admin/template-builder`)
+1. **🎨 Tile Library** (`/admin/tiles`) ⭐ NEU in v2.0!
+   - **WYSIWYG Content-Verwaltung**
+   - Wiederverwendbare Content-Bausteine (Tiles)
+   - Split-Screen Editor mit Live-Vorschau
+   - 🔍 Suche, Filter (Kategorie, Favoriten, Verfügbar)
+   - 📊 Statistiken (Gesamt, Favoriten, Zugewiesen)
+   - ✏️ Quick Edit, � Duplizieren, 🗑️ Löschen
+   - 🏷️ Tags für Organisation
+   - 📚 Template-Integration
+   - 🔗 Story Chain Support
+   - Siehe **[TILE_SYSTEM.md](./TILE_SYSTEM.md)** für Details
+
+2. **�📝 Template Builder** (`/admin/template-builder`)
    - Durchsuche alle 132+ Vorlagen
    - Nach Kategorie gefiltert
    - Copy-to-Clipboard Funktion
 
-2. **📖 Story Chain Builder** (`/admin/story-chain-builder`)
+3. **📖 Story Chain Builder** (`/admin/story-chain-builder`)
    - Plane mehrtägige Geschichten visuell
    - Generiert TypeScript-Code zum Kopieren
    - Konfiguriere linkedToPrevious/Next/storyChainId
 
-3. **🎯 Quiz-Builder** (`/admin/quiz-builder`)
+4. **🎯 Quiz-Builder** (`/admin/quiz-builder`)
    - Erstelle Quizze mit Editor
    - JSON-Validator
    - Live-Vorschau
