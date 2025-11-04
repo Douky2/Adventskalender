@@ -65,12 +65,19 @@
     return icons[contentType] || '📄';
   }
   
-  function formatDate(date: string): string {
-    return new Date(date).toLocaleDateString('de-DE', {
+  function formatDate(date: string | Date): string {
+    const parsed = typeof date === 'string' ? new Date(date) : date;
+    return parsed.toLocaleDateString('de-DE', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
     });
+  }
+
+  function handleDeleteClick(event: MouseEvent) {
+    if (!confirm('Tile wirklich löschen?')) {
+      event.preventDefault();
+    }
   }
 </script>
 
@@ -222,7 +229,7 @@
                       type="submit"
                       class="btn-action danger"
                       title="Löschen"
-                      onclick="return confirm('Tile wirklich löschen?')"
+                      on:click={handleDeleteClick}
                     >
                       🗑️
                     </button>

@@ -3,20 +3,25 @@
   
   // Content-Typen Kategorien
   const categories = {
-    'Basis': ['TEXT', 'IMAGE_URL', 'VIDEO_EMBED'],
-    'Romantisch': ['LOVE_LETTER', 'APPRECIATION', 'MEMORY', 'GRATITUDE', 'GRATITUDE_EXCHANGE', 'COMPLIMENT', 'LOVE_POEM', 'FAVORITE_THING_ABOUT_YOU', 'REASONS_I_LOVE_YOU', 'LOVE_LANGUAGE', 'RANDOM_ACTS'],
-    'Virtual': ['VIRTUAL_DATE', 'MOVIE_NIGHT', 'GAME_CHALLENGE', 'COOKING_TOGETHER', 'WORKOUT_CHALLENGE'],
-    'Musik': ['PLAYLIST_COLLAB', 'COLLABORATIVE_PLAYLIST', 'SPOTIFY_SONG', 'VOICE_MESSAGE', 'PODCAST_SHARE'],
-    'Spiele': ['WOULD_YOU_RATHER', 'THIS_OR_THAT', 'TRUTH_OR_DARE', 'TWO_TRUTHS_ONE_LIE', 'DEBATE_FUN', 'PREDICTION_GAME', 'QUESTION_EXCHANGE', 'INTERACTIVE_CHOICE', 'POLL', 'RIDDLE', 'QUIZ_JSON', 'BINGO'],
-    'Kreativ': ['PHOTO_CHALLENGE', 'CREATIVE_ART', 'MEME_EXCHANGE', 'COUPLE_COLLAGE', 'VIDEO_MESSAGE', 'DOODLE_EXCHANGE', 'SCREENSHOT_TOUR', 'RECIPE_SHARE', 'HANDWRITTEN_NOTE'],
-    'Planung': ['BUCKET_LIST', 'DREAM_VACATION', 'LIFE_GOALS', 'WISH_LIST', 'DREAM_BOARD', 'YEAR_IN_REVIEW', 'DREAM_DATE'],
-    'Persönlich': ['CHILDHOOD_STORY', 'FIRST_IMPRESSION', 'INSIDE_JOKE', 'FAVORITE_MEMORY', 'LOVE_STORY', 'SECRETS'],
-    'Gemütlich': ['COZY_EVENING', 'BLANKET_BURRITO', 'CUDDLE_QUIZ', 'RAINY_DAY', 'MASSAGE_COUPON', 'BREAKFAST_IN_BED', 'MOVIE_NEST', 'SLOW_MORNING', 'STARGAZING', 'PILLOW_FORT'],
-    'Spezial': ['TIME_CAPSULE', 'COUNTDOWN', 'SUNSET_SUNRISE', 'SURPRISE', 'PARALLEL_UNIVERSE']
-  };
+    Basis: ['TEXT', 'IMAGE_URL', 'VIDEO_EMBED'],
+    Romantisch: ['LOVE_LETTER', 'APPRECIATION', 'MEMORY', 'GRATITUDE', 'GRATITUDE_EXCHANGE', 'COMPLIMENT', 'LOVE_POEM', 'FAVORITE_THING_ABOUT_YOU', 'REASONS_I_LOVE_YOU', 'LOVE_LANGUAGE', 'RANDOM_ACTS'],
+    Virtual: ['VIRTUAL_DATE', 'MOVIE_NIGHT', 'GAME_CHALLENGE', 'COOKING_TOGETHER', 'WORKOUT_CHALLENGE'],
+    Musik: ['PLAYLIST_COLLAB', 'COLLABORATIVE_PLAYLIST', 'SPOTIFY_SONG', 'VOICE_MESSAGE', 'PODCAST_SHARE'],
+    Spiele: ['WOULD_YOU_RATHER', 'THIS_OR_THAT', 'TRUTH_OR_DARE', 'TWO_TRUTHS_ONE_LIE', 'DEBATE_FUN', 'PREDICTION_GAME', 'QUESTION_EXCHANGE', 'INTERACTIVE_CHOICE', 'POLL', 'RIDDLE', 'QUIZ_JSON', 'BINGO'],
+    Kreativ: ['PHOTO_CHALLENGE', 'CREATIVE_ART', 'MEME_EXCHANGE', 'COUPLE_COLLAGE', 'VIDEO_MESSAGE', 'DOODLE_EXCHANGE', 'SCREENSHOT_TOUR', 'RECIPE_SHARE', 'HANDWRITTEN_NOTE'],
+    Planung: ['BUCKET_LIST', 'DREAM_VACATION', 'LIFE_GOALS', 'WISH_LIST', 'DREAM_BOARD', 'YEAR_IN_REVIEW', 'DREAM_DATE'],
+    Persönlich: ['CHILDHOOD_STORY', 'FIRST_IMPRESSION', 'INSIDE_JOKE', 'FAVORITE_MEMORY', 'LOVE_STORY', 'SECRETS'],
+    Gemütlich: ['COZY_EVENING', 'BLANKET_BURRITO', 'CUDDLE_QUIZ', 'RAINY_DAY', 'MASSAGE_COUPON', 'BREAKFAST_IN_BED', 'MOVIE_NEST', 'SLOW_MORNING', 'STARGAZING', 'PILLOW_FORT'],
+    Spezial: ['TIME_CAPSULE', 'COUNTDOWN', 'SUNSET_SUNRISE', 'SURPRISE', 'PARALLEL_UNIVERSE']
+  } as const;
+
+  type CategoryKey = keyof typeof categories;
+  type ContentType = (typeof categories)[CategoryKey][number];
+
+  const categoryKeys = Object.keys(categories) as CategoryKey[];
   
-  let selectedCategory = '';
-  let selectedType = '';
+  let selectedCategory: CategoryKey | '' = '';
+  let selectedType: ContentType | '' = '';
   let template = '';
   let copiedMessage = '';
   
@@ -77,8 +82,8 @@
   };
   
   // Füge für alle restlichen Typen Standardvorlagen hinzu
-  Object.keys(categories).forEach(category => {
-    categories[category].forEach(type => {
+  categoryKeys.forEach(category => {
+    categories[category].forEach((type) => {
       if (!templates[type]) {
         templates[type] = [
           `Vorlage 1 für ${type}:\n\n[Platzhalter für deine kreative Idee]\n\n💖`,
@@ -88,13 +93,13 @@
     });
   });
   
-  function selectCategory(cat: string) {
+  function selectCategory(cat: CategoryKey) {
     selectedCategory = cat;
     selectedType = '';
     template = '';
   }
   
-  function selectType(type: string) {
+  function selectType(type: ContentType) {
     selectedType = type;
     if (templates[type]) {
       template = templates[type][0]; // Zeige erste Vorlage
@@ -134,7 +139,7 @@
     <div class="section">
       <h2>1️⃣ Wähle eine Kategorie</h2>
       <div class="category-grid">
-        {#each Object.keys(categories) as category}
+  {#each categoryKeys as category}
           <button 
             class="category-btn"
             class:active={selectedCategory === category}

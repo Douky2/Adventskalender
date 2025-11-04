@@ -138,8 +138,9 @@ ${code}
             
             <div class="form-row">
               <div class="form-group">
-                <label>Tag Nummer:</label>
+                <label for={`part-${index}-day`}>Tag Nummer:</label>
                 <input 
+                  id={`part-${index}-day`}
                   type="number"
                   bind:value={part.dayNumber}
                   min="1"
@@ -150,8 +151,9 @@ ${code}
               </div>
               
               <div class="form-group">
-                <label>Content-Typ:</label>
+                <label for={`part-${index}-content-type`}>Content-Typ:</label>
                 <select 
+                  id={`part-${index}-content-type`}
                   bind:value={part.contentTypeA}
                   class="select-input"
                   on:change={generateSeedCode}
@@ -165,8 +167,9 @@ ${code}
               </div>
               
               <div class="form-group">
-                <label>Response Mode:</label>
+                <label for={`part-${index}-response-mode`}>Response Mode:</label>
                 <select 
+                  id={`part-${index}-response-mode`}
                   bind:value={part.responseMode}
                   class="select-input"
                   on:change={generateSeedCode}
@@ -180,8 +183,9 @@ ${code}
             </div>
             
             <div class="form-group">
-              <label>Titel:</label>
+              <label for={`part-${index}-title`}>Titel:</label>
               <input 
+                id={`part-${index}-title`}
                 type="text"
                 bind:value={part.title}
                 class="text-input"
@@ -190,8 +194,9 @@ ${code}
             </div>
             
             <div class="form-group">
-              <label>Inhalt (optional, kann später im Admin bearbeitet werden):</label>
+              <label for={`part-${index}-content`}>Inhalt (optional, kann später im Admin bearbeitet werden):</label>
               <textarea 
+                id={`part-${index}-content`}
                 bind:value={part.contentA}
                 placeholder="Lasse leer oder schreibe deinen Inhalt hier..."
                 class="textarea-input"

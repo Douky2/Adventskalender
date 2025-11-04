@@ -1,52 +1,71 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   
-  export let data;
-  export let form;
+  type ExampleContent = {
+    title: string;
+    contentTypeA: string;
+    contentA: string;
+    authorA?: string | null;
+    taskForB?: string | null;
+    contentTypeB?: string | null;
+    contentB?: string | null;
+    authorB?: string | null;
+  };
+
+  type ExamplePageData = {
+    isLocked?: boolean;
+    dayNumber?: number;
+    unlockDate?: string;
+    content?: ExampleContent;
+  };
+
+  export let data: ExamplePageData = {};
+  export let form: { error?: string } | null = null;
   
   let showResponseForm = false;
 </script>
 
 <svelte:head>
-  <title>{data.isLocked ? `Tür ${data.dayNumber} - Verschlossen` : data.content.title}</title>
+  <title>{data.isLocked ? `Tür ${data.dayNumber ?? ''} - Verschlossen` : data.content?.title ?? 'Adventskalender'}</title>
 </svelte:head>
 
 <div class="container">
   {#if data.isLocked}
     <div class="locked">
       <div class="lock">🔒</div>
-      <h1>Tür {data.dayNumber} ist noch verschlossen!</h1>
-      <p>Komm am {data.unlockDate} wieder ✨</p>
+      <h1>Tür {data.dayNumber ?? '?'} ist noch verschlossen!</h1>
+      <p>Komm am {data.unlockDate ?? 'bald'} wieder ✨</p>
       <a href="/">← Zurück</a>
     </div>
-  {:else}
+  {:else if data.content}
+    {@const content = data.content}
     <article>
       <header>
-        <div class="badge-day">Tag {data.dayNumber}</div>
-        <h1>{data.content.title}</h1>
+        <div class="badge-day">Tag {data.dayNumber ?? '?'}</div>
+        <h1>{content.title}</h1>
       </header>
       
       <!-- Person A -->
       <div class="box box-a">
-        <span class="badge">{data.content.authorA || 'Person A'} 💝</span>
-        {#if data.content.contentTypeA === 'TEXT'}
-          {#each data.content.contentA.split('\n') as p}
+        <span class="badge">{content.authorA ?? 'Person A'} 💝</span>
+        {#if content.contentTypeA === 'TEXT'}
+          {#each content.contentA.split('\n') as p}
             {#if p.trim()}<p>{p}</p>{/if}
           {/each}
         {/if}
-        {#if data.content.taskForB}
+        {#if content.taskForB}
           <div class="task">
             <h3>📋 Aufgabe:</h3>
-            <p>{data.content.taskForB}</p>
+            <p>{content.taskForB}</p>
           </div>
         {/if}
       </div>
       
       <!-- Person B -->
       <div class="box box-b">
-        <span class="badge">{data.content.authorB || 'Deine Antwort'} 💖</span>
-        {#if data.content.contentB}
-          {#each data.content.contentB.split('\n') as p}
+        <span class="badge">{content.authorB ?? 'Deine Antwort'} 💖</span>
+        {#if content.contentB}
+          {#each content.contentB.split('\n') as p}
             {#if p.trim()}<p>{p}</p>{/if}
           {/each}
         {:else}
@@ -77,11 +96,17 @@
       
       <div class="nav">
         <a href="/">← Zurück</a>
-        {#if data.dayNumber < 24}
-          <a href="/day/{data.dayNumber + 1}">Weiter →</a>
+        {#if (data.dayNumber ?? 0) < 24}
+          <a href="/day/{(data.dayNumber ?? 0) + 1}">Weiter →</a>
         {/if}
       </div>
     </article>
+  {:else}
+    <div class="locked">
+      <div class="lock">❔</div>
+      <h1>Kein Inhalt verfügbar</h1>
+      <a href="/">← Zurück</a>
+    </div>
   {/if}
 </div>
 

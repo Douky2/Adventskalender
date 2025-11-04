@@ -118,34 +118,38 @@
           </div>
           
           <div class="form-group">
-            <label>Fragetext:</label>
+            <label for={`question-${qIndex}-text`}>Fragetext:</label>
             <textarea 
+              id={`question-${qIndex}-text`}
               bind:value={question.question}
               placeholder="Deine Frage hier..."
               rows="2"
             ></textarea>
           </div>
           
-          <div class="options-section">
-            <label>Antwortmöglichkeiten:</label>
+          <fieldset class="options-section">
+            <legend>Antwortmöglichkeiten:</legend>
             
             {#each question.options as option, oIndex}
               <div class="option-row">
                 <div class="radio-wrapper">
                   <input 
+                    id={`correct-${qIndex}-${oIndex}`}
                     type="radio" 
-                    name="correct-{qIndex}"
+                    name={`correct-${qIndex}`}
                     checked={question.correctAnswer === oIndex}
                     on:change={() => question.correctAnswer = oIndex}
                   />
-                  <span class="radio-label">Richtig</span>
+                  <label class="radio-label" for={`correct-${qIndex}-${oIndex}`}>Richtig</label>
                 </div>
                 
                 <input 
+                  id={`option-${qIndex}-${oIndex}`}
                   type="text"
                   bind:value={question.options[oIndex]}
                   placeholder="Option {oIndex + 1}"
                   class="option-input"
+                  aria-label={`Antwortoption ${oIndex + 1}`}
                 />
                 
                 {#if question.options.length > 2}
@@ -162,7 +166,7 @@
             <button class="btn-add-option" on:click={() => addOption(qIndex)}>
               ➕ Option hinzufügen
             </button>
-          </div>
+          </fieldset>
         </div>
       {/each}
       

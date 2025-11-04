@@ -1,11 +1,14 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import { getContentComponent } from '$lib/components/content-types';
+  import type { ActionData, PageData } from './$types';
   
-  export let data;
-  export let form;
+  export let data: PageData;
+  export let form: ActionData | null = null;
   
-  let editingDay: any = null;
+  type AdminDay = PageData['days'][number];
+  
+  let editingDay: AdminDay | null = null;
   let showPreview = false;
   let showPrismaInfo = false;
   
@@ -19,8 +22,14 @@
   function closePrismaInfo() {
     showPrismaInfo = false;
   }
+
+  function handleOverlayClick(event: MouseEvent) {
+    if (event.target === event.currentTarget) {
+      closePrismaInfo();
+    }
+  }
   
-  function editDay(day: any) {
+  function editDay(day: AdminDay) {
     editingDay = { ...day };
     showPreview = false;
   }
@@ -35,41 +44,41 @@
   }
   
   // Story Chain Helper Functions
-  function getStoryChains(days: any[]) {
-    const chains: any[] = [];
-    const processed = new Set();
+  function getStoryChains(days: AdminDay[]) {
+    const chains: Array<{ storyChainId: string | null; days: AdminDay[] }> = [];
+    const processed = new Set<number>();
     
     // Group by storyChainId
-    const byChainId = days.filter(d => d.storyChainId && !processed.has(d.id));
-    const chainGroups = new Map();
+    const byChainId = days.filter((d) => d.storyChainId && !processed.has(d.id));
+    const chainGroups = new Map<string, AdminDay[]>();
     
-    byChainId.forEach(day => {
+    byChainId.forEach((day) => {
       if (!chainGroups.has(day.storyChainId)) {
         chainGroups.set(day.storyChainId, []);
       }
-      chainGroups.get(day.storyChainId).push(day);
+      chainGroups.get(day.storyChainId)?.push(day);
       processed.add(day.id);
     });
     
     chainGroups.forEach((chainDays, storyChainId) => {
       chains.push({
         storyChainId,
-        days: chainDays.sort((a, b) => a.dayNumber - b.dayNumber)
+        days: [...chainDays].sort((a, b) => a.dayNumber - b.dayNumber)
       });
     });
     
     // Find linked chains without storyChainId
-    days.forEach(day => {
+    days.forEach((day) => {
       if (processed.has(day.id)) return;
       if (!day.linkedToPrevious && !day.linkedToNext) return;
       
-      const linkedDays = [day];
+      const linkedDays: AdminDay[] = [day];
       processed.add(day.id);
       
       // Find next days
       let current = day;
       while (current.linkedToNext) {
-        const next = days.find(d => d.dayNumber === current.dayNumber + 1 && d.linkedToPrevious);
+        const next = days.find((d) => d.dayNumber === current.dayNumber + 1 && d.linkedToPrevious);
         if (next && !processed.has(next.id)) {
           linkedDays.push(next);
           processed.add(next.id);
@@ -82,7 +91,7 @@
       // Find previous days
       current = day;
       while (current.linkedToPrevious) {
-        const prev = days.find(d => d.dayNumber === current.dayNumber - 1 && d.linkedToNext);
+        const prev = days.find((d) => d.dayNumber === current.dayNumber - 1 && d.linkedToNext);
         if (prev && !processed.has(prev.id)) {
           linkedDays.unshift(prev);
           processed.add(prev.id);
@@ -95,7 +104,7 @@
       if (linkedDays.length > 1) {
         chains.push({
           storyChainId: null,
-          days: linkedDays.sort((a, b) => a.dayNumber - b.dayNumber)
+          days: [...linkedDays].sort((a, b) => a.dayNumber - b.dayNumber)
         });
       }
     });
@@ -103,7 +112,7 @@
     return chains;
   }
   
-  function previewChain(chainDays: any[]) {
+  function previewChain(chainDays: AdminDay[]) {
     // Open all days in the chain in separate tabs
     chainDays.forEach((day, idx) => {
       setTimeout(() => {
@@ -198,7 +207,7 @@
     { value: 'MAP', label: '🗺️ Karte / Orte', category: 'Weiteres' },
   ];
   
-  const templates = {
+  const templatesBase = {
     'VIRTUAL_DATE': `🎬 EXKLUSIVES KINO-DATE!
 
 Film: [Dein Lieblingsfilm]
@@ -422,25 +431,6 @@ ZWISCHENZIELE:
 ☐ [Schritt 1]
 ☐ [Schritt 2]
 ☐ [Schritt 3]`,
-
-    'APPRECIATION': `💖 ICH SCHÄTZE AN DIR...
-
-DEINE PERSÖNLICHKEIT:
-✨ [...]
-✨ [...]
-✨ [...]
-
-KLEINE DINGE:
-💗 Wie du lachst
-💗 Deine Art zu [...]
-💗 [...],
-
-WAS DU FÜR MICH TUST:
-🌟 [...]
-🌟 [...]
-
-WARUM ICH DICH LIEBE:
-[...]`,
 
     'PLAYLIST_COLLAB': `🎵 UNSERE GEMEINSAME PLAYLIST!
 
@@ -907,68 +897,6 @@ DEADLINE: [Wann wollen wir das schaffen?]
 
 Lass uns das gemeinsam angehen! 💪`,
 
-    'WOULD_YOU_RATHER': `🤔 WÜRDEST DU LIEBER...?
-
-Hier sind 5 schwierige Entscheidungen für dich:
-
-1️⃣ Würdest du lieber...
-   A) [Option A]
-   B) [Option B]
-
-2️⃣ Würdest du lieber...
-   A) [Option A]
-   B) [Option B]
-
-3️⃣ Würdest du lieber...
-   A) [Option A]
-   B) [Option B]
-
-4️⃣ Würdest du lieber...
-   A) [Option A]
-   B) [Option B]
-
-5️⃣ Würdest du lieber...
-   A) [Option A]
-   B) [Option B]
-
-Schreib mir deine Antworten! 😊`,
-
-    'THIS_OR_THAT': `⚡ DIES ODER DAS?
-
-Schnelle Entscheidungen - keine Zeit zum Nachdenken!
-
-☕ Kaffee oder Tee?
-🌅 Frühaufsteher oder Nachteule?
-🏖️ Strand oder Berge?
-📱 iOS oder Android?
-🍕 Pizza oder Pasta?
-🎬 Film oder Serie?
-🎮 Gaming oder Sport?
-📚 Buch oder Podcast?
-🌮 Süß oder Salzig?
-🎵 Pop oder Rock?
-
-Was ist deine Wahl? 🤷‍♀️`,
-
-    'PHOTO_CHALLENGE': `📸 FOTO-CHALLENGE
-
-AUFGABE:
-Mach heute ein Foto von [...]
-
-REGELN:
-✅ Muss heute gemacht werden
-✅ Sei kreativ!
-✅ Bonus für lustige Details
-
-BEISPIELE:
-- Dein Arbeitsplatz/Schreibtisch
-- Etwas das dich repräsentiert
-- Deine Lieblings-Ecke zuhause
-- Etwas das du gerade tust
-- Dein aktueller Blick aus dem Fenster
-
-Ich bin gespannt! 😊`,
-
     'BOOK_RECOMMENDATION': `📚 BUCH-EMPFEHLUNG
 
 Ich empfehle dir heute:
@@ -1018,24 +946,6 @@ TIPPS:
 💡 [Tipp 2]
 
 Viel Spaß beim Nachkochen! Lass mich wissen wie es war! 😊`,
-
-    'CHILDHOOD_STORY': `👶 GESCHICHTE AUS MEINER KINDHEIT
-
-Ich möchte dir von etwas erzählen, was mir als Kind passiert ist:
-
-ALTER: [Wie alt war ich?]
-ORT: [Wo war das?]
-
-WAS PASSIERT IST:
-[Erzähle die Geschichte...]
-
-WARUM ICH MICH DARAN ERINNERE:
-[Was war besonders daran?]
-
-WAS ICH DARAUS GELERNT HABE:
-[...]
-
-Hast du auch so eine Geschichte? 😊`,
 
     'FAVORITE_THINGS': `❤️ MEINE LIEBLINGS-DINGE
 
@@ -1384,7 +1294,7 @@ Bis mindestens [X] Uhr dürfen wir NICHTS produktives tun!
 
 Klingt das nach einem Plan? 🥰`,
 
-    'STARGAZING': `⭐ STERNENGUCKEN
+   'STARGAZING': `⭐ STERNENGUCKEN
 
 Heute Abend: STERNENBEOBACHTUNG!
 
@@ -1414,6 +1324,109 @@ WICHTIG: Wir bleiben so lange bis uns kalt wird oder wir müde sind!
 
 Heute Nacht? 🌙`
   };
+
+  const templateOverrides: Record<string, string> = {
+   'APPRECIATION': `💖 ICH SCHÄTZE AN DIR...
+
+DEINE PERSÖNLICHKEIT:
+✨ [...]
+✨ [...]
+✨ [...]
+
+KLEINE DINGE:
+💗 Wie du lachst
+💗 Deine Art zu [...]
+💗 [...],
+
+WAS DU FÜR MICH TUST:
+🌟 [...]
+🌟 [...]
+
+WARUM ICH DICH LIEBE:
+[...]`,
+
+   'WOULD_YOU_RATHER': `🤔 WÜRDEST DU LIEBER...?
+
+Hier sind 5 schwierige Entscheidungen für dich:
+
+1️⃣ Würdest du lieber...
+  A) [Option A]
+  B) [Option B]
+
+2️⃣ Würdest du lieber...
+  A) [Option A]
+  B) [Option B]
+
+3️⃣ Würdest du lieber...
+  A) [Option A]
+  B) [Option B]
+
+4️⃣ Würdest du lieber...
+  A) [Option A]
+  B) [Option B]
+
+5️⃣ Würdest du lieber...
+  A) [Option A]
+  B) [Option B]
+
+Schreib mir deine Antworten! 😊`,
+
+   'THIS_OR_THAT': `⚡ DIES ODER DAS?
+
+Schnelle Entscheidungen - keine Zeit zum Nachdenken!
+
+☕ Kaffee oder Tee?
+🌅 Frühaufsteher oder Nachteule?
+🏖️ Strand oder Berge?
+📱 iOS oder Android?
+🍕 Pizza oder Pasta?
+🎬 Film oder Serie?
+🎮 Gaming oder Sport?
+📚 Buch oder Podcast?
+🌮 Süß oder Salzig?
+🎵 Pop oder Rock?
+
+Was ist deine Wahl? 🤷‍♀️`,
+
+   'PHOTO_CHALLENGE': `📸 FOTO-CHALLENGE
+
+AUFGABE:
+Mach heute ein Foto von [...]
+
+REGELN:
+✅ Muss heute gemacht werden
+✅ Sei kreativ!
+✅ Bonus für lustige Details
+
+BEISPIELE:
+- Dein Arbeitsplatz/Schreibtisch
+- Etwas das dich repräsentiert
+- Deine Lieblings-Ecke zuhause
+- Etwas das du gerade tust
+- Dein aktueller Blick aus dem Fenster
+
+Ich bin gespannt! 😊`,
+
+   'CHILDHOOD_STORY': `👶 GESCHICHTE AUS MEINER KINDHEIT
+
+Ich möchte dir von etwas erzählen, was mir als Kind passiert ist:
+
+ALTER: [Wie alt war ich?]
+ORT: [Wo war das?]
+
+WAS PASSIERT IST:
+[Erzähle die Geschichte...]
+
+WARUM ICH MICH DARAN ERINNERE:
+[Was war besonders daran?]
+
+WAS ICH DARAUS GELERNT HABE:
+[...]
+
+Hast du auch so eine Geschichte? 😊`
+  };
+
+  const templates: Record<string, string> = { ...templatesBase, ...templateOverrides };
   
   function loadTemplate(type: string) {
     if (templates[type] && editingDay) {
@@ -1423,7 +1436,7 @@ Heute Nacht? 🌙`
   }
   
   function getCategoryColor(category: string) {
-    const colors = {
+    const colors: Record<string, string> = {
       'Basis': '#9e9e9e',
       'Romantisch': '#ff4d94',
       'Virtual': '#667eea',
@@ -1532,11 +1545,22 @@ Heute Nacht? 🌙`
   {/if}
   
   {#if showPrismaInfo}
-    <div class="modal-overlay" on:click={closePrismaInfo}>
-      <div class="modal-content" on:click|stopPropagation>
+    <div
+      class="modal-overlay"
+      role="presentation"
+      aria-hidden="true"
+      on:click={handleOverlayClick}
+    >
+      <div
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="prisma-modal-title"
+        tabindex="-1"
+      >
         <div class="modal-header">
-          <h2>🗄️ Prisma Studio starten</h2>
-          <button on:click={closePrismaInfo} class="btn-close">✕</button>
+          <h2 id="prisma-modal-title">🗄️ Prisma Studio starten</h2>
+          <button type="button" on:click={closePrismaInfo} class="btn-close">✕</button>
         </div>
         <div class="modal-body">
           <p>Prisma Studio ist ein fortgeschrittenes Datenbank-Tool mit direktem Zugriff auf alle Tabellen.</p>
@@ -1750,13 +1774,20 @@ Heute Nacht? 🌙`
               </select>
             </div>
             
-            {#if templates[editingDay.contentTypeA]}
+            {#if editingDay && templates[editingDay.contentTypeA]}
               <div class="template-box">
                 <div class="template-header">
                   <span class="template-icon">📝</span>
                   <span>Vorlage verfügbar!</span>
                 </div>
-                <button type="button" class="btn-template" on:click={() => loadTemplate(editingDay.contentTypeA)}>
+                <button
+                  type="button"
+                  class="btn-template"
+                  on:click={() => {
+                    if (!editingDay) return;
+                    loadTemplate(editingDay.contentTypeA);
+                  }}
+                >
                   ✨ Vorlage einfügen & anpassen
                 </button>
                 <small>Klicke um eine fertige Vorlage zu laden, die du dann personalisieren kannst!</small>
@@ -1766,8 +1797,15 @@ Heute Nacht? 🌙`
             <div class="form-group">
               <label for="contentA">
                 Inhalt
-                {#if editingDay.contentTypeA === 'QUIZ_JSON'}
-                  <button type="button" class="btn-help" on:click={() => editingDay.contentA = getQuizExample()}>
+                {#if editingDay?.contentTypeA === 'QUIZ_JSON'}
+                  <button
+                    type="button"
+                    class="btn-help"
+                    on:click={() => {
+                      if (!editingDay) return;
+                      editingDay.contentA = getQuizExample();
+                    }}
+                  >
                     Beispiel einfügen
                   </button>
                 {/if}
@@ -1880,12 +1918,17 @@ Heute Nacht? 🌙`
                 <strong>Antwort von {editingDay.authorB || 'Miss Chaos'}:</strong>
                 <p>{editingDay.contentB}</p>
               </div>
-              <form method="POST" action="?/resetResponse" use:enhance style="margin-top: 1rem;">
-                <input type="hidden" name="id" value={editingDay.id} />
-                <button type="submit" class="btn-danger">
+              <div style="margin-top: 1rem;">
+                <button
+                  type="submit"
+                  class="btn-danger"
+                  formaction="?/resetResponse"
+                  formmethod="POST"
+                  formnovalidate
+                >
                   🗑️ Antwort zurücksetzen
                 </button>
-              </form>
+              </div>
             {/if}
           </div>
           
@@ -1953,7 +1996,14 @@ Heute Nacht? 🌙`
             </div>
             
             <div class="preview-actions">
-              <button type="button" class="btn-preview-live" on:click={() => window.open(`/day/${editingDay.dayNumber}?simulation=true`, '_blank')}>
+              <button
+                type="button"
+                class="btn-preview-live"
+                on:click={() => {
+                  if (!editingDay) return;
+                  window.open(`/day/${editingDay.dayNumber}?simulation=true`, '_blank');
+                }}
+              >
                 🚀 Live-Vorschau in neuem Tab öffnen (entsperrt)
               </button>
               <p class="preview-hint">💡 Die Vorschau ist immer entsperrt, damit du alles testen kannst!</p>
@@ -2359,15 +2409,6 @@ Heute Nacht? 🌙`
     border-color: #667eea;
   }
   
-  .content-hints {
-    margin-top: 0.5rem;
-  }
-  
-  .content-hints small {
-    color: #7f8c8d;
-    font-size: 0.85rem;
-  }
-  
   .form-actions {
     display: flex;
     gap: 1rem;
@@ -2511,6 +2552,11 @@ Heute Nacht? 🌙`
     justify-content: center;
     z-index: 1000;
     padding: 1rem;
+    border: none;
+    cursor: pointer;
+  }
+  .modal-overlay:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
   }
   
   .modal-content {
@@ -3042,25 +3088,6 @@ Heute Nacht? 🌙`
   .btn-preview-chain:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-  }
-  
-  .preview-text {
-    line-height: 1.8;
-  }
-  
-  .preview-author {
-    font-style: italic;
-    color: #7f8c8d;
-    margin-top: 0.5rem;
-  }
-  
-  .preview-json {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 1rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    font-size: 0.9rem;
   }
   
   @media (max-width: 1200px) {

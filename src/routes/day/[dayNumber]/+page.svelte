@@ -3,14 +3,15 @@
   import { fade, fly } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
   import { getContentComponent } from '$lib/components/content-types';
+  import type { ActionData, PageData } from './$types';
   
-  export let data;
-  export let form;
+  export let data: PageData;
+  export let form: ActionData | null = null;
   
   let showResponseForm = false;
   
   // Get the appropriate component for each content type
-  $: componentA = getContentComponent(data.content?.contentTypeA || 'TEXT');
+  $: componentA = getContentComponent(data.content?.contentTypeA ?? 'TEXT');
   $: componentB = data.content?.contentTypeB ? getContentComponent(data.content.contentTypeB) : null;
 </script>
 
@@ -26,25 +27,26 @@
       <p in:fade={{ duration: 600, delay: 600 }}>Komm am {data.unlockDate} wieder ✨</p>
       <a href="/" in:fade={{ duration: 600, delay: 800 }}>← Zurück</a>
     </div>
-  {:else}
+  {:else if data.content}
+    {@const content = data.content}
     <article in:fade={{ duration: 400 }}>
       <header in:fly={{ y: -30, duration: 500, easing: cubicOut }}>
         <div class="badge-day">Tag {data.dayNumber}</div>
-        <h1>{data.content.title}</h1>
+        <h1>{content.title}</h1>
         
-        {#if data.content.linkedToPrevious || data.content.linkedToNext || data.content.storyChainId}
+        {#if content.linkedToPrevious || content.linkedToNext || content.storyChainId}
           <div class="story-chain-badge">
-            {#if data.content.linkedToPrevious}📖{/if}
-            {#if data.content.storyChainId}
-              🔗 Story: {data.content.storyChainId}
+            {#if content.linkedToPrevious}📖{/if}
+            {#if content.storyChainId}
+              🔗 Story: {content.storyChainId}
             {/if}
-            {#if data.content.linkedToNext}⏭️{/if}
+            {#if content.linkedToNext}⏭️{/if}
           </div>
         {/if}
       </header>
       
       <!-- Story Chain Navigation -->
-      {#if data.storyChainDays && data.storyChainDays.length > 1}
+      {#if data.storyChainDays?.length > 1}
         <div class="story-chain-nav" in:fade={{ duration: 400, delay: 100 }}>
           <h4>📚 Zusammenhängende Geschichte:</h4>
           <div class="chain-days">
@@ -65,20 +67,21 @@
       
       <!-- Person A (Locdoc) - Dynamic Component Rendering -->
       <div class="box box-a" in:fly={{ x: -50, duration: 600, delay: 200, easing: cubicOut }}>
+        <span class="badge">{content.authorA ?? 'Locdoc'} 🧡</span>
         <svelte:component 
           this={componentA} 
-          content={data.content.contentA} 
-          author={data.content.authorA}
-          contentType={data.content.contentTypeA}
+          content={content.contentA} 
+          author={content.authorA}
+          contentType={content.contentTypeA}
         />
         
-        {#if data.content.taskForB && data.content.responseMode !== 'DISABLED'}
+        {#if content.taskForB && content.responseMode !== 'DISABLED'}
           <div class="task" in:fade={{ duration: 600, delay: 400 }}>
-            <h3>📋 Aufgabe für {data.content.authorB}:</h3>
-            <p>{data.content.taskForB}</p>
-            {#if data.content.responseMode === 'COLLABORATIVE'}
+            <h3>📋 Aufgabe für {content.authorB ?? 'Miss Chaos'}:</h3>
+            <p>{content.taskForB}</p>
+            {#if content.responseMode === 'COLLABORATIVE'}
               <span class="mode-badge collaborative">🤝 Zusammenarbeit</span>
-            {:else if data.content.responseMode === 'OPEN'}
+            {:else if content.responseMode === 'OPEN'}
               <span class="mode-badge open">💬 Offen</span>
             {/if}
           </div>
@@ -86,16 +89,16 @@
       </div>
       
       <!-- Person B (Miss Chaos) -->
-      {#if data.content.responseMode !== 'DISABLED'}
+      {#if content.responseMode !== 'DISABLED'}
         <div class="box box-b" in:fly={{ x: 50, duration: 600, delay: 400, easing: cubicOut }}>
-          <span class="badge">{data.content.authorB} 💖</span>
-          {#if data.content.contentB}
-            {#each data.content.contentB.split('\n') as p}
+          <span class="badge">{content.authorB ?? 'Miss Chaos'} 💖</span>
+          {#if content.contentB}
+            {#each content.contentB.split('\n') as p}
               {#if p.trim()}<p>{p}</p>{/if}
             {/each}
-          {:else if data.content.responseMode === 'OPEN' || data.content.responseMode === 'COLLABORATIVE'}
+          {:else if content.responseMode === 'OPEN' || content.responseMode === 'COLLABORATIVE'}
             <div class="empty">
-              <p>💭 Noch keine Antwort von {data.content.authorB}...</p>
+              <p>💭 Noch keine Antwort von {content.authorB ?? 'Miss Chaos'}...</p>
               {#if !showResponseForm}
                 <button on:click={() => showResponseForm = true}>
                   ✍️ Deine Nachricht hinzufügen
@@ -105,7 +108,7 @@
             
             {#if showResponseForm}
               <form method="POST" action="?/addResponse" use:enhance in:fade={{ duration: 400 }}>
-                <input name="author" value={data.content.authorB} type="hidden" />
+                <input name="author" value={content.authorB ?? 'Miss Chaos'} type="hidden" />
                 <textarea name="content" rows="6" placeholder="Schreib deine Nachricht..." required></textarea>
                 {#if form?.error}
                   <div class="error">{form.error}</div>
@@ -121,10 +124,10 @@
       {/if}
       
       <!-- Combined Result -->
-      {#if data.content.resultGenerated && data.content.combinedResult}
+      {#if content.resultGenerated && content.combinedResult}
         <div class="box box-combined" in:fly={{ y: 50, duration: 600, delay: 600, easing: cubicOut }}>
           <span class="badge">✨ Gemeinsames Ergebnis 🎨</span>
-          {#each data.content.combinedResult.split('\n') as p}
+          {#each content.combinedResult.split('\n') as p}
             {#if p.trim()}<p>{p}</p>{/if}
           {/each}
         </div>
@@ -137,6 +140,13 @@
         {/if}
       </div>
     </article>
+  {:else}
+    <div class="locked" in:fade={{ duration: 300 }}>
+      <div class="lock" in:fly={{ y: -50, duration: 600, delay: 200, easing: cubicOut }}>❔</div>
+      <h1 in:fade={{ duration: 600, delay: 400 }}>Kein Inhalt gefunden</h1>
+      <p in:fade={{ duration: 600, delay: 600 }}>Bitte versuche es später erneut.</p>
+      <a href="/" in:fade={{ duration: 600, delay: 800 }}>← Zurück</a>
+    </div>
   {/if}
 </div>
 

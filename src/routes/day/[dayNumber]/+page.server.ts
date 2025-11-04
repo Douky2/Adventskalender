@@ -49,7 +49,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
   const messages = await getMessages(dayNumber);
   
   // Prüfe ob dies Teil einer Story-Chain ist
-  let storyChainDays = [];
+  let storyChainDays: typeof content[] = [];
   if (content.storyChainId) {
     const { getStoryChain } = await import('$lib/server/database');
     storyChainDays = await getStoryChain(content.storyChainId);
