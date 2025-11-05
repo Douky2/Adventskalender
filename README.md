@@ -246,39 +246,36 @@ Mehrtägige Geschichten über mehrere Türchen verlinken:
 
 ### ⚙️ Admin-Panel Features
 
-#### 🎯 Hauptfunktionen
-- **✏️ Türchen bearbeiten:** Alle 61 Content-Typen mit Vorlagen
-- **⚙️ Einstellungen:** Namen, Jahr, Monat, Passwörter anpassen
-- **🎮 Simulation-Modus:** Alle Türchen sofort testen
-- **📋 Vorlagen-System:** 63+ fertige Templates
+#### 🎯 Dashboard Überblick
+- **📊 Schnellstatus:** Zeigt offene Aufgaben, fehlende Inhalte, geblockte Antworten und Fortschritt auf einen Blick
+- **🔍 Filter & Suche:** Live-Filter nach Zustand (z. B. "Inhalt fehlt", "Story Chain") plus Volltextsuche über alle 24 Tage
+- **🧵 Story-Chain Karte:** Gruppiert verknüpfte Tage mit direktem Sprung in den Editor
 
-#### 🛠️ Tools & Verwaltung
-- **🎯 Quiz-Builder:** Visueller JSON-Editor für Quizze
-  - Fragen/Antworten verwalten
-  - Beispiel-Quiz laden
-  - JSON generieren & kopieren
-- **🔄 Tracking Reset:** localStorage Daten zurücksetzen
-  - Einzeln oder alle auf einmal
-  - door9_visited, platform934_completed
-- **🗄️ Prisma Studio:** Datenbank GUI öffnen
+#### ✏️ Tab-basierter Editor
+- **🧩 Inhalte:** Beide Seiten (A/B) mit Rich-Text, Vorlagen und Content-Typ-Auswahl
+- **💬 Antworten:** Response-Modus, Linked-Day-Einstellungen und Preview der Antwortfelder
+- **⚙️ Metadaten:** Titel, Tags, Special Flags und Story-Chain-Konfiguration
+- **🧪 Preview:** Live-Vorschau in neuem Tab öffnen ohne die aktuelle Session zu verlieren
 
-#### 📊 System & Backup
-- **💾 Git-Tags:** v1.0.0 als Hauptspeicherpunkt
-- **📝 Dokumentation:** Automatisch generiert
-- **🔐 Sicherheit:** Passwort-geschützt (2-Stufen)
+#### 🚀 Schnellaktionen
+- **✨ Vorlage einfügen:** Kontextabhängige Templates je Content-Typ
+- **♻️ Reset Antworten:** Klarer Button im Preview-Panel mit Sicherheits-Prompt
+- **�️ Simulation-Link:** Direktes Öffnen des Tages im Simulation-Modus
+
+#### �️ Weitere Tools
+- **🎯 Quiz-Builder:** Visueller JSON-Editor mit Beispielen und Live-Validierung
+- **� Tracking Reset:** Einzelne Flags oder alles zurücksetzen
+- **�️ Prisma Studio:** Datenbank-GUI für direkte Datenpflege
 
 **Admin-Panel Layout:**
 ```
-┌─────────────────────────────────────────┐
-│  Hauptfunktionen                        │
-│  [🎮 Simulation] [⚙️ Einstellungen]    │
-├─────────────────────────────────────────┤
-│  Tools & Verwaltung                     │
-│  [🎯 Quiz Builder] [🔄 Tracking]       │
-├─────────────────────────────────────────┤
-│  System                                 │
-│  [🗄️ Prisma Studio] [📖 Doku]         │
-└─────────────────────────────────────────┘
+┌───────────────────┬────────────────────────────────────┬──────────────────────┐
+│  Sidebar          │            Editor Tabs             │     Preview & Info   │
+│  - Suche          │  [🧩 Inhalt] [💬 Antworten]        │  - Day Preview       │
+│  - Statusfilter   │  [⚙️ Metadaten]                   │  - Story Chain Card  │
+│  - Story-Chains   │                                    │  - Reset & Preview   │
+│  - Quick Actions  │                                    │  - Simulation Link   │
+└───────────────────┴────────────────────────────────────┴──────────────────────┘
 ```
 
 ---

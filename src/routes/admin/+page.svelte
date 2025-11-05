@@ -1936,8 +1936,15 @@ Hast du auch so eine Geschichte? 😊`
             <button type="submit" class="btn-primary">
               💾 Speichern
             </button>
-            <button type="button" on:click={togglePreview} class="btn-secondary">
-              {showPreview ? '📝 Editor' : '👁️ Vorschau'}
+            <button
+              type="button"
+              class="btn-secondary"
+              on:click={() => {
+                if (!editingDay) return;
+                window.open(`/admin/preview/${editingDay.dayNumber}`, '_blank');
+              }}
+            >
+              � Vorschau öffnen
             </button>
             <button type="button" on:click={cancelEdit} class="btn-secondary">
               Abbrechen
