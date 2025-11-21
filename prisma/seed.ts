@@ -1081,12 +1081,11 @@ Eine Aufgabe, die uns ins neue Jahr führt...
   // === TILE LIBRARY SEEDING ===
   console.log('\n🎨 Starte Tile-Library Seeding...');
   
-  // Lösche alte Tiles (optional - auskommentiert für Sicherheit)
-  // await prisma.tile.deleteMany({});
+  // Lösche alte Tiles
+  await prisma.tile.deleteMany({});
   
   const demoTiles = [
     // ROMANTISCH
-    { title: '💌 Liebesbrief Tag 1', description: 'Romantischer Start', category: 'Romantisch', contentType: 'LOVE_LETTER', content: 'Mein Liebling,\n\nheute beginnt eine besondere Zeit. 24 Tage voller Überraschungen.\n\nMit Liebe, [Name] 💕', author: 'A', responseMode: 'DISABLED', tags: 'start, liebe' },
     { title: '✍️ Romantisches Gedicht', description: 'Kurzes Liebesgedicht', category: 'Romantisch', contentType: 'POEM', content: 'In jedem Sonnenstrahl,\nSehe ich dein Lächeln,\nMit dir ist jeder Tag so schön. 💕', author: 'A', responseMode: 'DISABLED', tags: 'gedicht, romantik' },
     { title: '💫 Unsere Erinnerung', description: 'Gemeinsame Erinnerung', category: 'Romantisch', contentType: 'MEMORY', content: 'Weißt du noch, unser erster Spaziergang im Schnee?\n\nDas war magisch. ❤️', author: 'A', responseMode: 'OPEN', taskForB: 'Teile deine Lieblingserinnerung', tags: 'erinnerung, romantik' },
     
@@ -1110,19 +1109,10 @@ Eine Aufgabe, die uns ins neue Jahr führt...
     
     // ABENTEUER
     { title: '🗺️ Mini-Schnitzeljagd', description: 'Kleine Überraschung', category: 'Abenteuer', contentType: 'TASK', content: '🔍 SCHNITZELJAGD\n\nHinweis: Schau dort nach, wo wir jeden Morgen sind ☕\n\nViel Spaß! 🏃‍♀️', author: 'A', responseMode: 'OPEN', taskForB: 'Finde die Überraschung', tags: 'schnitzeljagd, abenteuer' },
-    { title: '🎯 Tages-Challenge', description: 'Mutprobe', category: 'Abenteuer', contentType: 'CHALLENGE', content: '💪 MUTPROBE\n\nHeute: [Deine Challenge hier]\n\nTraust du dich? 🤩', author: 'A', responseMode: 'OPEN', taskForB: 'Challenge annehmen', tags: 'challenge, mut' },
     
     // WELLNESS
     { title: '🧘 Entspannungs-Tag', description: 'Wellness-Programm', category: 'Wellness', contentType: 'TASK', content: '🧘‍♀️ WELLNESS-TAG\n\n▸ Entspannungsbad 🛁\n▸ Gesichtsmaske 💆‍♀️\n▸ Tee & Buch 📖\n\nDu hast es verdient! ✨', author: 'A', responseMode: 'OPEN', taskForB: 'Genieße deinen Tag', tags: 'wellness, entspannung' },
     { title: '💧 Wasser-Challenge', description: '2L Wasser trinken', category: 'Wellness', contentType: 'CHALLENGE', content: '💧 WASSER-CHALLENGE\n\nHeute: 2 Liter Wasser trinken!\n\nSchaffst du das? 💪', author: 'A', responseMode: 'OPEN', taskForB: '2L trinken', tags: 'wellness, gesundheit' },
-    
-    // NOSTALGISCH
-    { title: '📸 Unsere Timeline', description: 'Erinnerungen', category: 'Nostalgisch', contentType: 'MEMORY', content: '📼 ERINNERUNGEN\n\nUnser erstes Treffen: [Datum]\nUnser erstes Date: [Datum]\n\nJeder Moment war magisch 💕', author: 'A', responseMode: 'OPEN', taskForB: 'Welcher war am schönsten?', tags: 'erinnerung, nostalgie' },
-    { title: '🎵 Unser Song', description: 'Besonderer Song', category: 'Nostalgisch', contentType: 'TEXT', content: '🎵 UNSER LIED\n\n[Song-Titel]\n\nHöre ihn heute und erinnere dich... 💕🎶', author: 'A', responseMode: 'OPEN', taskForB: 'Gedanken teilen', tags: 'musik, erinnerung' },
-    
-    // ÜBERRASCHUNGEN
-    { title: '🎁 Mysterium-Box', description: 'Versteckte Überraschung', category: 'Überraschungen', contentType: 'SURPRISE', content: '🎁 MYSTERIUM-BOX\n\nIch habe etwas versteckt!\n\nOrt: [Hinweis]\n\nViel Spaß beim Suchen! 🔍', author: 'A', responseMode: 'DISABLED', tags: 'überraschung, versteck' },
-    { title: '⏰ Countdown', description: 'Ankündigung', category: 'Überraschungen', contentType: 'TASK', content: '⏰ COUNTDOWN\n\nIn [X] Tagen passiert etwas Besonderes!\n\nMehr verrate ich nicht! 🤫', author: 'A', responseMode: 'OPEN', taskForB: 'Rate was es ist', tags: 'countdown, spannung' },
   ];
   
   let tileCount = 0;

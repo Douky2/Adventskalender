@@ -200,12 +200,13 @@
           </div>
         </div>
       {:else}
-        <div class="platform-header" transition:fade>
-          <h2>🚂 Platform 9¾ 🪄</h2>
-          <div class="platform-subtitle">Hogwarts Express - Weihnachts-Special</div>
-        </div>
-        
-        <div class="platform-content" transition:fade>
+        <div class="platform-scroll-wrapper">
+          <div class="platform-header" transition:fade>
+            <h2>🚂 Platform 9¾ 🪄</h2>
+            <div class="platform-subtitle">Hogwarts Express - Weihnachts-Special</div>
+          </div>
+          
+          <div class="platform-content" transition:fade>
           <div class="hogwarts-ticket">
             <div class="ticket-stub">
               <div class="ticket-logo">HOGWARTS EXPRESS</div>
@@ -277,6 +278,7 @@
             <p>🎫 Fahrkarte gültig für: Locdoc & Miss Chaos</p>
             <p>🪄 Mischief Managed! 🪄</p>
           </div>
+        </div>
         </div>
       {/if}
     </div>
@@ -726,11 +728,39 @@
     max-width: 900px;
     width: 100%;
     max-height: 90vh;
-    overflow-y: auto;
+    min-height: 60vh;
+    overflow: hidden; /* Fixes rounded corners and hides outer scrollbars */
+    display: flex;
+    flex-direction: column;
     position: relative;
     box-shadow: 
       0 0 50px rgba(212, 175, 55, 0.5),
       inset 0 0 100px rgba(0, 0, 0, 0.5);
+  }
+
+  .platform-scroll-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden; /* Hides horizontal scrollbar */
+    flex: 1;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #2c1810;
+  }
+
+  /* Custom Scrollbar Styling */
+  .platform-scroll-wrapper::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .platform-scroll-wrapper::-webkit-scrollbar-track {
+    background: rgba(44, 24, 16, 0.5);
+    border-radius: 0 20px 20px 0; /* Matches modal radius on right side */
+  }
+
+  .platform-scroll-wrapper::-webkit-scrollbar-thumb {
+    background-color: #d4af37;
+    border-radius: 5px;
+    border: 2px solid #2c1810;
   }
   
   .platform-close {
@@ -746,7 +776,7 @@
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 20;
   }
   
   .platform-close:hover {

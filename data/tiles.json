@@ -93,11 +93,11 @@
     "storyChainId": null,
     "tags": "[\"day-1\",\"phase-early\"]",
     "isFavorite": false,
-    "usageCount": 0,
-    "assignedToDayNumber": null,
+    "usageCount": 1,
+    "assignedToDayNumber": 6,
     "id": 1763719951035,
     "createdAt": "2025-11-21T10:12:31.035Z",
-    "updatedAt": "2025-11-21T10:12:31.035Z"
+    "updatedAt": "2025-11-21T22:21:34.771Z"
   },
   {
     "title": "Magischer Moment #2 (Var 1)",
@@ -514,10 +514,10 @@
     "tags": "[\"day-6\",\"phase-early\"]",
     "isFavorite": false,
     "usageCount": 1,
-    "assignedToDayNumber": 6,
+    "assignedToDayNumber": null,
     "id": 1763719951089,
     "createdAt": "2025-11-21T10:12:31.089Z",
-    "updatedAt": "2025-11-21T10:12:31.407Z"
+    "updatedAt": "2025-11-21T22:21:27.607Z"
   },
   {
     "title": "Neugier #6 (Var 2)",
