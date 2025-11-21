@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1763735207809,
+    "key": "PERSON_A_NAME",
+    "value": "Locdoc",
+    "description": "Name von Person A",
+    "createdAt": "2025-11-21T14:26:47.809Z",
+    "updatedAt": "2025-11-21T15:39:37.498Z"
+  },
+  {
+    "id": 1763735207819,
+    "key": "PERSON_B_NAME",
+    "value": "Miss Chaos",
+    "description": "Name von Person B",
+    "createdAt": "2025-11-21T14:26:47.819Z",
+    "updatedAt": "2025-11-21T15:39:37.506Z"
+  },
+  {
+    "id": 1763735207826,
+    "key": "CALENDAR_YEAR",
+    "value": "2025",
+    "description": "Jahr des Kalenders",
+    "createdAt": "2025-11-21T14:26:47.826Z",
+    "updatedAt": "2025-11-21T15:39:37.513Z"
+  },
+  {
+    "id": 1763735207834,
+    "key": "CALENDAR_MONTH",
+    "value": "11",
+    "description": "Monat des Kalenders (0-11)",
+    "createdAt": "2025-11-21T14:26:47.834Z",
+    "updatedAt": "2025-11-21T15:39:37.519Z"
+  },
+  {
+    "id": 1763735207840,
+    "key": "SIMULATION_MODE",
+    "value": "true",
+    "description": "Simulationsmodus (alle Türchen offen)",
+    "createdAt": "2025-11-21T14:26:47.840Z",
+    "updatedAt": "2025-11-21T15:39:37.528Z"
+  },
+  {
+    "id": 1763735207849,
+    "key": "ENABLE_SNOW",
+    "value": "true",
+    "description": "Schnee-Effekt aktivieren",
+    "createdAt": "2025-11-21T14:26:47.849Z",
+    "updatedAt": "2025-11-21T15:39:37.538Z"
+  },
+  {
+    "id": 1763735207856,
+    "key": "MUSIC_AUTOPLAY",
+    "value": "true",
+    "description": "Musik automatisch abspielen",
+    "createdAt": "2025-11-21T14:26:47.856Z",
+    "updatedAt": "2025-11-21T15:39:37.545Z"
+  }
+]

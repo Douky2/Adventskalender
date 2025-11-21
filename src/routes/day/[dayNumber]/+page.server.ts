@@ -1,6 +1,7 @@
 import { error, fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import { getDayContent, addPersonBContent, getMessages, addMessage } from '$lib/server/database';
+import { db } from '$lib/server/storage';
+import { CALENDAR_YEAR, CALENDAR_MONTH } from '$env/static/private';
 
 export const load: PageServerLoad = async ({ params, url }) => {
   const dayNumber = parseInt(params.dayNumber);
@@ -20,14 +21,14 @@ export const load: PageServerLoad = async ({ params, url }) => {
   const currentYear = serverDate.getFullYear();
 
   // Kalender-Konfiguration
-  const CALENDAR_YEAR = parseInt(process.env.CALENDAR_YEAR || '2025');
-  const CALENDAR_MONTH = parseInt(process.env.CALENDAR_MONTH || '11'); // Dezember
+  const calendarYear = parseInt(CALENDAR_YEAR);
+  const calendarMonth = parseInt(CALENDAR_MONTH);
 
   // Die serverseitige Prüfung (im Simulationsmodus immer entsperrt)
   const isLocked = simulationMode ? false : (
-    currentYear < CALENDAR_YEAR ||
-    currentMonth < CALENDAR_MONTH ||
-    (currentMonth === CALENDAR_MONTH && currentDay < dayNumber)
+    currentYear < calendarYear ||
+    currentMonth < calendarMonth ||
+    (currentMonth === calendarMonth && currentDay < dayNumber)
   );
 
   if (isLocked) {
@@ -40,19 +41,19 @@ export const load: PageServerLoad = async ({ params, url }) => {
   }
 
   // Wenn entsperrt, hole den Inhalt aus der DB
-  const content = await getDayContent(dayNumber);
+  const content = await db.days.getByDayNumber(dayNumber);
   if (!content) {
     throw error(404, 'Inhalt nicht gefunden');
   }
 
   // Hole alle Nachrichten für diesen Tag
-  const messages = await getMessages(dayNumber);
+  const messages = await db.messages.getByDay(dayNumber);
   
   // Prüfe ob dies Teil einer Story-Chain ist
   let storyChainDays: typeof content[] = [];
   if (content.storyChainId) {
-    const { getStoryChain } = await import('$lib/server/database');
-    storyChainDays = await getStoryChain(content.storyChainId);
+    const allDays = await db.days.getAll();
+    storyChainDays = allDays.filter(d => d.storyChainId === content.storyChainId).sort((a, b) => a.dayNumber - b.dayNumber);
   }
 
   return {
@@ -98,19 +99,25 @@ export const actions: Actions = {
     }
 
     // Prüfe Response-Mode
-    const dayContent = await getDayContent(dayNumber);
+    const dayContent = await db.days.getByDayNumber(dayNumber);
     if (dayContent && dayContent.responseMode === 'DISABLED') {
       return fail(403, { error: 'Antworten ist für dieses Türchen deaktiviert!' });
     }
 
     try {
-      await addPersonBContent(dayNumber, 'TEXT', content, author || 'Miss Chaos');
+      await db.days.update(dayNumber, {
+        contentTypeB: 'TEXT',
+        contentB: content,
+        authorB: author || 'Miss Chaos'
+      });
       
       // Wenn COLLABORATIVE Mode und beide haben geantwortet, generiere kombiniertes Ergebnis
       if (dayContent && dayContent.responseMode === 'COLLABORATIVE' && dayContent.contentA) {
-        const { updateCombinedResult } = await import('$lib/server/database');
         const combined = `=== Locdoc ===\n${dayContent.contentA}\n\n=== Miss Chaos ===\n${content}\n\n✨ Gemeinsam erschaffen!`;
-        await updateCombinedResult(dayNumber, combined);
+        await db.days.update(dayNumber, {
+          combinedResult: combined,
+          resultGenerated: true
+        });
       }
       
       return { success: true };
@@ -130,7 +137,11 @@ export const actions: Actions = {
     }
 
     try {
-      await addMessage(dayNumber, author || 'Anonym', message);
+      await db.messages.create({
+        dayNumber,
+        author: author || 'Anonym',
+        message
+      });
       return { success: true };
     } catch (err) {
       return fail(500, { error: 'Fehler beim Speichern!' });

@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getDayContent } from '$lib/server/database';
+import { db } from '$lib/server/storage';
 
 export const load: PageServerLoad = async ({ params }) => {
   const dayNumber = Number(params.dayNumber);
@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params }) => {
     throw error(404, 'Ungültiges Türchen');
   }
 
-  const day = await getDayContent(dayNumber);
+  const day = await db.days.getByDayNumber(dayNumber);
 
   if (!day) {
     throw error(404, 'Türchen nicht gefunden');

@@ -1,13 +1,9 @@
 import { redirect, type Handle } from '@sveltejs/kit';
-import { parse } from 'cookie';
-
-const CALENDAR_PASSWORD = process.env.CALENDAR_PASSWORD || 'defaultPassword';
+import { CALENDAR_PASSWORD } from '$env/static/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const cookies = parse(event.request.headers.get('cookie') || '');
-  
   // Prüfe, ob der Benutzer bereits authentifiziert ist
-  const isAuthenticated = cookies.calendar_auth === 'true';
+  const isAuthenticated = event.cookies.get('calendar_auth') === 'true';
   
   // Erlaube Zugriff auf die Login-Seite
   if (event.url.pathname === '/login') {

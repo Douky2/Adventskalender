@@ -1,29 +1,41 @@
 import type { PageServerLoad } from './$types';
-import { getAllDays } from '$lib/server/database';
+import { db } from '$lib/server/storage';
+import { CALENDAR_YEAR, CALENDAR_MONTH } from '$env/static/private';
 
 export const load: PageServerLoad = async ({ url }) => {
-  const allDays = await getAllDays();
+  const allDays = await db.days.getAll();
+  const settings = await db.settings.getAll();
   
-  // 🎮 SIMULATIONSMODUS: ?simulation=true in der URL aktiviert alle Türchen
-  const simulationMode = url.searchParams.get('simulation') === 'true';
+  const getSetting = (key: string) => settings.find(s => s.key === key)?.value;
+
+  // 🎮 SIMULATIONSMODUS: ?simulation=true in der URL ODER Einstellung in DB
+  const simulationModeUrl = url.searchParams.get('simulation') === 'true';
+  const simulationModeDb = getSetting('SIMULATION_MODE') === 'true';
+  const simulationMode = simulationModeUrl || simulationModeDb;
   
+  const enableSnow = getSetting('ENABLE_SNOW') === 'true';
+  const musicAutoplay = getSetting('MUSIC_AUTOPLAY') === 'true';
+
   // Hole das aktuelle Datum vom Server
   const serverDate = new Date();
   const currentDay = serverDate.getDate();
   const currentMonth = serverDate.getMonth(); // 0-11
   const currentYear = serverDate.getFullYear();
   
-  // Kalender-Konfiguration
-  const CALENDAR_YEAR = parseInt(process.env.CALENDAR_YEAR || '2025');
-  const CALENDAR_MONTH = parseInt(process.env.CALENDAR_MONTH || '11'); // Dezember
+  // Kalender-Konfiguration (DB hat Vorrang vor .env)
+  const dbYear = getSetting('CALENDAR_YEAR');
+  const dbMonth = getSetting('CALENDAR_MONTH');
+  
+  const calendarYear = dbYear ? parseInt(dbYear) : parseInt(CALENDAR_YEAR);
+  const calendarMonth = dbMonth ? parseInt(dbMonth) : parseInt(CALENDAR_MONTH);
   
   // Berechne, welche Türen entsperrt sind
   const days = allDays.map(day => {
     // Im Simulationsmodus sind ALLE Türchen offen
     const isLocked = simulationMode ? false : (
-      currentYear < CALENDAR_YEAR ||
-      currentMonth < CALENDAR_MONTH ||
-      (currentMonth === CALENDAR_MONTH && currentDay < day.dayNumber)
+      currentYear < calendarYear ||
+      currentMonth < calendarMonth ||
+      (currentMonth === calendarMonth && currentDay < day.dayNumber)
     );
     
     return {
@@ -38,6 +50,8 @@ export const load: PageServerLoad = async ({ url }) => {
     currentDay,
     currentMonth: currentMonth + 1, // Für Anzeige 1-12
     currentYear,
-    simulationMode
+    simulationMode,
+    enableSnow,
+    musicAutoplay
   };
 };

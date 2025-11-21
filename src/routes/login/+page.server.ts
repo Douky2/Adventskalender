@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-
-const CALENDAR_PASSWORD = process.env.CALENDAR_PASSWORD || 'defaultPassword';
+import { CALENDAR_PASSWORD } from '$env/static/private';
+import { dev } from '$app/environment';
 
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
@@ -17,7 +17,7 @@ export const actions: Actions = {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
-      secure: process.env.NODE_ENV === 'production',
+      secure: !dev,
       maxAge: 60 * 60 * 24 * 7 // 7 Tage
     });
 

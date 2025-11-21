@@ -1,11 +1,20 @@
 import type { PageServerLoad, Actions } from './$types';
-import { getAllDays } from '$lib/server/database';
 import { fail } from '@sveltejs/kit';
-import { prisma } from '$lib/server/database';
+import { db } from '$lib/server/storage';
 
 export const load: PageServerLoad = async () => {
-  const allDays = await getAllDays();
+  let allDays = await db.days.getAll();
   
+  // Seed if empty
+  if (allDays.length === 0) {
+    for (let i = 1; i <= 24; i++) {
+      await db.days.update(i, { title: `Türchen ${i}` });
+    }
+    allDays = await db.days.getAll();
+  }
+
+  const allTiles = await db.tiles.getAll();
+
   return {
     days: allDays.map(day => ({
       id: day.id,
@@ -24,7 +33,8 @@ export const load: PageServerLoad = async () => {
       storyChainId: day.storyChainId || '',
       combinedResult: day.combinedResult || '',
       resultGenerated: day.resultGenerated
-    }))
+    })),
+    tiles: allTiles
   };
 };
 
@@ -44,24 +54,22 @@ export const actions: Actions = {
     const combinedResult = data.get('combinedResult') as string;
 
     try {
-      await prisma.day.update({
-        where: { id },
-        data: {
-          title,
-          contentTypeA,
-          contentA,
-          authorA: authorA || 'Locdoc',
-          taskForB: taskForB || null,
-          responseMode,
-          linkedToPrevious,
-          linkedToNext,
-          storyChainId: storyChainId || null,
-          combinedResult: combinedResult || null
-        }
+      await db.days.updateById(id, {
+        title,
+        contentTypeA,
+        contentA,
+        authorA: authorA || 'Locdoc',
+        taskForB: taskForB || null,
+        responseMode,
+        linkedToPrevious,
+        linkedToNext,
+        storyChainId: storyChainId || null,
+        combinedResult: combinedResult || null
       });
 
       return { success: true, message: 'Türchen erfolgreich aktualisiert!' };
     } catch (error) {
+      console.error(error);
       return fail(500, { error: 'Fehler beim Speichern!' });
     }
   },
@@ -71,13 +79,10 @@ export const actions: Actions = {
     const id = parseInt(data.get('id') as string);
 
     try {
-      await prisma.day.update({
-        where: { id },
-        data: {
-          contentTypeB: null,
-          contentB: null,
-          authorB: null
-        }
+      await db.days.updateById(id, {
+        contentTypeB: null,
+        contentB: null,
+        authorB: null
       });
 
       return { success: true, message: 'Antwort von Miss Chaos wurde zurückgesetzt!' };
@@ -91,10 +96,7 @@ export const actions: Actions = {
     const id = parseInt(data.get('id') as string);
 
     try {
-      await prisma.day.delete({
-        where: { id }
-      });
-
+      await db.days.delete(id);
       return { success: true, message: 'Türchen gelöscht!' };
     } catch (error) {
       return fail(500, { error: 'Fehler beim Löschen!' });

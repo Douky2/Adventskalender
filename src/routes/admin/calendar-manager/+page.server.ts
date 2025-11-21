@@ -1,21 +1,18 @@
 import type { PageServerLoad, Actions } from './$types';
-import { prisma } from '$lib/server/database';
+import { db } from '$lib/server/storage';
 import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
   // Lade alle Tiles
-  const tiles = await prisma.tile.findMany({
-    orderBy: [
-      { isFavorite: 'desc' },
-      { category: 'asc' },
-      { title: 'asc' }
-    ]
+  const tiles = await db.tiles.getAll();
+  tiles.sort((a, b) => {
+    if (a.isFavorite !== b.isFavorite) return a.isFavorite ? -1 : 1;
+    if (a.category !== b.category) return a.category.localeCompare(b.category);
+    return a.title.localeCompare(b.title);
   });
   
   // Lade alle Days
-  const days = await prisma.day.findMany({
-    orderBy: { dayNumber: 'asc' }
-  });
+  const days = await db.days.getAll();
   
   return {
     tiles,
@@ -31,9 +28,8 @@ export const actions: Actions = {
     
     try {
       // Prüfe ob Tag schon eine Tile hat
-      const existingAssignment = await prisma.tile.findFirst({
-        where: { assignedToDayNumber: dayNumber }
-      });
+      const tiles = await db.tiles.getAll();
+      const existingAssignment = tiles.find(t => t.assignedToDayNumber === dayNumber);
       
       if (existingAssignment && existingAssignment.id !== tileId) {
         return fail(400, { 
@@ -42,36 +38,28 @@ export const actions: Actions = {
       }
       
       // Hole die Tile
-      const tile = await prisma.tile.findUnique({
-        where: { id: tileId }
-      });
+      const tile = tiles.find(t => t.id === tileId);
       
       if (!tile) {
         return fail(404, { error: 'Tile nicht gefunden' });
       }
       
       // Update Tile
-      await prisma.tile.update({
-        where: { id: tileId },
-        data: { 
-          assignedToDayNumber: dayNumber,
-          usageCount: { increment: 1 }
-        }
+      await db.tiles.update(tileId, { 
+        assignedToDayNumber: dayNumber,
+        usageCount: tile.usageCount + 1
       });
       
       // Update Day mit Tile-Content
-      await prisma.day.update({
-        where: { dayNumber },
-        data: {
-          contentTypeA: tile.contentType,
-          contentA: tile.content,
-          authorA: tile.author || 'Locdoc',
-          taskForB: tile.taskForB,
-          responseMode: tile.responseMode,
-          linkedToPrevious: tile.linkedToPrevious,
-          linkedToNext: tile.linkedToNext,
-          storyChainId: tile.storyChainId
-        }
+      await db.days.update(dayNumber, {
+        contentTypeA: tile.contentType,
+        contentA: tile.content,
+        authorA: tile.author || 'Locdoc',
+        taskForB: tile.taskForB,
+        responseMode: tile.responseMode,
+        linkedToPrevious: tile.linkedToPrevious,
+        linkedToNext: tile.linkedToNext,
+        storyChainId: tile.storyChainId
       });
       
       return { success: true };
@@ -85,10 +73,7 @@ export const actions: Actions = {
     const tileId = parseInt(data.get('tileId') as string);
     
     try {
-      await prisma.tile.update({
-        where: { id: tileId },
-        data: { assignedToDayNumber: null }
-      });
+      await db.tiles.update(tileId, { assignedToDayNumber: null });
       
       return { success: true };
     } catch (error) {
@@ -102,10 +87,11 @@ export const actions: Actions = {
     
     try {
       // Entferne Tile-Zuweisung falls vorhanden
-      await prisma.tile.updateMany({
-        where: { assignedToDayNumber: dayNumber },
-        data: { assignedToDayNumber: null }
-      });
+      const tiles = await db.tiles.getAll();
+      const assignedTiles = tiles.filter(t => t.assignedToDayNumber === dayNumber);
+      for (const t of assignedTiles) {
+        await db.tiles.update(t.id, { assignedToDayNumber: null });
+      }
       
       // Optional: Day-Content löschen (oder beibehalten)
       // Hier nur die Tile-Zuordnung entfernen
@@ -122,32 +108,26 @@ export const actions: Actions = {
     
     try {
       // assignments: [{ tileId, dayNumber }, ...]
+      const tiles = await db.tiles.getAll();
+      
       for (const assignment of assignments) {
-        const tile = await prisma.tile.findUnique({
-          where: { id: assignment.tileId }
-        });
+        const tile = tiles.find(t => t.id === assignment.tileId);
         
         if (tile) {
-          await prisma.tile.update({
-            where: { id: assignment.tileId },
-            data: { 
-              assignedToDayNumber: assignment.dayNumber,
-              usageCount: { increment: 1 }
-            }
+          await db.tiles.update(assignment.tileId, { 
+            assignedToDayNumber: assignment.dayNumber,
+            usageCount: tile.usageCount + 1
           });
           
-          await prisma.day.update({
-            where: { dayNumber: assignment.dayNumber },
-            data: {
-              contentTypeA: tile.contentType,
-              contentA: tile.content,
-              authorA: tile.author || 'Locdoc',
-              taskForB: tile.taskForB,
-              responseMode: tile.responseMode,
-              linkedToPrevious: tile.linkedToPrevious,
-              linkedToNext: tile.linkedToNext,
-              storyChainId: tile.storyChainId
-            }
+          await db.days.update(assignment.dayNumber, {
+            contentTypeA: tile.contentType,
+            contentA: tile.content,
+            authorA: tile.author || 'Locdoc',
+            taskForB: tile.taskForB,
+            responseMode: tile.responseMode,
+            linkedToPrevious: tile.linkedToPrevious,
+            linkedToNext: tile.linkedToNext,
+            storyChainId: tile.storyChainId
           });
         }
       }

@@ -146,17 +146,18 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 0; /* Behind content but visible */
     overflow: hidden;
   }
   
   :global(.snowflake) {
     position: absolute;
     top: -20px;
-    color: white;
+    color: #b0bec5; /* Light grey for paper background */
     user-select: none;
     animation: fall linear infinite;
-    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    z-index: 0;
+    opacity: 0.6;
   }
   
   @keyframes fall {
@@ -165,14 +166,21 @@
     }
   }
   
+  /* Common style for all decorations to look like paper illustrations */
+  .heart, .tree, .snowman, .present, .star, .candle, .candy, .bell, .cookie, 
+  .reindeer, .santa, .mistletoe, .light, .angel, .wreath, .ornament, .sleigh, 
+  .snowglobe, .hot-chocolate {
+    filter: sepia(0.6) contrast(0.9) brightness(0.9); /* Paper/Ink look */
+    opacity: 0.3; /* Subtle background */
+  }
+  
   /* === HERZEN === */
   .heart {
     position: fixed;
     font-size: 24px;
     pointer-events: none;
-    z-index: 2;
+    z-index: -1; /* Behind everything */
     animation: pulse 3s ease-in-out infinite;
-    opacity: 0.6;
   }
   
   @keyframes pulse {
@@ -192,8 +200,7 @@
     position: fixed;
     font-size: 40px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: sway 4s ease-in-out infinite;
   }
   
@@ -216,8 +223,7 @@
     position: fixed;
     font-size: 35px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.8;
+    z-index: -1;
     animation: wiggle 3s ease-in-out infinite;
   }
   
@@ -238,8 +244,7 @@
     position: fixed;
     font-size: 30px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: bounce 2s ease-in-out infinite;
   }
   
@@ -259,14 +264,13 @@
     position: fixed;
     font-size: 20px;
     pointer-events: none;
-    z-index: 1;
-    opacity: 0.5;
+    z-index: -1;
     animation: twinkle 2s ease-in-out infinite;
   }
   
   @keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.2); }
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
   }
   
   .star-1 { top: 8%; left: 12%; }
@@ -285,14 +289,13 @@
     position: fixed;
     font-size: 25px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.6;
+    z-index: -1;
     animation: flicker 1.5s ease-in-out infinite;
   }
   
   @keyframes flicker {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 0.9; }
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
   }
   
   .candle-1 { top: 20%; left: 30%; }
@@ -307,8 +310,7 @@
     position: fixed;
     font-size: 28px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: rotate 5s linear infinite;
   }
   
@@ -327,8 +329,7 @@
     position: fixed;
     font-size: 22px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.6;
+    z-index: -1;
     animation: swing 2s ease-in-out infinite;
   }
   
@@ -347,8 +348,7 @@
     position: fixed;
     font-size: 26px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: spin 6s linear infinite;
   }
   
@@ -367,8 +367,7 @@
     position: fixed;
     font-size: 32px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: jump 3s ease-in-out infinite;
   }
   
@@ -386,8 +385,7 @@
     position: fixed;
     font-size: 35px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.75;
+    z-index: -1;
     animation: wave 4s ease-in-out infinite;
   }
   
@@ -405,8 +403,7 @@
     position: fixed;
     font-size: 24px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.6;
+    z-index: -1;
     animation: sway 3s ease-in-out infinite;
   }
   
@@ -419,13 +416,13 @@
     position: fixed;
     font-size: 20px;
     pointer-events: none;
-    z-index: 2;
+    z-index: -1;
     animation: blink 1.5s ease-in-out infinite;
   }
   
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.2; }
   }
   
   .light-1 { top: 8%; left: 15%; }
@@ -438,8 +435,7 @@
     position: fixed;
     font-size: 30px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.8;
+    z-index: -1;
     animation: float 5s ease-in-out infinite;
   }
   
@@ -456,8 +452,7 @@
     position: fixed;
     font-size: 26px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: spin 8s linear infinite;
   }
   
@@ -470,8 +465,7 @@
     position: fixed;
     font-size: 22px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: swing 2.5s ease-in-out infinite;
   }
   
@@ -485,8 +479,7 @@
     position: fixed;
     font-size: 28px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.65;
+    z-index: -1;
     animation: slide 6s ease-in-out infinite;
   }
   
@@ -503,8 +496,7 @@
     position: fixed;
     font-size: 24px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: shake 4s ease-in-out infinite;
   }
   
@@ -523,8 +515,7 @@
     position: fixed;
     font-size: 24px;
     pointer-events: none;
-    z-index: 2;
-    opacity: 0.7;
+    z-index: -1;
     animation: steam 3s ease-in-out infinite;
   }
   

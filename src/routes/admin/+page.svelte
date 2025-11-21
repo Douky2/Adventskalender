@@ -10,28 +10,15 @@
   
   let editingDay: AdminDay | null = null;
   let showPreview = false;
-  let showPrismaInfo = false;
+  let activeTab: 'grunddaten' | 'inhalt' | 'antwort' | 'chain' | 'ergebnis' = 'grunddaten';
   
   // Reactive component for preview
   $: previewComponent = editingDay ? getContentComponent(editingDay.contentTypeA || 'TEXT') : null;
   
-  function openPrismaStudio() {
-    showPrismaInfo = true;
-  }
-  
-  function closePrismaInfo() {
-    showPrismaInfo = false;
-  }
-
-  function handleOverlayClick(event: MouseEvent) {
-    if (event.target === event.currentTarget) {
-      closePrismaInfo();
-    }
-  }
-  
   function editDay(day: AdminDay) {
     editingDay = { ...day };
     showPreview = false;
+    activeTab = 'grunddaten';
   }
   
   function cancelEdit() {
@@ -110,15 +97,6 @@
     });
     
     return chains;
-  }
-  
-  function previewChain(chainDays: AdminDay[]) {
-    // Open all days in the chain in separate tabs
-    chainDays.forEach((day, idx) => {
-      setTimeout(() => {
-        window.open(`/day/${day.dayNumber}?simulation=true`, '_blank');
-      }, idx * 300); // Stagger by 300ms to avoid browser blocking
-    });
   }
   
   let selectedTemplate = '';
@@ -1423,7 +1401,125 @@ WARUM ICH MICH DARAN ERINNERE:
 WAS ICH DARAUS GELERNT HABE:
 [...]
 
-Hast du auch so eine Geschichte? 😊`
+Hast du auch so eine Geschichte? 😊`,
+
+    'RECIPE': `🍳 MEIN LIEBLINGSREZEPT FÜR DICH
+
+NAME: [Name des Gerichts]
+ZEIT: [Zubereitungszeit]
+
+ZUTATEN:
+- [Zutat 1]
+- [Zutat 2]
+- [...]
+
+ZUBEREITUNG:
+1. [Schritt 1]
+2. [Schritt 2]
+3. [...]
+
+WARUM DU ES LIEBEN WIRST:
+[Beschreibe den Geschmack...]
+
+WANN WIR ES KOCHEN:
+[Vorschlag für ein Datum]`,
+
+    'BOOK_RECOMMENDATION': `📚 BUCH-EMPFEHLUNG
+
+TITEL: [Buchtitel]
+AUTOR: [Autor]
+
+DARUM GEHT ES:
+[Kurze Zusammenfassung...]
+
+WARUM ES DIR GEFALLEN KÖNNTE:
+[Deine Gedanken dazu...]
+
+LIEBLINGSZITAT:
+"[...]"
+
+Lass es uns zusammen lesen? 📖`,
+
+    'BUCKET_LIST': `🎯 BUCKET LIST ITEM
+
+DAS MÖCHTE ICH MIT DIR ERLEBEN:
+[Titel des Erlebnisses]
+
+WARUM?
+[Beschreibe warum das toll wäre...]
+
+WIE WIR DAS MACHEN:
+1. [Erster Schritt]
+2. [Zweiter Schritt]
+
+ZEITRAHMEN:
+[Wann wollen wir das machen?]`,
+
+    'SHARED_GOAL': `🎯 GEMEINSAMES ZIEL 2026
+
+DAS ZIEL:
+[Was wollen wir erreichen?]
+
+WARUM ES UNS GUT TUT:
+[...]
+
+UNSER PLAN:
+- [Schritt 1]
+- [Schritt 2]
+
+BELOHNUNG WENN WIR ES SCHAFFEN:
+[Was gönnen wir uns?]`,
+
+    'DREAM_DATE_PLANNING': `🌟 TRAUM-DATE PLANUNG
+
+DAS KONZEPT:
+[Titel des Dates]
+
+ORT: [Wo?]
+STIMMUNG: [Romantisch/Abenteuer/Entspannt?]
+
+ABLAUF:
+1. Wir treffen uns...
+2. Dann gehen wir...
+3. Wir essen...
+4. Der Abend endet...
+
+WAS DU MITBRINGEN MUSST:
+[...]
+
+Wann hast du Zeit? ❤️`,
+
+    'PLAYLIST_COLLAB': `🎵 GEMEINSAME PLAYLIST
+
+THEMA: [z.B. Roadtrip / Kuscheln / Kochen]
+
+MEINE ERSTEN 3 SONGS:
+1. [Song] - [Interpret]
+   (Weil: ...)
+2. [Song] - [Interpret]
+   (Weil: ...)
+3. [Song] - [Interpret]
+   (Weil: ...)
+
+DEINE AUFGABE:
+Füge 3 Songs hinzu die dazu passen! 🎧`,
+
+    'GAME_CHALLENGE': `🎮 GAMING CHALLENGE
+
+SPIEL: [Name des Spiels]
+
+DIE HERAUSFORDERUNG:
+[Was müssen wir schaffen?]
+
+REGELN:
+1. [...]
+2. [...]
+
+DER EINSATZ:
+Der Verlierer muss... [Bestrafung/Aufgabe]
+Der Gewinner bekommt... [Belohnung]
+
+Bist du bereit? 🕹️`
   };
 
   const templates: Record<string, string> = { ...templatesBase, ...templateOverrides };
@@ -1486,36 +1582,33 @@ Hast du auch so eine Geschichte? 😊`
       
       <!-- Tools & Verwaltung -->
       <div class="header-group">
-        <h3 class="group-title">🔧 Content Builder Tools</h3>
+        <h3 class="group-title">🔧 Inhalts-Werkzeuge</h3>
         <div class="header-actions">
           <a href="/admin/tiles" class="btn-tiles">
-            🎨 Tile Library
+            🎨 Kachel-Bibliothek
           </a>
           <a href="/admin/calendar-manager" class="btn-calendar">
-            📅 Calendar Manager
+            📅 Kalender-Verwaltung
           </a>
           <a href="/admin/template-builder" class="btn-builder">
-            📝 Template Builder
+            📝 Vorlagen-Baukasten
           </a>
           <a href="/admin/story-chain-builder" class="btn-builder">
-            📖 Story Chain Builder
+            📖 Geschichten-Editor
           </a>
           <a href="/admin/quiz-builder" class="btn-quiz">
-            🎯 Quiz-Builder
+            🎯 Quiz-Baukasten
           </a>
         </div>
       </div>
       
       <!-- System & Verwaltung -->
       <div class="header-group">
-        <h3 class="group-title">🔧 System Tools</h3>
+        <h3 class="group-title">🔧 System-Werkzeuge</h3>
         <div class="header-actions">
           <a href="/admin/tracking" class="btn-tracking">
-            🔄 Tracking Reset
+            🔄 Tracking zurücksetzen
           </a>
-          <button on:click={openPrismaStudio} class="btn-prisma">
-            🗄️ Prisma Studio
-          </button>
         </div>
       </div>
       
@@ -1526,7 +1619,7 @@ Hast du auch so eine Geschichte? 😊`
           <a href="/admin/settings" class="btn-settings">
             ⚙️ Einstellungen
           </a>
-          <a href="/admin/logout" class="btn-logout">🔓 Logout</a>
+          <a href="/admin/logout" class="btn-logout">🔓 Abmelden</a>
         </div>
       </div>
     </div>
@@ -1544,182 +1637,190 @@ Hast du auch so eine Geschichte? 😊`
     </div>
   {/if}
   
-  {#if showPrismaInfo}
-    <div
-      class="modal-overlay"
-      role="presentation"
-      aria-hidden="true"
-      on:click={handleOverlayClick}
-    >
-      <div
-        class="modal-content"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="prisma-modal-title"
-        tabindex="-1"
-      >
-        <div class="modal-header">
-          <h2 id="prisma-modal-title">🗄️ Prisma Studio starten</h2>
-          <button type="button" on:click={closePrismaInfo} class="btn-close">✕</button>
-        </div>
-        <div class="modal-body">
-          <p>Prisma Studio ist ein fortgeschrittenes Datenbank-Tool mit direktem Zugriff auf alle Tabellen.</p>
-          
-          <h3>So starten Sie Prisma Studio:</h3>
-          <ol>
-            <li>Öffnen Sie ein <strong>neues PowerShell-Fenster</strong></li>
-            <li>Navigieren Sie zum Projekt:
-              <pre class="code-block">cd e:\Scripte\Adventskalender</pre>
-            </li>
-            <li>Führen Sie aus:
-              <pre class="code-block">npx prisma studio</pre>
-            </li>
-            <li>Warten Sie bis Sie sehen:
-              <pre class="code-block">Prisma Studio is up on http://localhost:5555</pre>
-            </li>
-            <li>Öffnen Sie im Browser:
-              <a href="http://localhost:5555" target="_blank" class="prisma-link">
-                http://localhost:5555
-              </a>
-            </li>
-          </ol>
-          
-          <div class="info-box">
-            <h4>💡 Wann Prisma Studio nutzen?</h4>
-            <ul>
-              <li>✅ Bulk-Operationen (mehrere Einträge auf einmal)</li>
-              <li>✅ Direkter Datenbank-Zugriff</li>
-              <li>✅ Daten exportieren/importieren</li>
-              <li>✅ Technische Fehlersuche</li>
-            </ul>
-            <h4>Für normale Bearbeitung:</h4>
-            <p>👈 Nutzen Sie das Admin-Panel (diese Seite)</p>
-          </div>
-          
-          <h3>📋 Kommando kopieren:</h3>
-          <div class="copy-box">
-            <code>npx prisma studio</code>
-            <button on:click={() => navigator.clipboard.writeText('npx prisma studio')} class="btn-copy">
-              📋 Kopieren
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  {/if}
+
   
-  <div class="content-wrapper">
-    <!-- Story-Chain-Übersicht -->
-    {#if data.days.filter(d => d.linkedToPrevious || d.linkedToNext || d.storyChainId).length > 0}
-      <div class="story-overview">
-        <h2>📚 Mehrtägige Zusammenhänge & Story-Ketten</h2>
-        <p class="overview-hint">Hier siehst du alle Tage, die miteinander verbunden sind</p>
-        
-        <div class="story-chains">
-          {#each getStoryChains(data.days) as chain}
-            <div class="chain-card">
-              <div class="chain-header">
-                <span class="chain-icon">🔗</span>
-                <h3>
-                  {#if chain.storyChainId}
-                    Story: {chain.storyChainId}
-                  {:else}
-                    Verbundene Tage
-                  {/if}
-                </h3>
-                <span class="chain-count">{chain.days.length} Tage</span>
-              </div>
-              
-              <div class="chain-timeline">
-                {#each chain.days as day, idx}
-                  <div class="timeline-item">
-                    <button 
-                      class="timeline-day"
-                      class:has-content-b={day.contentB}
-                      on:click={() => editDay(day)}
-                    >
-                      <span class="timeline-number">Tag {day.dayNumber}</span>
-                      <span class="timeline-title">{day.title}</span>
-                      {#if day.contentB}
-                        <span class="timeline-badge">✅</span>
-                      {/if}
-                    </button>
-                    {#if idx < chain.days.length - 1}
-                      <div class="timeline-arrow">→</div>
-                    {/if}
-                  </div>
-                {/each}
-              </div>
-              
-              <div class="chain-actions">
-                <button 
-                  class="btn-preview-chain" 
-                  on:click={() => previewChain(chain.days)}
-                >
-                  👁️ Alle Tage dieser Kette anschauen
-                </button>
-              </div>
-            </div>
-          {/each}
-        </div>
+  <!-- Admin Layout Wrapper -->
+  <div class="admin-layout">
+    <!-- Sidebar with Days -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <h3>📅 Türchen</h3>
       </div>
-    {/if}
-    
-    <!-- Türchen-Liste -->
-    <div class="days-list">
-      <h2>Alle Türchen</h2>
-      <div class="days-grid">
+      <div class="days-grid-sidebar">
         {#each data.days as day}
-          <div class="day-card" class:editing={editingDay?.id === day.id}>
-            <div class="day-header">
-              <span class="day-number">Tag {day.dayNumber}</span>
-              <span class="day-type">{day.contentTypeA}</span>
-            </div>
-            <h3>{day.title}</h3>
-            {#if day.authorA}
-              <p class="day-author">Von: {day.authorA}</p>
-            {/if}
-            {#if day.contentB}
-              <span class="badge-answered">✅ Person B geantwortet</span>
-            {/if}
-            <div class="day-actions">
-              <button on:click={() => editDay(day)} class="btn-edit">
-                ✏️ Bearbeiten
-              </button>
-            </div>
-          </div>
+          <button 
+            class="day-tile-sidebar" 
+            class:active={editingDay?.id === day.id}
+            class:answered={day.contentB}
+            on:click={() => editDay(day)}
+          >
+            {day.dayNumber}
+          </button>
         {/each}
       </div>
-    </div>
-    
-    <!-- Editor -->
-    {#if editingDay}
-      <div class="editor-panel">
+      <div class="sidebar-legend">
+        <div class="legend-item"><span class="dot active"></span> Aktiv</div>
+        <div class="legend-item"><span class="dot done"></span> Erledigt</div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-content">
+      <!-- Editor -->
+      {#if editingDay}
+        <div class="editor-panel">
+        <!-- Template Selection -->
+        {#if data.tiles && editingDay}
+          {@const dayTemplates = data.tiles.filter(t => t.tags && t.tags.includes(`day-${editingDay!.dayNumber}`))}
+          {#if dayTemplates.length > 0}
+            <details class="templates-section" open={!editingDay.contentA}>
+              <summary>✨ Vorlagen für Tag {editingDay.dayNumber} <span class="summary-hint">(Klicken zum Öffnen/Schließen)</span></summary>
+              <div class="templates-grid">
+                {#each dayTemplates as template}
+                  <button 
+                    type="button" 
+                    class="template-card"
+                    on:click={() => {
+                      if (!confirm('Möchtest du diese Vorlage übernehmen? Aktuelle Änderungen gehen verloren.')) return;
+                      if (editingDay) {
+                        editingDay = {
+                          ...editingDay,
+                          title: template.title.replace(/ \(Var \d+\)/, ''),
+                          contentTypeA: template.contentType,
+                          contentA: template.content,
+                          taskForB: template.taskForB || '',
+                          responseMode: template.responseMode || 'DISABLED'
+                        };
+                      }
+                    }}
+                  >
+                    <span class="template-category">{template.category}</span>
+                    <span class="template-title">{template.title}</span>
+                    <span class="template-desc">{template.description}</span>
+                  </button>
+                {/each}
+              </div>
+            </details>
+          {/if}
+        {/if}
+
         <div class="editor-header">
-          <h2>Bearbeite Tag {editingDay.dayNumber}</h2>
-          <button on:click={cancelEdit} class="btn-close">✕</button>
+          <h2>Bearbeite Tag {editingDay.dayNumber}: {editingDay.title}</h2>
+          <div class="editor-header-actions">
+            <button
+              type="button"
+              class="btn-preview"
+              on:click={() => {
+                if (!editingDay) return;
+                window.open(`/admin/preview/${editingDay.dayNumber}`, '_blank');
+              }}
+            >
+              🚀 Live-Vorschau
+            </button>
+            <button on:click={cancelEdit} class="btn-close">✕</button>
+          </div>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="editor-tabs">
+          <button
+            type="button"
+            class="tab-btn"
+            class:active={activeTab === 'grunddaten'}
+            on:click={() => activeTab = 'grunddaten'}
+          >
+            📋 Grunddaten
+          </button>
+          <button
+            type="button"
+            class="tab-btn"
+            class:active={activeTab === 'inhalt'}
+            on:click={() => activeTab = 'inhalt'}
+          >
+            💝 Inhalt A
+          </button>
+          <button
+            type="button"
+            class="tab-btn"
+            class:active={activeTab === 'antwort'}
+            on:click={() => activeTab = 'antwort'}
+          >
+            ✨ Antwort & Aufgabe
+          </button>
+          <button
+            type="button"
+            class="tab-btn"
+            class:active={activeTab === 'chain'}
+            on:click={() => activeTab = 'chain'}
+          >
+            🔗 Story-Verknüpfung
+          </button>
+          <button
+            type="button"
+            class="tab-btn"
+            class:active={activeTab === 'ergebnis'}
+            on:click={() => activeTab = 'ergebnis'}
+          >
+            🎨 Gemeinsames Ergebnis
+          </button>
         </div>
         
         <form method="POST" action="?/update" use:enhance>
           <input type="hidden" name="id" value={editingDay.id} />
           
-          <div class="form-group">
-            <label for="title">Titel</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              bind:value={editingDay.title}
-              required
-              placeholder="z.B. Willkommen in unserem Kalender! 🎅"
-            />
+          <!-- Grunddaten Tab -->
+          {#if activeTab === 'grunddaten'}
+          <div class="tab-content">
+            <div class="form-group">
+              <label for="title">
+                Titel
+                <span class="info-tooltip" title="Der Titel wird ganz oben im Türchen angezeigt. Wähle etwas Spannendes!">ℹ️</span>
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                bind:value={editingDay.title}
+                required
+                placeholder="z.B. Willkommen in unserem Kalender! 🎅"
+              />
+              <small class="hint">💡 Tipp: Verwende Emojis für mehr Spaß! 🎄 ❤️ ✨</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="authorA">
+                Autor (optional)
+                <span class="info-tooltip" title="Zeigt an, wer diesen Inhalt erstellt hat. Z.B. 'Locdoc' oder 'Von deinem Schatz'">ℹ️</span>
+              </label>
+              <input
+                type="text"
+                id="authorA"
+                name="authorA"
+                bind:value={editingDay.authorA}
+                placeholder="z.B. Locdoc, Von deinem Schatz"
+              />
+            </div>
+            
+            {#if editingDay.contentB}
+              <div class="info-banner success">
+                ✅ Miss Chaos hat bereits geantwortet.
+              </div>
+            {:else}
+              <div class="info-banner">
+                ℹ️ Miss Chaos kann ihre Antwort direkt auf der Website hinzufügen.
+              </div>
+            {/if}
           </div>
-          
-          <div class="form-section">
+          {:else if activeTab === 'inhalt'}
+          <div class="tab-content">
+            <div class="form-section">
             <h3>💝 Person A - Inhalt</h3>
             
             <div class="form-group">
-              <label for="contentTypeA">Inhaltstyp</label>
+              <label for="contentTypeA">
+                Inhaltstyp
+                <span class="info-tooltip" title="Wähle die Art des Inhalts. Dies bestimmt, wie der Content dargestellt wird (Text, Bild, Video, Quiz, etc.)">ℹ️</span>
+              </label>
               <select id="contentTypeA" name="contentTypeA" bind:value={editingDay.contentTypeA} required>
                 <optgroup label="─── Basis ───">
                   {#each contentTypes.filter(t => t.category === 'Basis') as type}
@@ -1831,68 +1932,142 @@ Hast du auch so eine Geschichte? 😊`
               />
             </div>
           </div>
-
+          </div>
+          {:else if activeTab === 'antwort'}
+          <div class="tab-content">
           <div class="form-section">
             <h3>✨ Aufgabe & Antwort-Modus</h3>
             
             <div class="form-group">
-              <label for="responseMode">Antwort-Modus</label>
+              <label for="responseMode">
+                Antwort-Modus
+                <span class="info-tooltip" title="Bestimmt, wie und wann auf dieses Türchen geantwortet werden kann">ℹ️</span>
+              </label>
               <select id="responseMode" name="responseMode" bind:value={editingDay.responseMode}>
                 <option value="DISABLED">🔒 Keine Antwort möglich</option>
-                <option value="OPEN">💬 Miss Chaos kann sofort antworten</option>
-                <option value="AFTER_A">📝 Nur Locdoc antwortet hier</option>
-                <option value="AFTER_B">📝 Nur Miss Chaos antwortet hier</option>
-                <option value="COLLABORATIVE">🤝 Zusammenarbeit (beide füllen aus)</option>
+                <option value="OPEN">💬 Sofort antworten (Miss Chaos kann direkt antworten)</option>
+                <option value="AFTER_A">📝 Nur Locdoc-Inhalt (Miss Chaos sieht nur, antwortet nicht)</option>
+                <option value="AFTER_B">📝 Nur Miss Chaos-Inhalt (Nur sie kann was hinzufügen)</option>
+                <option value="COLLABORATIVE">🤝 Zusammenarbeit (Beide können unabhängig beitragen)</option>
               </select>
-              <small>💡 Bestimmt, wer wann auf diesem Türchen antworten kann</small>
+              <div class="help-box">
+                <strong>� Erklärung der Modi:</strong>
+                <ul>
+                  <li><strong>🔒 Keine Antwort möglich:</strong> Nur Locdocs Inhalt wird angezeigt. Miss Chaos kann nichts hinzufügen.</li>
+                  <li><strong>💬 Sofort antworten:</strong> Miss Chaos kann direkt nach dem Öffnen ihre Antwort schreiben.</li>
+                  <li><strong>📝 Nur Locdoc-Inhalt:</strong> Das Türchen zeigt nur Locdocs vorbereiteten Inhalt. Keine Antwortmöglichkeit.</li>
+                  <li><strong>📝 Nur Miss Chaos-Inhalt:</strong> Nur Miss Chaos kann hier etwas eintragen (z.B. für ihre persönlichen Gedanken).</li>
+                  <li><strong>🤝 Zusammenarbeit:</strong> Beide Bereiche werden angezeigt. Perfekt für gemeinsame Aufgaben!</li>
+                </ul>
+              </div>
             </div>
             
             <div class="form-group">
-              <label for="taskForB">Aufgabenstellung für Miss Chaos (optional)</label>
+              <label for="taskForB">
+                Aufgabenstellung für Miss Chaos (optional)
+                <span class="info-tooltip" title="Beschreibe hier, was Miss Chaos tun soll. Z.B. 'Schreibe deine Version der Geschichte' oder 'Wähle deine Lieblingsfarbe'">ℹ️</span>
+              </label>
               <textarea
                 id="taskForB"
                 name="taskForB"
                 bind:value={editingDay.taskForB}
                 rows="3"
-                placeholder="z.B. Ergänze die Geschichte mit deinem Teil..."
+                placeholder="z.B. Ergänze die Geschichte mit deinem Teil, Schreibe deine Antwort hier..."
               ></textarea>
+              <small class="hint">💡 Je klarer die Aufgabe, desto einfacher für Miss Chaos!</small>
             </div>
           </div>
-          
+          </div>
+          {:else if activeTab === 'chain'}
+          <div class="tab-content">
           <div class="form-section">
-            <h3>🔗 Mehrtägige Aufgaben (Story-Chain)</h3>
+            <h3>🔗 Mehrtägige Aufgaben (Story-Chain)
+              <span class="info-tooltip" title="Verknüpfe mehrere Türchen zu einer zusammenhängenden Story. Entscheidungen aus früheren Tagen können spätere beeinflussen!">ℹ️</span>
+            </h3>
+            
+            <div class="help-box info">
+              <strong>🎯 Was sind Story-Chains?</strong>
+              <p>Story-Chains verbinden mehrere Türchen zu einer interaktiven Geschichte! Miss Chaos kann z.B.:</p>
+              <ul>
+                <li>🎨 Farben wählen, die sich durch die Story ziehen</li>
+                <li>📝 Text-Bausteine sammeln, die zu einer Geschichte werden</li>
+                <li>✨ Elemente auswählen, die am Ende kombiniert werden</li>
+                <li>🎭 Entscheidungen treffen, die das Ergebnis beeinflussen</li>
+              </ul>
+              <p><em>Beispiel:</em> Tag 3 wählt Farbe → Tag 5 schreibt Text → Tag 7 wählt Element → Tag 10 zeigt das kombinierte Ergebnis!</p>
+            </div>
             
             <div class="form-group">
               <label>
                 <input type="checkbox" name="linkedToPrevious" bind:checked={editingDay.linkedToPrevious} />
                 📖 Fortsetzung vom vorherigen Tag
+                <span class="info-tooltip" title="Aktiviere dies, wenn dieses Türchen eine direkte Fortsetzung vom Tag davor ist">ℹ️</span>
               </label>
+              <small class="hint">Zeigt einen Hinweis auf den vorherigen Tag an</small>
             </div>
             
             <div class="form-group">
               <label>
                 <input type="checkbox" name="linkedToNext" bind:checked={editingDay.linkedToNext} />
                 ⏭️ Wird am nächsten Tag fortgesetzt
+                <span class="info-tooltip" title="Aktiviere dies, wenn die Geschichte am nächsten Tag weitergeht">ℹ️</span>
               </label>
+              <small class="hint">Zeigt einen Teaser auf den nächsten Tag an</small>
             </div>
             
             <div class="form-group">
-              <label for="storyChainId">Story-Chain ID (optional)</label>
+              <label for="storyChainId">
+                Story-Chain ID (optional)
+                <span class="info-tooltip" title="Eine eindeutige ID für zusammenhängende Geschichten. Alle Türchen mit derselben ID gehören zusammen.">ℹ️</span>
+              </label>
               <input
                 type="text"
                 id="storyChainId"
                 name="storyChainId"
                 bind:value={editingDay.storyChainId}
-                placeholder="z.B. weihnachtsgeschichte, raetsel-serie"
+                placeholder="z.B. our-love-story, build-your-design"
               />
-              <small>💡 Gleiche ID = Zusammenhängende Geschichte. Beispiele: Tag 3,4,5 = "love-story"</small>
+              <div class="help-box">
+                <strong>💡 Beispiele für Chain-IDs:</strong>
+                <ul>
+                  <li><code>our-love-story</code> - Gemeinsame Geschichte schreiben</li>
+                  <li><code>build-your-design</code> - Farben & Elemente sammeln</li>
+                  <li><code>christmas-adventure</code> - Weihnachts-Abenteuer</li>
+                  <li><code>memory-collection</code> - Erinnerungen sammeln</li>
+                </ul>
+                <p><em>Tipp:</em> Verwende einfache, sprechende Namen ohne Leerzeichen!</p>
+              </div>
             </div>
           </div>
-          
+          </div>
+          {:else if activeTab === 'ergebnis'}
+          <div class="tab-content">
           <div class="form-section">
-            <h3>🎨 Gemeinsames Ergebnis</h3>
+            <h3>🎨 Gemeinsames Ergebnis
+              <span class="info-tooltip" title="Hier kannst du ein finales Ergebnis eingeben, das erst sichtbar wird, wenn beide ihre Teile beigetragen haben">ℹ️</span>
+            </h3>
+            
+            <div class="help-box info">
+              <strong>💫 Wann wird das verwendet?</strong>
+              <p>Das kombinierte Ergebnis wird nur dann angezeigt, wenn:</p>
+              <ul>
+                <li>✅ Locdoc seinen Teil (Inhalt A) hat</li>
+                <li>✅ Miss Chaos ihren Teil (Inhalt B) hinzugefügt hat</li>
+              </ul>
+              <p><strong>Perfekt für:</strong></p>
+              <ul>
+                <li>📖 Gemeinsame Geschichten die zusammengeführt werden</li>
+                <li>🎯 Aufgaben die beide erfüllen müssen</li>
+                <li>💝 Überraschungen die beide vorbereiten</li>
+                <li>🎨 Kreative Projekte die zusammen ein Ganzes ergeben</li>
+              </ul>
+            </div>
+            
             <div class="form-group">
-              <label for="combinedResult">Kombiniertes Ergebnis (optional)</label>
+              <label for="combinedResult">
+                Kombiniertes Ergebnis (optional)
+                <span class="info-tooltip" title="Trage hier das finale Ergebnis ein, z.B. die zusammengeführte Geschichte oder die gemeinsame Überraschung">ℹ️</span>
+              </label>
               <textarea
                 id="combinedResult"
                 name="combinedResult"
@@ -1900,7 +2075,7 @@ Hast du auch so eine Geschichte? 😊`
                 rows="4"
                 placeholder="z.B. Die fertige Geschichte aus beiden Teilen..."
               ></textarea>
-              <small>💡 Wird angezeigt wenn beide ihre Teile ausgefüllt haben</small>
+              <small class="hint">💡 Wird erst angezeigt wenn beide ihre Teile ausgefüllt haben</small>
             </div>
           </div>
           
@@ -1931,6 +2106,8 @@ Hast du auch so eine Geschichte? 😊`
               </div>
             {/if}
           </div>
+          </div>
+          {/if}
           
           <div class="form-actions">
             <button type="submit" class="btn-primary">
@@ -1951,72 +2128,6 @@ Hast du auch so eine Geschichte? 😊`
             </button>
           </div>
         </form>
-        
-        {#if showPreview && previewComponent}
-          <div class="preview-panel">
-            <h3>📋 Vorschau - So wird es aussehen</h3>
-            <div class="preview-wrapper">
-              <div class="preview-header">
-                <div class="preview-day-badge">Tag {editingDay.dayNumber}</div>
-                <h2 class="preview-title">{editingDay.title || 'Titel fehlt'}</h2>
-              </div>
-              
-              <!-- Person A Box (Locdoc) -->
-              <div class="preview-box preview-box-a">
-                <svelte:component 
-                  this={previewComponent} 
-                  content={editingDay.contentA}
-                  author={editingDay.authorA}
-                  contentType={editingDay.contentTypeA}
-                />
-                
-                {#if editingDay.taskForB && editingDay.responseMode !== 'DISABLED'}
-                  <div class="preview-task">
-                    <h3>📋 Aufgabe für {editingDay.authorB || 'Miss Chaos'}:</h3>
-                    <p>{editingDay.taskForB}</p>
-                    {#if editingDay.responseMode === 'COLLABORATIVE'}
-                      <span class="preview-mode-badge collaborative">🤝 Zusammenarbeit</span>
-                    {:else if editingDay.responseMode === 'OPEN'}
-                      <span class="preview-mode-badge open">💬 Offen</span>
-                    {/if}
-                  </div>
-                {/if}
-              </div>
-              
-              <!-- Person B Box (Miss Chaos) -->
-              {#if editingDay.responseMode !== 'DISABLED'}
-                <div class="preview-box preview-box-b">
-                  <span class="preview-badge">{editingDay.authorB || 'Miss Chaos'} 💖</span>
-                  {#if editingDay.contentB}
-                    <div class="preview-response-content">
-                      {#each editingDay.contentB.split('\n') as line}
-                        {#if line.trim()}<p>{line}</p>{/if}
-                      {/each}
-                    </div>
-                  {:else}
-                    <div class="preview-empty">
-                      <p>💭 Noch keine Antwort von {editingDay.authorB || 'Miss Chaos'}...</p>
-                    </div>
-                  {/if}
-                </div>
-              {/if}
-            </div>
-            
-            <div class="preview-actions">
-              <button
-                type="button"
-                class="btn-preview-live"
-                on:click={() => {
-                  if (!editingDay) return;
-                  window.open(`/day/${editingDay.dayNumber}?simulation=true`, '_blank');
-                }}
-              >
-                🚀 Live-Vorschau in neuem Tab öffnen (entsperrt)
-              </button>
-              <p class="preview-hint">💡 Die Vorschau ist immer entsperrt, damit du alles testen kannst!</p>
-            </div>
-          </div>
-        {/if}
       </div>
     {:else}
       <div class="editor-placeholder">
@@ -2027,35 +2138,88 @@ Hast du auch so eine Geschichte? 😊`
         </div>
       </div>
     {/if}
+  
+  <!-- Story-Chain-Übersicht -->
+  {#if data.days.filter(d => d.linkedToPrevious || d.linkedToNext || d.storyChainId).length > 0}
+    <div class="story-overview">
+      <h2>📚 Mehrtägige Zusammenhänge & Story-Ketten</h2>
+      <p class="overview-hint">Hier siehst du alle Tage, die miteinander verbunden sind</p>
+      
+      <div class="story-chains">
+        {#each getStoryChains(data.days) as chain}
+          <div class="chain-card">
+            <div class="chain-header">
+              <span class="chain-icon">🔗</span>
+              <h3>
+                {#if chain.storyChainId}
+                  Story: {chain.storyChainId}
+                {:else}
+                  Verbundene Tage
+                {/if}
+              </h3>
+              <span class="chain-count">{chain.days.length} Tage</span>
+            </div>
+            
+            <div class="chain-timeline">
+              {#each chain.days as day, idx}
+                <div class="timeline-item">
+                  <button 
+                    class="timeline-day"
+                    class:has-content-b={day.contentB}
+                    on:click={() => editDay(day)}
+                  >
+                    <span class="timeline-number">Tag {day.dayNumber}</span>
+                    <span class="timeline-title">{day.title}</span>
+                    {#if day.contentB}
+                      <span class="timeline-badge">✅</span>
+                    {/if}
+                  </button>
+                  {#if idx < chain.days.length - 1}
+                    <div class="timeline-arrow">→</div>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+            
+            <div class="chain-actions">
+              <!-- Preview removed -->
+            </div>
+          </div>
+        {/each}
+      </div>
+    </div>
+  {/if}
+    </main>
   </div>
 </div>
 
 <style>
-  :global(body) {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: #f5f7fa;
-  }
+  /* Body styles moved to +layout.svelte */
   
   .admin-container {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 2rem;
   }
   
   .admin-header {
-    background: white;
+    background: #fff;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    border-radius: 2px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 3rem;
+    border: 1px solid #d4af37;
+    position: relative;
   }
   
   .admin-header h1 {
-    margin: 0 0 1.5rem 0;
-    color: #2c3e50;
-    font-size: 2rem;
+    margin: 0 0 2rem 0;
+    color: #8b0000;
+    font-size: 2.5rem;
     text-align: center;
+    font-family: 'Georgia', serif;
+    border-bottom: 2px dashed #d4af37;
+    padding-bottom: 1rem;
   }
   
   .header-sections {
@@ -2067,224 +2231,83 @@ Hast du auch so eine Geschichte? 😊`
   .header-group {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
   }
   
   .group-title {
     margin: 0;
-    color: #7f8c8d;
-    font-size: 0.85rem;
+    color: #5d4037;
+    font-size: 0.9rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     font-weight: 600;
-    border-bottom: 2px solid #ecf0f1;
+    border-bottom: 1px solid #e0e0e0;
     padding-bottom: 0.5rem;
+    font-family: 'Georgia', serif;
   }
   
   .header-actions {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.8rem;
   }
   
-  .header-actions a,
-  .header-actions button {
-    padding: 0.7rem 1rem;
-    border-radius: 8px;
+  .header-actions a {
+    padding: 0.8rem 1.2rem;
+    border-radius: 2px;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: 600;
+    font-size: 1rem;
     text-align: center;
     transition: all 0.3s ease;
-    border: none;
+    border: 1px solid transparent;
+    font-family: 'Georgia', serif;
     cursor: pointer;
     display: block;
   }
   
-  .btn-tiles {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-  }
+  .btn-tiles { background: #fff; border: 1px solid #2e7d32; color: #2e7d32; }
+  .btn-tiles:hover { background: #2e7d32; color: #fff; }
   
-  .btn-tiles:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-  }
+  .btn-calendar { background: #fff; border: 1px solid #1565c0; color: #1565c0; }
+  .btn-calendar:hover { background: #1565c0; color: #fff; }
   
-  .btn-calendar {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    color: white;
-  }
+  .btn-builder { background: #fff; border: 1px solid #6a1b9a; color: #6a1b9a; }
+  .btn-builder:hover { background: #6a1b9a; color: #fff; }
   
-  .btn-calendar:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-  }
+  .btn-quiz { background: #fff; border: 1px solid #c2185b; color: #c2185b; }
+  .btn-quiz:hover { background: #c2185b; color: #fff; }
   
-  .btn-builder {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-  }
-  
-  .btn-builder:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  }
-  
-  .btn-quiz {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-  }
-  
-  .btn-quiz:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
-  }
-  
-  .btn-tracking {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    color: white;
-  }
-  
-  .btn-tracking:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
-  }
-  
+  .btn-tracking { background: #fff; border: 1px solid #00838f; color: #00838f; }
+  .btn-tracking:hover { background: #00838f; color: #fff; }
+
   .alert {
     padding: 1rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 2px;
     margin-bottom: 1.5rem;
     font-weight: 500;
+    font-family: 'Georgia', serif;
   }
   
   .alert-success {
-    background: #d5f4e6;
-    color: #27ae60;
-    border: 2px solid #27ae60;
+    background: #f1f8e9;
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
   }
   
   .alert-error {
-    background: #fadbd8;
-    color: #c0392b;
-    border: 2px solid #e74c3c;
-  }
-  
-  .content-wrapper {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 2rem;
-    align-items: start;
-  }
-  
-  .days-list {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-  }
-  
-  .days-list h2 {
-    margin-top: 0;
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-  }
-  
-  .days-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .day-card {
-    padding: 1rem;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-  
-  .day-card:hover {
-    border-color: #667eea;
-    transform: translateX(5px);
-  }
-  
-  .day-card.editing {
-    border-color: #667eea;
-    background: #f0f4ff;
-  }
-  
-  .day-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-  }
-  
-  .day-number {
-    font-weight: bold;
-    color: #667eea;
-  }
-  
-  .day-type {
-    font-size: 0.75rem;
-    background: #e0e7ff;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    color: #4c1d95;
-  }
-  
-  .day-card h3 {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-    color: #2c3e50;
-  }
-  
-  .day-author {
-    font-size: 0.85rem;
-    color: #7f8c8d;
-    font-style: italic;
-    margin: 0.25rem 0;
-  }
-  
-  .badge-answered {
-    display: inline-block;
-    background: #27ae60;
-    color: white;
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    margin-top: 0.5rem;
-  }
-  
-  .day-actions {
-    margin-top: 0.75rem;
-  }
-  
-  .btn-edit {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    border: none;
-    border-radius: 6px;
-    background: #667eea;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 500;
-  }
-  
-  .btn-edit:hover {
-    background: #5568d3;
-    transform: translateY(-2px);
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #c62828;
   }
   
   .editor-panel, .editor-placeholder {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-height: calc(100vh - 200px);
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+    max-height: calc(100vh - 150px);
     overflow-y: auto;
   }
   
@@ -2294,677 +2317,167 @@ Hast du auch so eine Geschichte? 😊`
     align-items: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #ecf0f1;
+    border-bottom: 2px dashed #d4af37;
   }
   
   .editor-header h2 {
     margin: 0;
-    color: #2c3e50;
+    color: #8b0000;
+    font-family: 'Georgia', serif;
   }
   
   .btn-close {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: pointer;
-    color: #7f8c8d;
+    color: #d4af37;
     transition: color 0.3s ease;
   }
   
-  .btn-close:hover {
-    color: #e74c3c;
+  .btn-close:hover { color: #8b0000; }
+  
+  .editor-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0;
+  }
+  
+  .tab-btn {
+    background: transparent;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #9e9e9e;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    font-family: 'Georgia', serif;
+  }
+  
+  .tab-btn:hover { color: #5d4037; background: #fffcf5; }
+  
+  .tab-btn.active {
+    color: #8b0000;
+    border-bottom-color: #8b0000;
+    font-weight: 600;
   }
   
   .form-section {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 12px;
+    background: #fffcf5;
+    padding: 2rem;
+    border-radius: 2px;
     margin-bottom: 2rem;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
   }
   
   .form-section h3 {
     margin-top: 0;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-  }
-  
-  .form-section.info-section {
-    background: #e8f5e9;
-    border-color: #27ae60;
-  }
-  
-  .info-text {
-    color: #555;
-    margin: 0.5rem 0;
-  }
-  
-  .preview-box {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    margin-top: 1rem;
-    border: 1px solid #ddd;
-  }
-  
-  .preview-box strong {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #2c3e50;
-  }
-  
-  .preview-box p {
-    margin: 0;
-    color: #555;
-  }
-  
-  .form-group {
     margin-bottom: 1.5rem;
+    color: #5d4037;
+    font-family: 'Georgia', serif;
+    border-bottom: 1px dashed #d4af37;
+    padding-bottom: 0.5rem;
+    display: inline-block;
   }
+  
+  .form-group { margin-bottom: 1.5rem; }
   
   .form-group label {
     display: block;
     font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-  }
-  
-  .btn-help {
-    margin-left: 1rem;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.8rem;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    color: #2c1810;
+    margin-bottom: 0.8rem;
+    font-family: 'Georgia', serif;
   }
   
   .form-group input,
   .form-group select,
   .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #d4af37;
+    border-radius: 2px;
     font-size: 1rem;
-    font-family: inherit;
-    transition: border-color 0.3s ease;
+    font-family: 'Georgia', serif;
+    background: #fff;
+    color: #2c1810;
     box-sizing: border-box;
-  }
-  
-  .form-group select optgroup {
-    font-weight: bold;
-    font-style: normal;
-    color: #667eea;
-    margin-top: 0.5rem;
-  }
-  
-  .form-group select option {
-    padding: 0.5rem;
-  }
-  
-  .form-group textarea {
-    font-family: 'Consolas', 'Monaco', monospace;
-    resize: vertical;
   }
   
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #8b0000;
+    box-shadow: 0 0 5px rgba(139, 0, 0, 0.1);
   }
   
   .form-actions {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
-  }
-  
-  .btn-primary, .btn-secondary {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  }
-  
-  .btn-secondary {
-    background: #95a5a6;
-    color: white;
-  }
-  
-  .btn-secondary:hover {
-    background: #7f8c8d;
-  }
-  
-  .btn-logout {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #e67e22;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .btn-logout:hover {
-    background: #d35400;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4);
-  }
-  
-  .btn-settings {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .btn-settings:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  }
-  
-  .btn-simulation {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-  }
-  
-  .btn-simulation:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
-  }
-  
-  .btn-danger {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #e74c3c;
-    color: white;
-  }
-  
-  .btn-danger:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
-  }
-  
-  .btn-prisma {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: #2ecc71;
-    color: white;
-    margin-right: 1rem;
-  }
-  
-  .btn-prisma:hover {
-    background: #27ae60;
-    transform: translateY(-2px);
-  }
-  
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 1rem;
-    border: none;
-    cursor: pointer;
-  }
-  .modal-overlay:focus {
-    outline: 3px solid rgba(255, 255, 255, 0.5);
-  }
-  
-  .modal-content {
-    background: white;
-    border-radius: 16px;
-    max-width: 700px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 2px solid #ecf0f1;
-  }
-  
-  .modal-header h2 {
-    margin: 0;
-    color: #2c3e50;
-  }
-  
-  .modal-body {
-    padding: 2rem;
-  }
-  
-  .modal-body h3 {
-    color: #2c3e50;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .modal-body ol {
-    padding-left: 1.5rem;
-  }
-  
-  .modal-body li {
-    margin-bottom: 1rem;
-    line-height: 1.6;
-  }
-  
-  .code-block {
-    background: #2c3e50;
-    color: #ecf0f1;
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    font-family: 'Consolas', 'Monaco', monospace;
-    display: block;
-    margin: 0.5rem 0;
-    overflow-x: auto;
-  }
-  
-  .prisma-link {
-    display: inline-block;
-    background: #3498db;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    transition: background 0.3s ease;
-  }
-  
-  .prisma-link:hover {
-    background: #2980b9;
-  }
-  
-  .info-box {
-    background: #f0f4ff;
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-  }
-  
-  .info-box h4 {
-    margin-top: 0;
-    color: #667eea;
-  }
-  
-  .info-box ul {
-    margin: 0.5rem 0;
-    padding-left: 1.5rem;
-  }
-  
-  .info-box p {
-    margin-bottom: 0;
-  }
-  
-  .copy-box {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 2px solid #e0e0e0;
-  }
-  
-  .copy-box code {
-    flex: 1;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 1rem;
-  }
-  
-  .btn-copy {
-    padding: 0.5rem 1rem;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s ease;
-  }
-  
-  .btn-copy:hover {
-    background: #2980b9;
-  }
-  
-  .template-box {
-    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-    border: 2px dashed #667eea;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    text-align: center;
-  }
-  
-  .template-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    color: #667eea;
-    font-size: 1.1rem;
-  }
-  
-  .template-icon {
-    font-size: 1.5rem;
-  }
-  
-  .btn-template {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 0.5rem;
-  }
-  
-  .btn-template:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-  }
-  
-  .template-box small {
-    color: #666;
-    font-size: 0.85rem;
-    display: block;
-  }
-  
-  .placeholder-content {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: #95a5a6;
-  }
-  
-  .placeholder-icon {
-    font-size: 4rem;
-    display: block;
-    margin-bottom: 1rem;
-  }
-  
-  .placeholder-content h3 {
-    margin: 0.5rem 0;
-    color: #7f8c8d;
-  }
-  
-  .preview-panel {
-    margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 2px solid #ecf0f1;
+    border-top: 1px solid #e0e0e0;
   }
   
-  .preview-panel h3 {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-    font-size: 1.3rem;
-  }
-  
-  .preview-wrapper {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 2rem;
-    border-radius: 12px;
-    border: 2px solid #e0e0e0;
-  }
-  
-  .preview-box { 
-    margin: 1.5rem 0; 
-    padding: 2.5rem; 
-    border-radius: 20px; 
-    border: 3px solid; 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Locdoc Box - Orange */
-  .preview-box-a { 
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 50%, #fff 100%); 
-    border-color: #ff9800;
-  }
-  
-  /* Miss Chaos Box - Pink */
-  .preview-box-b { 
-    background: linear-gradient(135deg, #fff0f6 0%, #ffe4f0 50%, #fff 100%); 
-    border-color: #ff4d94;
-  }
-  
-  .preview-badge { 
-    display: inline-block; 
-    padding: 0.6rem 1.8rem; 
-    border-radius: 50px; 
-    font-weight: 700; 
-    font-size: 1.1rem; 
-    margin-bottom: 1.2rem; 
-    color: white;
-    background: linear-gradient(135deg, #ff4d94 0%, #e91e63 100%);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
-  
-  .preview-task {
-    margin-top: 2rem;
-    padding: 1.8rem;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    border-left: 5px solid #ff9800;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-  
-  .preview-task h3 {
-    margin: 0 0 1rem 0;
-    color: #2c3e50;
-    font-size: 1.2rem;
-  }
-  
-  .preview-task p {
-    margin: 0 0 1rem 0;
-    line-height: 1.6;
-    color: #34495e;
-  }
-  
-  .preview-mode-badge {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-  
-  .preview-mode-badge.collaborative {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-  }
-  
-  .preview-mode-badge.open {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-  }
-  
-  .preview-empty {
-    padding: 2rem;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    border: 2px dashed #ff4d94;
-  }
-  
-  .preview-empty p {
-    margin: 0;
-    color: #7f8c8d;
-    font-style: italic;
-  }
-  
-  .preview-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 3px solid #e0e0e0;
-  }
-  
-  .preview-day-badge {
-    background: linear-gradient(135deg, #ff9800 0%, #f57c00 50%, #ff4d94 100%);
-    color: white;
-    padding: 0.6rem 1.8rem;
-    border-radius: 50px;
-    display: inline-block;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    font-size: 1rem;
-    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-  }
-  
-  .preview-title {
-    margin: 0;
-    font-size: 2rem;
-    background: linear-gradient(135deg, #ff9800 0%, #ff4d94 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
-  }
-  
-  .preview-response-content {
-    line-height: 1.6;
-    color: #2c3e50;
-  }
-  
-  .preview-response-content p {
-    margin: 0.5rem 0;
-  }
-  
-  .preview-actions {
-    margin-top: 1.5rem;
-    text-align: center;
-    padding-top: 1.5rem;
-    border-top: 2px solid #ecf0f1;
-  }
-  
-  .btn-preview-live {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
+  .btn-primary, .btn-secondary, .btn-danger, .btn-logout, .btn-settings, .btn-simulation {
     padding: 0.8rem 2rem;
-    border-radius: 8px;
+    border: none;
+    border-radius: 2px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     transition: all 0.3s ease;
+    font-family: 'Georgia', serif;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   
-  .btn-preview-live:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
-  }
+  .btn-primary { background: #8b0000; color: #fff; border: 1px solid #8b0000; }
+  .btn-primary:hover { background: #a50000; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
   
-  .preview-hint {
-    margin-top: 0.8rem;
-    color: #7f8c8d;
-    font-size: 0.9rem;
-    font-style: italic;
-  }
+  .btn-secondary { background: #fff; color: #5d4037; border: 1px solid #5d4037; }
+  .btn-secondary:hover { background: #5d4037; color: #fff; }
   
-  /* Story Chain Overview */
+  .btn-danger { background: #fff; color: #c62828; border: 1px solid #c62828; }
+  .btn-danger:hover { background: #c62828; color: #fff; }
+
+  .btn-logout { background: #5d4037; color: #fff; }
+  .btn-logout:hover { background: #4e342e; }
+
+  .btn-settings { background: #d4af37; color: #fff; }
+  .btn-settings:hover { background: #c5a028; }
+
+  .btn-simulation { background: #e65100; color: #fff; }
+  .btn-simulation:hover { background: #ef6c00; }
+  
   .story-overview {
-    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    background: #fffcf5;
     padding: 2rem;
-    border-radius: 16px;
+    border-radius: 2px;
     margin-bottom: 2rem;
-    border: 3px solid #66bb6a;
-    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.15);
+    border: 2px dashed #558b2f;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
   }
   
   .story-overview h2 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 1rem 0;
     color: #2e7d32;
-    font-size: 1.8rem;
-  }
-  
-  .overview-hint {
-    margin: 0 0 1.5rem 0;
-    color: #558b2f;
-    font-style: italic;
-  }
-  
-  .story-chains {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    font-size: 2rem;
+    font-family: 'Georgia', serif;
   }
   
   .chain-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border: 2px solid #81c784;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #fff;
+    border-radius: 2px;
+    padding: 2rem;
+    border: 1px solid #81c784;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.05);
   }
   
   .chain-header {
@@ -2973,137 +2486,245 @@ Hast du auch so eine Geschichte? 😊`
     gap: 1rem;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #e8f5e9;
-  }
-  
-  .chain-icon {
-    font-size: 2rem;
+    border-bottom: 1px dashed #81c784;
   }
   
   .chain-header h3 {
     margin: 0;
     flex: 1;
     color: #2e7d32;
-    font-size: 1.3rem;
-  }
-  
-  .chain-count {
-    background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-  
-  .chain-timeline {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-  }
-  
-  .timeline-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-family: 'Georgia', serif;
   }
   
   .timeline-day {
-    background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
-    border: 2px solid #ff9800;
-    padding: 0.8rem 1.2rem;
-    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #d4af37;
+    padding: 1rem;
+    border-radius: 2px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.3rem;
+    gap: 0.5rem;
     position: relative;
   }
   
   .timeline-day:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
-    border-color: #f57c00;
+    box-shadow: 3px 3px 0 rgba(212, 175, 55, 0.2);
   }
   
   .timeline-day.has-content-b {
-    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-    border-color: #66bb6a;
+    background: #f1f8e9;
+    border-color: #558b2f;
   }
   
   .timeline-number {
     font-weight: 700;
     color: #e65100;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-family: 'Georgia', serif;
   }
   
   .timeline-title {
-    color: #2c3e50;
-    font-size: 0.9rem;
-    max-width: 150px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #2c1810;
+    font-size: 1rem;
+    font-style: italic;
   }
   
-  .timeline-badge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #66bb6a;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
+
+
+  /* Template Section Styles */
+  .templates-section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #fff8e1;
+    border: 1px dashed #d4af37;
+    border-radius: 4px;
+  }
+  
+  .templates-section summary {
+    cursor: pointer;
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    list-style: none;
     display: flex;
     align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .templates-section summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  .templates-section summary::before {
+    content: '▶';
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+  }
+  
+  .templates-section[open] summary::before {
+    transform: rotate(90deg);
+  }
+
+  .summary-hint {
+    font-size: 0.8rem;
+    color: #9e9e9e;
+    font-weight: normal;
+    margin-left: auto;
+  }
+  
+  .templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .template-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .template-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #d4af37;
+  }
+  
+  .template-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #9e9e9e;
+    font-weight: 600;
+  }
+  
+  .template-title {
+    font-weight: 700;
+    color: #2c1810;
+  }
+  
+  .template-desc {
+    font-size: 0.85rem;
+    color: #5d4037;
+    font-style: italic;
+  }
+
+  /* Admin Layout */
+  .admin-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .admin-sidebar {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  
+  .days-grid-sidebar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .day-tile-sidebar {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-  
-  .timeline-arrow {
-    color: #66bb6a;
-    font-size: 1.5rem;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    font-family: 'Georgia', serif;
     font-weight: bold;
+    font-size: 1.1rem;
+    color: #5d4037;
   }
   
-  .chain-actions {
+  .day-tile-sidebar:hover {
+    background: #fff3e0;
+    border-color: #ffb74d;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .day-tile-sidebar.active {
+    background: #2c1810;
+    color: #d4af37;
+    border-color: #d4af37;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  }
+  
+  .day-tile-sidebar.answered::after {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 0.8rem;
+    color: #2e7d32;
+    font-weight: 900;
+  }
+  
+  .admin-content {
+    min-width: 0; /* Prevent overflow */
+  }
+  
+  .sidebar-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .sidebar-header h3 {
+    margin: 0;
+    color: #2c1810;
+    font-size: 1.2rem;
+  }
+  
+  .sidebar-legend {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #757575;
     display: flex;
     gap: 1rem;
-    justify-content: center;
-    padding-top: 1rem;
-    border-top: 2px solid #e8f5e9;
   }
   
-  .btn-preview-chain {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    transition: all 0.3s ease;
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
   }
   
-  .btn-preview-chain:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
   }
   
-  @media (max-width: 1200px) {
-    .content-wrapper {
-      grid-template-columns: 1fr;
-    }
-    
-    .days-list {
-      max-height: none;
-    }
-  }
+  .dot.active { background: #2c1810; }
+  .dot.done { background: #2e7d32; }
 </style>

@@ -139,7 +139,7 @@
       </div>
       
       <div class="settings-section">
-        <h2>🧪 Entwicklung</h2>
+        <h2>⚙️ Erweiterte Einstellungen</h2>
         
         <div class="form-group">
           <label class="checkbox-label">
@@ -150,9 +150,37 @@
               checked={data.settings.simulationMode}
             />
             <span class="label-icon">🔓</span>
-            Simulationsmodus aktivieren
+            Simulationsmodus dauerhaft aktivieren
           </label>
-          <small>Alle Türchen sind sofort zugänglich (für Tests)</small>
+          <small>Alle Türchen sind geöffnet, unabhängig vom Datum. Ideal zum Testen.</small>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              id="enableSnow" 
+              name="enableSnow"
+              checked={data.settings.enableSnow}
+            />
+            <span class="label-icon">❄️</span>
+            Schnee-Effekt aktivieren
+          </label>
+          <small>Zeigt fallenden Schnee im Hintergrund an.</small>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input 
+              type="checkbox" 
+              id="musicAutoplay" 
+              name="musicAutoplay"
+              checked={data.settings.musicAutoplay}
+            />
+            <span class="label-icon">🎵</span>
+            Musik Autoplay
+          </label>
+          <small>Versucht Hintergrundmusik automatisch zu starten (kann von Browsern blockiert werden).</small>
         </div>
       </div>
       

@@ -1562,59 +1562,21 @@ Neugierig? 😊✨`,
   
   .editor-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 400px;
     gap: 2rem;
-  }
-  
-  .editor-panel {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    align-items: start;
   }
   
   .form-section {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px dashed #d4af37;
   }
   
-  .form-section:last-of-type {
+  .form-section:last-child {
     border-bottom: none;
-  }
-  
-  .form-section.collapsible {
-    background: #f9fafb;
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-  }
-  
-  .section-title {
-    margin-bottom: 1.5rem;
-  }
-  
-  .section-title h2 {
-    margin: 0 0 0.25rem;
-    font-size: 1.25rem;
-    color: #1f2937;
-  }
-  
-  .section-help {
-    display: block;
-    color: #6b7280;
-    font-size: 0.9rem;
-    font-style: italic;
-  }
-  
-  .story-chain-explainer {
-    background: #dbeafe;
-    border-left: 4px solid #3b82f6;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
   
   .form-group {
@@ -1622,96 +1584,34 @@ Neugierig? 😊✨`,
   }
   
   .form-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: #374151;
-  }
-  
-  .label-help {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 18px;
-    height: 18px;
-    background: #e5e7eb;
-    border-radius: 50%;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #6b7280;
-    cursor: help;
-    transition: all 0.2s;
-  }
-  
-  .label-help:hover {
-    background: #3b82f6;
-    color: white;
-    transform: scale(1.2);
-  }
-  
-  .input-help {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-  
-  .mode-help {
-    background: #ecfdf5;
-    border-left: 3px solid #10b981;
-    padding: 0.75rem;
-    margin-top: 0.75rem;
-    border-radius: 6px;
-    color: #065f46;
-  }
-  
-  .markdown-tips {
-    margin-top: 0.75rem;
-    padding: 1rem;
-    background: #fef3c7;
-    border-radius: 8px;
-    font-size: 0.85rem;
-  }
-  
-  .markdown-tips strong {
-    color: #92400e;
     display: block;
     margin-bottom: 0.5rem;
-  }
-  
-  .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-  
-  .tips-grid code {
-    background: #fde68a;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    font-weight: 600;
+    color: #2c1810;
+    font-family: 'Georgia', serif;
   }
   
   .form-group input,
   .form-group select,
   .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    padding: 0.8rem;
+    border: 1px solid #d4af37;
+    border-radius: 2px;
     font-size: 1rem;
     transition: border-color 0.2s;
-    font-family: inherit;
+    font-family: 'Georgia', serif;
+    background: #fff;
+    color: #2c1810;
+    box-sizing: border-box;
   }
   
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: #10b981;
+    border-color: #8b0000;
+    box-shadow: 0 0 5px rgba(139, 0, 0, 0.1);
   }
   
   .form-group textarea {
@@ -1741,40 +1641,43 @@ Neugierig? 😊✨`,
   
   .type-card {
     padding: 1rem;
-    background: #f9fafb;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
     text-align: center;
     transition: all 0.2s;
     min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.05);
   }
   
   .content-type-option:hover .type-card {
-    border-color: #10b981;
-    background: #f0fdf4;
+    border-color: #d4af37;
+    background: #fffcf5;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    box-shadow: 4px 4px 0 rgba(212, 175, 55, 0.2);
   }
   
   .content-type-option.selected .type-card {
-    border-color: #10b981;
-    background: #ecfdf5;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: #8b0000;
+    background: #fff5f5;
+    box-shadow: 4px 4px 0 rgba(139, 0, 0, 0.1);
     transform: scale(1.02);
   }
   
   .type-help {
     margin-top: 0.5rem;
     padding: 0.5rem;
-    background: #dbeafe;
-    border-radius: 6px;
-    font-size: 0.75rem;
+    background: #f1f8e9;
+    border-radius: 2px;
+    font-size: 0.8rem;
     line-height: 1.4;
-    color: #1e40af;
+    color: #2e7d32;
     text-align: left;
+    border: 1px dashed #2e7d32;
+    font-family: 'Georgia', serif;
   }
   
   .type-icon {
@@ -1784,14 +1687,16 @@ Neugierig? 😊✨`,
   
   .type-label {
     font-weight: 600;
-    color: #1f2937;
+    color: #2c1810;
     margin-bottom: 0.25rem;
     font-size: 0.9rem;
+    font-family: 'Georgia', serif;
   }
   
   .type-description {
-    font-size: 0.75rem;
-    color: #6b7280;
+    font-size: 0.8rem;
+    color: #5d4037;
+    font-style: italic;
   }
   
   .checkbox-label {
@@ -1799,14 +1704,17 @@ Neugierig? 😊✨`,
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    background: #f9fafb;
-    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
     cursor: pointer;
     transition: background 0.2s;
+    font-family: 'Georgia', serif;
   }
   
   .checkbox-label:hover {
-    background: #f3f4f6;
+    background: #fffcf5;
+    border-color: #d4af37;
   }
   
   .checkbox-label input {
@@ -1822,32 +1730,39 @@ Neugierig? 😊✨`,
   
   .btn-primary,
   .btn-secondary {
-    padding: 0.75rem 1.5rem;
+    padding: 0.8rem 1.5rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 2px;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   
   .btn-primary {
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: #8b0000;
     color: white;
+    border: 1px solid #8b0000;
   }
   
   .btn-primary:hover {
+    background: #a50000;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   }
   
   .btn-secondary {
-    background: #f3f4f6;
-    color: #374151;
+    background: #fff;
+    color: #5d4037;
+    border: 1px solid #5d4037;
   }
   
   .btn-secondary:hover {
-    background: #e5e7eb;
+    background: #5d4037;
+    color: #fff;
   }
   
   .preview-panel {
@@ -1857,49 +1772,57 @@ Neugierig? 😊✨`,
   }
   
   .preview-sticky {
-    background: white;
+    background: #fff;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
   }
   
   .preview-sticky h2 {
     margin: 0 0 0.5rem;
     font-size: 1.5rem;
-    color: #1f2937;
+    color: #8b0000;
+    font-family: 'Georgia', serif;
   }
   
   .preview-hint {
     margin: 0 0 1.5rem;
-    color: #6b7280;
+    color: #5d4037;
     font-size: 0.9rem;
+    font-style: italic;
   }
   
   .preview-container {
-    background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+    background: #fdfbf7;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 2px;
     margin-bottom: 1.5rem;
     min-height: 300px;
+    border: 1px solid #d4af37;
   }
   
   .preview-card {
-    background: white;
+    background: #fff;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
   }
   
   .preview-meta {
-    background: #f9fafb;
+    background: #fffcf5;
     padding: 1rem;
-    border-radius: 8px;
+    border-radius: 2px;
+    border: 1px dashed #d4af37;
   }
   
   .meta-item {
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-    color: #374151;
+    color: #5d4037;
+    font-family: 'Georgia', serif;
   }
   
   .meta-item:last-child {
@@ -1908,11 +1831,12 @@ Neugierig? 😊✨`,
   
   .meta-item.story-chain {
     padding: 0.5rem;
-    background: #dbeafe;
-    border-radius: 6px;
+    background: #e3f2fd;
+    border-radius: 2px;
     text-align: center;
     font-weight: 600;
-    color: #1e40af;
+    color: #1565c0;
+    border: 1px dashed #1565c0;
   }
   
   @media (max-width: 1200px) {

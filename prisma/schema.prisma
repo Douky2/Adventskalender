@@ -93,3 +93,25 @@ model Setting {
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
 }
+
+// Story-Chain State - Speichert Entscheidungen und gesammelte Elemente
+model ChainState {
+  id              Int      @id @default(autoincrement())
+  storyChainId    String   // Welche Story-Chain (z.B. "build-your-story")
+  dayNumber       Int      // Bei welchem Tag wurde die Entscheidung getroffen
+  
+  // Entscheidungen und Sammlungen
+  chosenColor     String?  // Ausgewählte Farbe
+  chosenTheme     String?  // Ausgewähltes Thema/Design
+  chosenElement   String?  // Ausgewähltes Element
+  textInput       String?  // Benutzereingabe
+  
+  // Flexible JSON für komplexe Daten
+  stateData       String?  // JSON String für flexible Datenstrukturen
+  
+  // Metadaten
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@unique([storyChainId, dayNumber])
+}

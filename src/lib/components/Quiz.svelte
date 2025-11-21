@@ -76,66 +76,100 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 2rem;
+    position: relative;
   }
   
   .quiz-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
   }
   
   .quiz-header h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: #2c3e50;
+    color: #8b0000;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
   }
   
   .progress {
-    font-size: 0.9rem;
-    color: #7f8c8d;
+    font-size: 1.1rem;
+    color: #5d4037;
     font-weight: 500;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    border-bottom: 1px dashed #d4af37;
+    display: inline-block;
+    padding-bottom: 0.2rem;
   }
   
   .final-score {
     text-align: center;
     padding: 3rem 2rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    color: white;
+    background: #fff;
+    border-radius: 2px;
+    color: #2c1810;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    position: relative;
+  }
+  
+  .final-score::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+    border: 1px solid #e0e0e0;
+    z-index: -1;
   }
   
   .final-score h3 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: #8b0000;
+    font-family: 'Georgia', serif;
   }
   
   .score-display {
     font-size: 4rem;
     font-weight: bold;
     margin: 1.5rem 0;
+    color: #d4af37;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
   }
   
   .final-score p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 1.5rem 0;
     line-height: 1.6;
+    font-family: 'Georgia', serif;
+    color: #5d4037;
   }
   
   .retry-btn {
     padding: 1rem 2.5rem;
     font-size: 1.1rem;
     font-weight: 600;
-    border: 2px solid white;
-    border-radius: 50px;
-    background: transparent;
+    border: 1px solid #8b0000;
+    border-radius: 2px;
+    background: #8b0000;
     color: white;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
+    font-family: 'Georgia', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   
   .retry-btn:hover {
-    background: white;
-    color: #667eea;
+    background: #a50000;
     transform: translateY(-2px);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   }
 </style>

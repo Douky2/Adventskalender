@@ -89,9 +89,7 @@
     </div>
     
     <div class="header-actions">
-      <a href="/admin/tiles/bulk" class="btn-bulk">
-        🔧 Bulk-Operationen
-      </a>
+
       <a href="/admin/tiles/new" class="btn-create">
         ➕ Neue Tile erstellen
       </a>
@@ -277,24 +275,7 @@
     gap: 0.75rem;
   }
   
-  .btn-bulk {
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .btn-bulk:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-  }
+
   
   .btn-create {
     padding: 0.75rem 1.5rem;
